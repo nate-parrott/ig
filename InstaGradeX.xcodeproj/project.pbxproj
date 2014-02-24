@@ -50,6 +50,9 @@
 		5FC706AF15F5469E009D28F4 /* IGCaptureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FC706AD15F5469E009D28F4 /* IGCaptureViewController.xib */; };
 		5FC706B515F54879009D28F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC706B415F54879009D28F4 /* AVFoundation.framework */; };
 		5FC706CA15F55E58009D28F4 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC706C915F55E57009D28F4 /* UIImage+Resize.m */; };
+		5FC91EF818BB160700E5BA9A /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC91EF718BB160700E5BA9A /* libGoogleAnalyticsServices.a */; };
+		5FC91F5218BB16AD00E5BA9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC91F5118BB16AD00E5BA9A /* SystemConfiguration.framework */; };
+		5FC91F5B18BB173600E5BA9A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC91F5A18BB173600E5BA9A /* Crashlytics.framework */; };
 		5FD0AB581727F97900B16F01 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FD0AB531727F97900B16F01 /* CoreMedia.framework */; };
 		5FD0AB591727F97900B16F01 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FD0AB541727F97900B16F01 /* CoreVideo.framework */; };
 		5FD0AB5A1727F97900B16F01 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FD0AB551727F97900B16F01 /* OpenGLES.framework */; };
@@ -203,6 +206,15 @@
 		5FC706B415F54879009D28F4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5FC706C815F55E57009D28F4 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		5FC706C915F55E57009D28F4 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		5FC91EF718BB160700E5BA9A /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		5FC91F5118BB16AD00E5BA9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5FC91F5418BB172000E5BA9A /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		5FC91F5518BB172000E5BA9A /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		5FC91F5618BB172000E5BA9A /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		5FC91F5718BB172000E5BA9A /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		5FC91F5818BB172000E5BA9A /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		5FC91F5918BB172000E5BA9A /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		5FC91F5A18BB173600E5BA9A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		5FD0AB531727F97900B16F01 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		5FD0AB541727F97900B16F01 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		5FD0AB551727F97900B16F01 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -281,6 +293,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FC91F5218BB16AD00E5BA9A /* SystemConfiguration.framework in Frameworks */,
 				5F528738177A850A00757424 /* MobileCoreServices.framework in Frameworks */,
 				C917AB761766A0FB00E29573 /* libGPUImage.a in Frameworks */,
 				5F1AD2E31688E1920034C89C /* QuartzCore.framework in Frameworks */,
@@ -288,7 +301,9 @@
 				8AF4D5FF13F430F5007944D5 /* Foundation.framework in Frameworks */,
 				8AF4D60113F430F5007944D5 /* CoreGraphics.framework in Frameworks */,
 				5FC7068F15F3C9A2009D28F4 /* CoreData.framework in Frameworks */,
+				5FC91F5B18BB173600E5BA9A /* Crashlytics.framework in Frameworks */,
 				5FC706B515F54879009D28F4 /* AVFoundation.framework in Frameworks */,
+				5FC91EF818BB160700E5BA9A /* libGoogleAnalyticsServices.a in Frameworks */,
 				5FA2C7101648634100D71113 /* MessageUI.framework in Frameworks */,
 				5F5FFC6816617AAD00799BD9 /* iAd.framework in Frameworks */,
 				5F3BD628167C4A01001C942A /* StoreKit.framework in Frameworks */,
@@ -479,6 +494,30 @@
 			name = Theming;
 			sourceTree = "<group>";
 		};
+		5FC91EF118BB15FD00E5BA9A /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				5FC91F5A18BB173600E5BA9A /* Crashlytics.framework */,
+				5FC91F5318BB172000E5BA9A /* GAI */,
+				5FC91EF718BB160700E5BA9A /* libGoogleAnalyticsServices.a */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		5FC91F5318BB172000E5BA9A /* GAI */ = {
+			isa = PBXGroup;
+			children = (
+				5FC91F5418BB172000E5BA9A /* GAI.h */,
+				5FC91F5518BB172000E5BA9A /* GAIDictionaryBuilder.h */,
+				5FC91F5618BB172000E5BA9A /* GAIFields.h */,
+				5FC91F5718BB172000E5BA9A /* GAILogger.h */,
+				5FC91F5818BB172000E5BA9A /* GAITrackedViewController.h */,
+				5FC91F5918BB172000E5BA9A /* GAITracker.h */,
+			);
+			name = GAI;
+			path = Library;
+			sourceTree = "<group>";
+		};
 		5FE8FB03165807B8000CFE4B /* MGTemplatingEngine */ = {
 			isa = PBXGroup;
 			children = (
@@ -536,6 +575,7 @@
 		8AF4D5FB13F430F5007944D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FC91F5118BB16AD00E5BA9A /* SystemConfiguration.framework */,
 				5F528737177A850A00757424 /* MobileCoreServices.framework */,
 				C922B7F61766A20B00326443 /* libc++.dylib */,
 				C917AB771766A17600E29573 /* libstdc++.dylib */,
@@ -566,6 +606,7 @@
 				C9DE471E17DD474D00AE3036 /* PrintAnswerSheets.storyboard */,
 				C9DE472717DD4D3900AE3036 /* QuizDetailSidebar.storyboard */,
 				5FF40B7F179C4AC700FEAEE3 /* issues */,
+				5FC91EF118BB15FD00E5BA9A /* Analytics */,
 				5F5EE3E1174BA35600852170 /* Localization */,
 				5F9C02AF17465846001C428A /* Theming */,
 				5F5FFC811662FD2700799BD9 /* Settings.bundle */,
@@ -637,6 +678,7 @@
 				8AF4D5F413F430F5007944D5 /* Sources */,
 				8AF4D5F513F430F5007944D5 /* Frameworks */,
 				8AF4D5F613F430F5007944D5 /* Resources */,
+				5FC91F5018BB163200E5BA9A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -746,6 +788,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5FC91F5018BB163200E5BA9A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8AF4D5F413F430F5007944D5 /* Sources */ = {
@@ -947,13 +1005,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\\\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\\\"",
+					/Users/nateparrott/Documents/SW/InstaGradeX2/iOSplusOpenCV,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSplusOpenCV/iOSplusOpenCV-Prefix.pch";
 				INFOPLIST_FILE = "iOSplusOpenCV/iOSplusOpenCV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/nateparrott/Documents/SW/InstaGradeX2/iOSplusOpenCV,
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"--warn-unresolved-symbols",
@@ -990,13 +1052,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"\\\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\\\"",
+					/Users/nateparrott/Documents/SW/InstaGradeX2/iOSplusOpenCV,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSplusOpenCV/iOSplusOpenCV-Prefix.pch";
 				INFOPLIST_FILE = "iOSplusOpenCV/iOSplusOpenCV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/nateparrott/Documents/SW/InstaGradeX2/iOSplusOpenCV,
+				);
 				OTHER_LDFLAGS = (
 					"--warn-unresolved-symbols",
 					"-lopencv_contrib",
