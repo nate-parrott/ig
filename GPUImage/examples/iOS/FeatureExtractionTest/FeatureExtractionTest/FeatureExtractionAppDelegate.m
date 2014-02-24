@@ -105,7 +105,56 @@
     [averageLuminosity setLuminosityProcessingFinishedBlock:^(CGFloat luminosity, CMTime frameTime) {
         NSLog(@"Luminosity: %f", luminosity);
     }];
+
+    // Testing Gaussian blur
+    UIImage *gaussianBlurInput = [UIImage imageNamed:@"GaussianTest.png"];
+    GPUImagePicture *gaussianImage = [[GPUImagePicture alloc] initWithImage:gaussianBlurInput];
+    GPUImageGaussianBlurFilter *gaussianBlur = [[GPUImageGaussianBlurFilter alloc] init];
+    gaussianBlur.blurRadiusInPixels = 2.0;
+    [gaussianImage addTarget:gaussianBlur];
+    [gaussianImage processImage];
+    UIImage *gaussianOutput = [gaussianBlur imageFromCurrentlyProcessedOutput];
+    [self saveImage:gaussianOutput fileName:@"Gaussian-GPUImage.png"];
+
+    CIContext *coreImageContext = [CIContext contextWithEAGLContext:[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2]];
+
+//    CIContext *coreImageContext = [CIContext contextWithOptions:nil];
     
+//    NSArray *cifilters = [CIFilter filterNamesInCategory:kCICategoryBuiltIn];
+//    for (NSString *ciFilterName in cifilters)
+//    {
+//        NSLog(@"%@", ciFilterName);
+//    }
+    CIImage *inputCIGaussianImage = [[CIImage alloc] initWithCGImage:gaussianBlurInput.CGImage];
+    CIFilter *gaussianBlurCIFilter = [CIFilter filterWithName:@"CIGaussianBlur"
+                                     keysAndValues: kCIInputImageKey, inputCIGaussianImage,
+                                                    @"inputRadius", [NSNumber numberWithFloat:2.0], nil];
+    CIImage *coreImageResult = [gaussianBlurCIFilter outputImage];
+    CGImageRef resultRef = [coreImageContext createCGImage:coreImageResult fromRect:CGRectMake(0, 0, gaussianBlurInput.size.width, gaussianBlurInput.size.height)];
+    UIImage *coreImageResult2 = [UIImage imageWithCGImage:resultRef];
+    [self saveImage:coreImageResult2 fileName:@"Gaussian-CoreImage.png"];
+    CGImageRelease(resultRef);
+    
+    GPUImageBoxBlurFilter *boxBlur = [[GPUImageBoxBlurFilter alloc] init];
+    boxBlur.blurRadiusInPixels = 3.0;
+    [gaussianImage removeAllTargets];
+    [gaussianImage addTarget:boxBlur];
+    [gaussianImage processImage];
+    UIImage *boxOutput = [boxBlur imageFromCurrentlyProcessedOutput];
+    [self saveImage:boxOutput fileName:@"BoxBlur-GPUImage.png"];
+    
+    CIImage *inputCIBoxImage = [[CIImage alloc] initWithCGImage:gaussianBlurInput.CGImage];
+    CIFilter *boxBlurCIFilter = [CIFilter filterWithName:@"CIBoxBlur"
+                                                keysAndValues: kCIInputImageKey, inputCIBoxImage,
+                                      @"inputRadius", [NSNumber numberWithFloat:2.0], nil];
+    
+    NSLog(@"Box blur: %@", boxBlurCIFilter);
+    CIImage *coreImageResult3 = [boxBlurCIFilter outputImage];
+    CGImageRef resultRef2 = [coreImageContext createCGImage:coreImageResult3 fromRect:CGRectMake(0, 0, gaussianBlurInput.size.width, gaussianBlurInput.size.height)];
+    UIImage *coreImageResult4 = [UIImage imageWithCGImage:resultRef2];
+    [self saveImage:coreImageResult4 fileName:@"BoxBlur-CoreImage.png"];
+    CGImageRelease(resultRef2);
+
     [chairPicture removeAllTargets];
     [chairPicture addTarget:averageColor];
     [chairPicture addTarget:averageLuminosity];
@@ -121,6 +170,7 @@
     [pictureInput removeAllTargets];
     [pictureInput addTarget:lineDetector];
     
+    __unsafe_unretained GPUImageHoughTransformLineDetector * weakDetector = lineDetector;
     [lineDetector setLinesDetectedBlock:^(GLfloat* lineArray, NSUInteger linesDetected, CMTime frameTime){
         NSLog(@"Number of lines: %d", linesDetected);
         
@@ -142,7 +192,7 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
             NSUInteger currentImageIndex = 0;
-            for (UIImage *currentImage in lineDetector.intermediateImages)
+            for (UIImage *currentImage in weakDetector.intermediateImages)
             {
                 [self saveImage:currentImage fileName:[NSString stringWithFormat:@"%@-%@-%d.png", detectorName, pictureName, currentImageIndex]];
                 
@@ -162,12 +212,12 @@
 {
     cornerDetector.threshold = 0.4;
     cornerDetector.sensitivity = 4.0;
-    cornerDetector.blurSize = 1.0;
+//    cornerDetector.blurSize = 1.0;
     [pictureInput removeAllTargets];
     
     [pictureInput addTarget:cornerDetector];
     
-    
+    __unsafe_unretained GPUImageHarrisCornerDetectionFilter * weakDetector = cornerDetector;
     [cornerDetector setCornersDetectedBlock:^(GLfloat* cornerArray, NSUInteger cornersDetected, CMTime frameTime) {
         GPUImageCrosshairGenerator *crosshairGenerator = [[GPUImageCrosshairGenerator alloc] init];
         crosshairGenerator.crosshairWidth = 10.0;
@@ -188,7 +238,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSUInteger currentImageIndex = 0;
-            for (UIImage *currentImage in cornerDetector.intermediateImages)
+            for (UIImage *currentImage in weakDetector.intermediateImages)
             {
                 [self saveImage:currentImage fileName:[NSString stringWithFormat:@"%@-%@-%d.png", detectorName, pictureName, currentImageIndex]];
                 
