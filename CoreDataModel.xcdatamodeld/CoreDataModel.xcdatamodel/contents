@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3389" systemVersion="13A558" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="GradedQuizInstance" syncable="YES">
+        <attribute name="answerData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" defaultValueString="loading" syncable="YES"/>
+        <relationship name="nameImage" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Image" syncable="YES"/>
+        <relationship name="quiz" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Quiz" inverseName="gradedQuizInstances" inverseEntity="Quiz" syncable="YES"/>
+    </entity>
+    <entity name="Image" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
+    <entity name="Quiz" syncable="YES">
+        <attribute name="correctAnswerData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="gradedQuizInstances" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GradedQuizInstance" inverseName="quiz" inverseEntity="GradedQuizInstance" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GradedQuizInstance" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Image" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Quiz" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

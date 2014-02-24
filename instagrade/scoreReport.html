@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{title}} Score Report</title>
+		<style>
+		body {
+			font-family: sans-serif;
+		}
+		h1 {
+			padding-bottom: 2px;
+			border-bottom: 3px solid gray;
+		}
+		#basic dl {
+			display: table;
+			background-color: #ddd;
+		}
+		#basic dt, #basic dd {
+			display: table-cell;
+			padding: 6px;
+			border: 6px solid #ddd;
+			vertical-align: middle;
+		}
+		#basic dt:after {
+			content: ":";
+		}
+		#basic dd {
+			font-size: x-large;
+			padding-right: 20px;
+			background-color: white;
+			font-weight: bold;
+		}
+		
+		#breakdown ol {
+			border-right: 3px solid gray;
+		}
+		#breakdown li {
+			height: 24px;
+			margin-bottom: 10px;
+			position: relative;
+			font-weight: bold;
+		}
+		#breakdown li .bar {
+			position: absolute;
+			border-top: 12px solid #bbb;
+			border-bottom: 12px solid #bbb;
+			top: -3px;
+			left: 0px;
+			z-index: -1;
+		}
+		#breakdown li:nth-child(2n) .bar {
+			border-color: #999;
+		}
+		#breakdown li > span:first-child {
+			display: inline-block;
+			padding-left: 4px;
+			font-weight: normal;
+		}
+		#breakdown li > span:last-child {
+			position: absolute;
+			right: 4px;
+			top: 2px;
+		}
+		
+		#individual-quizzes > ul {
+			padding-left: 0px;
+			page-break-before: always;
+		}
+		#individual-quizzes > ul:last-child {
+			page-break-after: always;
+		}
+		#individual-quizzes > ul > li {
+			list-style-type: none;
+		}
+		#individual-quizzes .header {
+			position: relative;
+			padding: 4px;
+			border-bottom: 3px solid gray;
+		}
+		#individual-quizzes .header > * {
+			display: inline-block;
+			vertical-align: bottom;
+		}
+		#individual-quizzes .info {
+			text-transform: uppercase;
+			font-size: small;
+		}
+		#individual-quizzes .header > div {
+			position: absolute;
+			right: 0px;
+			bottom: 0px;
+			font-weight: bold;
+			font-size: x-large;
+			margin: 4px;
+		}
+		
+		.incorrect-answers {
+			padding: 0px;
+		}
+		.incorrect-answers > li {
+			display: inline-block;
+			list-style-type: none;
+			border: 3px solid #ddd;
+			margin: 4px 2px;
+			text-transform: lowercase;
+		}
+		.incorrect-answers > li > span:first-child {
+			display: inline-block;
+			height: 100%;
+			background-color: #ddd;
+			padding-right: 8px;
+			margin-right: 4px;
+		}
+		.incorrect-answers > li > span {
+			padding: 4px;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		</style>
+	</head>
+	<body>
+		<div id='report'>
+			<h1><span>{{title}}</span> Score Report</h1>
+			<div id='basic'>
+				<dl>
+					<dt>Average score</dt>
+					<dd class='grade'>{{averageScore}}</dd>
+					<dt>{{quizzes.@count}}</dt>
+					<dd>23</dd>
+				</dl>
+			</div>
+			<div id='breakdown'>
+				<h2>Question Breakdown</h2>
+				<ol>
+					{% for question in questions %}
+						<li>
+							<span>{{correct}}/{{questions.@count}} answered correctly</span>
+							<div class='bar' style='width: {{percent}}'></div>
+							<span>{{percent}}</span>
+						</li>
+					{%  /for %}
+				</ol>
+			</div>
+			<div id='individual-quizzes'>
+				<h2>Individual Quiz Scores</h2>
+				<ul id='individual-quizzes'>
+					{% for quiz in quizzes %}
+					<li>
+						<div class='header'>
+							<img src='data:image/jpeg;base64,{{nameData}}'/>
+							<span class='info'>Graded {{date | date_format: "dd MMM yyyy 'at' HH:mm:ss"}}</span>
+							<div class='grade'>{{grade}}</div>
+						</div>
+						<ul class='incorrect-answers'>
+							{% for answer in incorrectAnswers %}
+							<li><span>{{questionNumber}}:</span>Answered <span>{{answered}}</span>, correct answer was <span>{{correct}}</span></li>
+							{% /for %}
+						</ul>
+						{%  /for %}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
