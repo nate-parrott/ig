@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--Scan View Controller-->
+        <scene sceneID="DrZ-mS-zW0">
+            <objects>
+                <viewController id="KOu-qy-yat" customClass="ScanViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="k9J-2c-GJG"/>
+                        <viewControllerLayoutGuide type="bottom" id="NBM-A5-ufg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u7c-KZ-fFg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-r0-M2v">
+                                <rect key="frame" x="249" y="524" width="103" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="QLO-Xi-qjN"/>
+                                    <constraint firstAttribute="width" constant="103" id="ie7-wz-J5m"/>
+                                </constraints>
+                                <state key="normal" title="Snap">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="snap" destination="KOu-qy-yat" eventType="touchUpInside" id="5gZ-wL-exM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NBM-A5-ufg" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="bottom" id="CA3-Aj-yXh"/>
+                            <constraint firstItem="b6o-aP-nQb" firstAttribute="leading" secondItem="u7c-KZ-fFg" secondAttribute="leading" id="LN3-fA-lVt"/>
+                            <constraint firstAttribute="centerX" secondItem="AGJ-r0-M2v" secondAttribute="centerX" constant="-0.5" id="OTt-bV-Kxy"/>
+                            <constraint firstItem="NBM-A5-ufg" firstAttribute="top" secondItem="AGJ-r0-M2v" secondAttribute="bottom" constant="20" id="Ucc-CS-1xL"/>
+                            <constraint firstAttribute="trailing" secondItem="b6o-aP-nQb" secondAttribute="trailing" id="ebY-HY-A7V"/>
+                            <constraint firstItem="b6o-aP-nQb" firstAttribute="top" secondItem="u7c-KZ-fFg" secondAttribute="top" id="p9q-od-cRZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraView" destination="b6o-aP-nQb" id="XUG-rw-wY3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HdK-NI-llm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="532" y="385"/>
+        </scene>
+    </scenes>
+</document>

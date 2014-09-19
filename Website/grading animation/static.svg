@@ -1,0 +1,81 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="300.0" height="540.0">
+
+	<metadata>
+		<rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#" xmlns:dc = "http://purl.org/dc/elements/1.1/">
+			<rdf:Description rdf:about="http://likethought.com/opacity/">
+				<dc:title>New Image</dc:title>
+				<dc:creator>Nate Parrott</dc:creator>
+				<dc:rights>Copyright 2013 Nate Parrott</dc:rights>
+				<dc:description></dc:description>
+				<dc:format>image/svg+xml</dc:format>
+				<dc:language>en</dc:language>
+			</rdf:Description>
+		</rdf:RDF>
+	</metadata>
+	<g>
+		<title>Layer 3</title>
+		<g>
+			<title>Layer 2</title>
+			<rect x="37.0" y="77.0" width="227.0" height="386.0" fill="rgb(90.2%, 90.2%, 90.2%)" stroke="none" />
+		</g>
+
+		<mask id="Mask7ff33712a340" maskUnits="userSpaceOnUse" x="0" y="0" width="300.0" height="540.0">
+			<rect x="36.5" y="77.0" width="227.0" height="386.0" fill="rgb(99.99%, 100%, 99.99%)" stroke="none" />
+		</mask>
+		<g mask="url(#Mask7ff33712a340)">
+			<title>Layer 4</title>
+			<g opacity="0.561">
+				<title>Layer 7</title>
+				<rect x="22.0" y="85.0" width="278.0" height="205.0" fill="rgb(99.99%, 100%, 99.99%)" stroke="none" />
+			</g>
+
+			<g>
+				<title>iOS Simulator Screen shot Mar 18, 2013 6.16.12 PM copy.png</title>
+			</g>
+
+			<g>
+				<title>Layer 6</title>
+				<rect x="36.5" y="286.0" width="226.5" height="177.0" fill="rgb(90.2%, 90.2%, 90.2%)" stroke="none" />
+			</g>
+
+			<g>
+				<title>Layer 5</title>
+				<rect x="37.0" y="254.0" width="226.0" height="32.0" fill="rgb(0%, 0%, 0%)" fill-opacity="0.5" stroke="none" />
+				<text x="79.0" text-anchor="middle" y="278.0">
+					<tspan fill="rgb(100%, 100%, 100%)" font-family="HelveticaNeue-Bold" font-size="13.0">DONE</tspan>
+				</text>
+				<text x="222.0" text-anchor="middle" y="278.0">
+					<tspan fill="rgb(100%, 100%, 100%)" font-family="HelveticaNeue-Bold" font-size="13.0">GRADE</tspan>
+				</text>
+			</g>
+
+			<g opacity="0.482">
+				<title>entry</title>
+			</g>
+
+		</g>
+
+		<g>
+			<title>frame.png</title>
+		</g>
+
+	</g>
+
+	<g>
+		<title>Shadow Effect</title>
+	</g>
+
+	<g transform="scale(3.0, 5.4)">
+		<text x="5" y="16.667" fill="rgb(100%, 0%, 0%)" fill-opacity="0.0" font-family="Futura" font-size="16">
+			Unregistered
+		</text>
+		<text x="20" y="50.0" fill="rgb(100%, 0%, 0%)" fill-opacity="0.0" font-family="Futura" font-size="16">
+			Copy of
+		</text>
+		<text x="20" y="83.333" fill="rgb(100%, 0%, 0%)" fill-opacity="0.0" font-family="Futura" font-size="16">
+			Opacity
+		</text>
+	</g>
+</svg>

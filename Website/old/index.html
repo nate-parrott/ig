@@ -1,0 +1,81 @@
+{% extends parent %}
+
+{% block head %}
+<title>InstaGrade&mdash;Grade Quizzes Effortlessly with your iPhone's Camera</title>
+
+<style>
+	img.appicon {
+		max-width: 150px;
+		max-height: 150px;
+		border-radius: 32px;
+		box-shadow: 0px 3px 6px black;
+	}
+	#main {
+		background-image: url('/static/noisy_grid.png');
+		background-repeat: repeat;
+		border: 1px solid gray;
+		border-width: 1px 0px;
+	}
+	#howitworks > img {
+		width: 25%;
+		height: auto;
+		margin: 2%;
+	}
+	#main > div:first-child {
+		padding: 0px !important;
+	}
+	#main > div img {
+		position: relative;
+		top: 3px;
+		max-height: 400px;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id='main' class='paned'>
+	<div>
+		<!-- <img src='static/main.png' class='parallax'/> -->
+		<img src='static/main-cropped.png' class='nonparallax'/>
+	</div>
+	<div>
+		<h1>Grading has never been easier.</h1>
+	</div>
+</div>
+<div class='paned'>
+	<div>
+		<h2>Introducing InstaGrade</h2>
+		<p>A revolutionary new app that lets you scan multiple-choice answer sheets with your iPhone's camera.</p>
+	</div>
+	<div>
+		<img src='static/large-icon.png' class='appicon'/>
+	</div>
+</div>
+<hr/>
+<div class='singleton' id='howitworks'>
+	<h2>How it works</h2>
+	<p>Print out our special camera-ready answer sheets, enter the correct answer choices into our app, and you're ready to start scanning quizzes with your iPhone. We'll deal with scoring and keeping track of results.</p>
+	<img src='static/howitworks1.png'/>
+	<img src='static/howitworks2.png'/>
+	<img src='static/howitworks3.png'/>
+</div>
+<hr/>
+<div class='paned'>
+	<div>
+		<h2>Detailed score reports</h2>
+		<p>
+			InstaGrade automatically calculates a class average for each question, builds a score distribution bar graph, and generates a summary sheet for each student, with their grade and the questions they missed.
+		</p>
+	</div>
+	<div>
+		<img src='static/scorereport2.png'/>
+	</div>
+</div>
+<hr/>
+<div class='singleton download'>
+	<h1>Best of all, it's free</h1>
+	<a href='/download'>
+		<img src='static/appstore.svg'/>
+	</a>
+</div>
+{% endblock %}

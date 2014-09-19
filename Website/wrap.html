@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'/>
+<meta name="viewport" content="width=device-width, user-scalable=false"/>
+		<link rel='stylesheet' href='/static/main.css'/>
+		<link rel="shortcut icon" href="/static/favicon.png"/>
+		<meta name="apple-itunes-app" content="app-id=581695531"/>
+		{% block head %} {% endblock %}
+		<!--Google analytics-->
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-37604830-1']);
+		  _gaq.push(['_trackPageview']);
+		
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		  
+		  function trackOutboundLink(link, category, action) { 
+			  try { 
+			  _gaq.push(['_trackEvent', category , action]); 
+			  } catch(err){}
+ 
+			  setTimeout(function() {
+			  document.location.href = link.href;
+			  }, 100);
+		  }
+		</script>
+	</head>
+	<body>
+		<div id='page'>
+			<div id='top' class='always-display-table'>
+				<div id='logo'>
+					<div id='bg'></div>
+					<a href='/'>
+					<h1>
+						<img src='/static/white-logo.png' style='vertical-align: middle'/>
+						<span class='text-narrow'>insta</span><span class='text-normal'>grade</span>
+					</h1>
+					</a>
+				</div>
+				<div style='text-align: right'>
+					<a href='/download' id='download' onclick="trackOutboundLink(this, 'Outbound Links', 'iTunes'); return false;">
+						<span style='text-decoration: underline'>download</span> for iPhone
+					</a>
+				</div>
+			</div>
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>

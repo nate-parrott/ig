@@ -1,0 +1,159 @@
+body {
+	margin: 0px;
+	font-family: "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
+	line-height: 1.2;
+	padding-bottom: 3em;
+}
+
+a {
+	color: #F5661B;
+}
+
+#top {
+	height: 400px;
+	/*background-image: url(/static/wood4.jpg);
+	background-size: 340px 340px;
+	background-repeat: repeat;*/
+	background:
+		radial-gradient(rgba(0,0,0,0), rgba(0,0,0,0.3)),
+		url(/static/wood4.jpg) 340px 340px repeat;
+	margin: 0px;
+	position: relative;
+}
+#name {
+	font-size: 2em;
+	color: white;
+	text-align: center;
+	margin: 0px;
+	padding-top: 20px;
+	text-transform: lowercase;
+	font-weight: 100;
+}
+#name > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+#name > span {
+}
+#name img {
+	max-height: 1em;
+	margin-right: 0.5em;
+}
+
+#paper {
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	width: 100px;
+	margin-left: -50px;
+	height: auto;
+	box-shadow: 0px 0px 2px black;
+}
+
+#main {
+	text-align: center;
+	margin: auto;
+	display: table;
+}
+#main > div {
+	display: table-cell;
+	width: 200px;
+	vertical-align: bottom;
+}
+#take-photos {
+	width: 300px;
+}
+#iphone {
+	width: 300px;
+	position: relative;
+	top: -335px;
+	margin-bottom: -335px;
+}
+
+#main h2 {
+	font-weight: 300;
+	font-size: 1.4em;
+}
+#main h2 span {
+	color: #F5661B;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#print-sheets img, #score-reports img {
+	width: 130px;
+	box-shadow: 0px 0px 2px black;
+}
+#score-reports img {
+	padding: 10px;
+	width: 110px;
+}
+
+#content {
+	width: 70%;
+	max-width: 700px;
+	text-align: center;
+	margin: auto;
+}
+#content h2 {
+	padding-top: 70px;
+	font-weight: 300;
+	font-size: 2em;
+}
+
+#testimonials {
+	display: table;
+	margin: auto;
+}
+#testimonials > * {
+	width: 250px;
+	padding: 0px 10px;
+	display: table-cell;
+	vertical-align: bottom;
+}
+#testimonials blockquote p {
+	font-style: italic;
+}
+#testimonials blockquote p:before {
+	content: open-quote;
+}
+#testimonials blockquote p:after {
+	content: close-quote;
+}
+#testimonials blockquote footer:before {
+	content: "—";
+}
+
+#top-links {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+#top-links a {
+	color: white;
+	margin-left: 1em;
+}
+
+#text-link input {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	
+	border: 2px solid black;
+	background-color: white;
+	height: 40px;
+	font-size: 14px;
+	font-family: "Helvetica Neue", "HelveticaNeue", "Helvetica", sans-serif;
+	padding: 3px;
+	
+	box-sizing: border-box;
+	margin: 0px;
+	
+	outline: none;
+}
+#text-link input[type=submit] {
+	margin-left: -6px;
+	padding-left: 10px;
+	padding-right: 10px;
+}

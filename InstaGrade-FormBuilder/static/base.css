@@ -1,0 +1,17 @@
+body {
+	margin: 2em;
+	color: #111;
+	line-height: 1.5;
+	font-family: "Gill Sans", sans-serif;
+}
+input, [contentEditable] {
+	outline: none;
+}
+a {
+	color: #f22;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Helvetica Neue", sans-serif;
+	font-weight: 300;
+}
+

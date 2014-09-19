@@ -1,0 +1,66 @@
+{% extends parent %}
+
+{% block head %}
+<title>InstaGrade Support</title>
+<style>
+	form p {
+	}
+	form input, form textarea {
+		width: 80%;
+	}
+	form textarea {
+		min-height: 100px;
+	}
+	dt {
+		font-weight: bold;
+	}
+	dd {
+		margin-bottom: 0.7em;
+	}
+	form input[type=submit] {
+		/*display: block;
+		margin: 10px;
+		font-size: large;
+		width: 90px;
+		height: 30px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #537e88;
+		border-radius: 15px;
+		border: 1px solid #116;
+		color: white;
+		text-shadow: 0px -1px 0px black;
+		font-weight: bold;*/
+		width: 90px;
+		margin-left: auto;
+		margin-right: auto;
+		color: #555;
+		text-align: center;
+		font-weight: bold;
+		font-size: large;
+		text-decoration: underline;
+		border: 0px;
+		background: none;
+		display: block;
+	}
+</style>
+{% endblock %}
+{% block content %}
+<div class='paned'>
+	<div>
+		<h1>InstaGrade Help and Support</h1>
+		<h3>Frequently asked questions</h3>
+		{% include "faq_content.html" %}
+		
+		<h3>Contact us</h3>
+		<form action='/submitSupportTicket' method='POST'>
+			<input type='hidden' name='product' value='instagrade'/>
+			<input type='hidden' name='info' value='{"sender": "web"}'>
+			<p>The issue you're having with our app:</p>
+			<textarea name='body'></textarea>
+			<p>An email address where we can contact you:</p>
+			<input name='email' type='email' placeholder='Email address'/>
+			<input type='submit'/>
+		</form>
+	</div>
+{% endblock %}

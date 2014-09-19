@@ -1,0 +1,42 @@
+{% extends parent %}
+
+{% block head %}
+<title>Download InstaGrade</title>
+<style>
+	.bang {
+		width: 90px;
+		height: 90px;
+		border: 10px solid gray;
+		border-radius: 55px;
+		padding: 0px;
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 30px;
+	}
+	.bang div {
+		font-size: 70px;
+		height: 70px;
+		width: 100%;
+		position: absolute;
+		top: 50%;
+		left: 0px;
+		margin-top: -43px;
+		font-weight: bold;
+		color: gray;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div>
+	<div>
+		<div class='bang'><div>!</div></div>
+		<h1>InstaGrade is temporarily off the App Store.</h1>
+		<p>We've disabled new downloads of InstaGrade while we wait for Apple to approve a new update that fixes a few critical issues. Existing users of InstaGrade aren't affected.
+		</p>
+	</div>
+</div>
+
+{% endblock %}

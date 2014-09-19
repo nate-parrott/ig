@@ -1,0 +1,51 @@
+{% extends "wrap.html" %}
+{% block head %}
+<title>Download InstaGrade {{ name }}</title>
+<style>
+/*#centered {
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	right: 20%;
+	bottom: 20%;
+	display: table;
+}
+#centered > div {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}*/
+#centered {
+	margin-top: 2em;
+}
+.dl {
+	text-align: center;
+}
+.dl-button {
+	border-radius: 2px;
+	width: 60px;
+	height: 90px;
+	box-shadow: 0px 0px 3px black;
+	background: url(/static/arrow-down.png);
+	background-position: center;
+	background-size: 30px 30px;
+	background-repeat: no-repeat;
+	margin: auto;
+}
+.dl h3 {
+	color: black;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id='centered'>
+	<div>
+		<a class='dl' href={{url}} download={{filename}} title={{filename}}>
+			<div class='dl-button'></div>
+			<h3>Download {{ name }} PDF</h3>
+		</a>
+	</div>
+</div>
+
+{% endblock %}

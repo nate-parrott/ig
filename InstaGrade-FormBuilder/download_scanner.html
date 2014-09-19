@@ -1,0 +1,18 @@
+{% extends "centered.html" %}
+
+{% block content %}
+
+<h3>Download InstaGrade Scanner</h3>
+
+<p><a href='http://example.com'><img src='/static/appstore.svg' alt='Download on the iOS App Store'/></a></p>
+
+{% if token %}
+<p>
+	<br/>
+	Scan this once code in the app to log in: <br/>
+	<img src='/{{token}}/auth_token_qr_code' style='width: 100%; max-width: 280px'/>
+</p>
+{% endif %}
+
+{% endblock %}
+

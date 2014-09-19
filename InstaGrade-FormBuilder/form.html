@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link rel='stylesheet' href='/static/form.css'/>
+<link rel='stylesheet' href='/static/icomoon/style.css'/>
+
+{% endblock %}
+
+{% block body %}
+	<div id='form'></div>
+	
+	{% if user %}
+	<script>
+	USER_EMAIL = "{{ user.nickname() }}";
+	LOGOUT_URL = "{{ logout_url }}";
+	</script>
+	{% else %}
+	<script>
+	USER_EMAIL = null;
+	LOGOUT_URL = null;
+	</script>
+	{% endif %}
+	
+	<script type="text/jsx" src='/static/form.jsx'></script>
+{% endblock %}
