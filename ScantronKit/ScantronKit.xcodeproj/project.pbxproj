@@ -18,6 +18,7 @@
 		5F07D1D419C78EBE00B9E615 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D319C78EBE00B9E615 /* CameraView.swift */; };
 		5F07D1D619C78EF000B9E615 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D519C78EF000B9E615 /* API.swift */; };
 		5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */; };
+		5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38339919CD16D900DE6C71 /* Scanner.swift */; };
 		5F3CA65C19CB565A006EC181 /* Logging.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65B19CB565A006EC181 /* Logging.mm */; };
 		5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65F19CBB5EC006EC181 /* ImageConcatenationFilter.m */; };
 		5F57578619C796D6009A4A59 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F57578419C796D6009A4A59 /* Helpers.swift */; };
@@ -67,6 +68,7 @@
 		5F07D1D319C78EBE00B9E615 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		5F07D1D519C78EF000B9E615 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5F38339919CD16D900DE6C71 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		5F3CA65A19CB565A006EC181 /* Logging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logging.h; sourceTree = "<group>"; };
 		5F3CA65B19CB565A006EC181 /* Logging.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Logging.mm; sourceTree = "<group>"; };
 		5F3CA65E19CBB5EC006EC181 /* ImageConcatenationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageConcatenationFilter.h; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				5F07D1DD19C7900500B9E615 /* UI */,
 				5F07D1D519C78EF000B9E615 /* API.swift */,
 				5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */,
+				5F38339919CD16D900DE6C71 /* Scanner.swift */,
 				5F57578819C796DA009A4A59 /* Helpers */,
 				5F62324F1989E4E300706593 /* Images.xcassets */,
 				5F62324B1989E4E300706593 /* Supporting Files */,
@@ -450,6 +453,7 @@
 				5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */,
 				5FC1D1A619CBE51400377CF6 /* Quiz.m in Sources */,
 				5F03C517198F0B04002DECCF /* TestViewController.swift in Sources */,
+				5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */,
 				5F92328A19C8C31700B2C5DA /* ScannedPage.swift in Sources */,
 				5FC1D1A719CBE51400377CF6 /* QuizInstance.m in Sources */,
 				5F57578619C796D6009A4A59 /* Helpers.swift in Sources */,

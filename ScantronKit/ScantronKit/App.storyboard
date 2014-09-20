@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-r0-M2v">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-r0-M2v">
                                 <rect key="frame" x="249" y="524" width="103" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="QLO-Xi-qjN"/>
@@ -30,7 +30,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="snap" destination="KOu-qy-yat" eventType="touchUpInside" id="5gZ-wL-exM"/>
+                                    <action selector="testShutter" destination="KOu-qy-yat" eventType="touchUpInside" id="K5N-gp-pdo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,6 +46,7 @@
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="b6o-aP-nQb" id="XUG-rw-wY3"/>
+                        <outlet property="testShutterButton" destination="AGJ-r0-M2v" id="laT-Av-YBP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HdK-NI-llm" userLabel="First Responder" sceneMemberID="firstResponder"/>

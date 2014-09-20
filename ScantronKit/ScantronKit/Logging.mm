@@ -8,12 +8,16 @@
 
 #import "Logging.h"
 
-BOOL DEBUGMODE() {
+BOOL IS_SIMULATOR() {
 #if TARGET_IPHONE_SIMULATOR
     return YES;
 #else
     return NO;
 #endif
+}
+
+BOOL DEBUGMODE() {
+    return IS_SIMULATOR();
 }
 void LOG(NSString *text) {
     if (DEBUGMODE()) {

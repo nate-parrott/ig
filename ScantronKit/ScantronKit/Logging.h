@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+UIKIT_EXTERN BOOL IS_SIMULATOR();
 UIKIT_EXTERN BOOL DEBUGMODE();
 UIKIT_EXTERN void LOG(NSString *text);
 UIKIT_EXTERN void LOGImage(UIImage *image, NSString *name);

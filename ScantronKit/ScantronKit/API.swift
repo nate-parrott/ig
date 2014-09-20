@@ -8,8 +8,8 @@
 
 import UIKit
 
-let APIHost = "localhost"
-let APIPort = 13080
+ let APIHost = "localhost"
+ let APIPort = 13080
 // let APIHost = "instagradeformbuilder.appspot.com"
 // let APIPort = 80
 

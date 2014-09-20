@@ -14,6 +14,18 @@ class ScanViewController: UIViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appBecameActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillBecomeInactive", name: UIApplicationWillResignActiveNotification, object: nil)
+        
+        scanner = Scanner(cameraView: self.cameraView!)
+        scanner!.onScannedPage = {
+            page in
+            let barcode = page.barcode
+            let alert = UIAlertController(title: "Scanned", message: "Barcode is index \(barcode.index) and page # \(barcode.pageNum)", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        if IS_SIMULATOR() {
+            self.testShutterButton!.hidden = false
+        }
     }
     
     deinit {
@@ -21,7 +33,9 @@ class ScanViewController: UIViewController {
     }
     
     @IBOutlet var cameraView: CameraView?
+    @IBOutlet var testShutterButton: UIButton?
     
+    // MARK: Continuous scanning
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         vcIsVisible = true
@@ -43,98 +57,29 @@ class ScanViewController: UIViewController {
         updateScanConstantly()
     }
     
-    #if arch(arm) || arch(arm64)
-    let isSimulator = false
-    #else
-    let isSimulator = true
-    #endif
     var appIsActive = true
     var vcIsVisible = false
-    var isScanningConstantly = false
     func updateScanConstantly() {
-        let shouldScanConstantly = !isSimulator && appIsActive && vcIsVisible
-        if shouldScanConstantly && !isScanningConstantly {
-            if !scanInProgress {
-                snap()
-            }
+        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible
+        if shouldScanConstantly {
+            scanner!.start()
         } else {
-            // stop scanning
+            scanner!.stop()
         }
-        isScanningConstantly = shouldScanConstantly
     }
-    var scanInProgress = false
+    var scanner: Scanner?
     
-    @IBAction func snap() {
-        if let output = cameraView!.stillImageOutput {
-            let connection = cameraView!.stillImageOutput!.connections.first! as AVCaptureConnection
-            cameraView!.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sample: CMSampleBuffer!, error: NSError?) -> Void in
-                let jpegData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sample)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
-                    let image = UIImage(data: jpegData)
-                    self.handleImage(image)
-                })
-            })
-        } else {
-            if isSimulator {
-                handleImage(UIImage(named: "1202652"))
+    @IBAction func testShutter() {
+        let image = UIImage(named: "1202652")
+        PageExtraction().extract(image) {
+            imageOpt in
+            if let image = imageOpt {
+                let scanned = ScannedPage(image: image)
+                let barcode = scanned.barcode
+                println("Barcode is index \(barcode.index) and page # \(barcode.pageNum)")
             } else {
-                dispatch_after(1 * NSEC_PER_SEC, dispatch_get_main_queue(), {
-                    self.snap()
-                })
+                println("Scan failed")
             }
         }
     }
-    
-    func handleImage(image: UIImage) {
-        let startTime = NSDate.timeIntervalSinceReferenceDate()
-        extractScannedPage(image) {
-            (pageOpt: ScannedPage?) in
-            
-            let elapsed = NSDate.timeIntervalSinceReferenceDate() - startTime
-            println("\(elapsed) elapsed")
-            
-            if let page = pageOpt {
-                let barcode = page.barcode
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    SharedAPI().getQuizWithIndex(barcode.index) {
-                        (quizOpt: Quiz?) in
-                        if let quiz = quizOpt {
-                            self.reportTestingResult("Got quiz: \(quiz.json)")
-                        } else {
-                            if self.isScanningConstantly && false { // TODO: remove this debugging stuff
-                                self.done()
-                            } else {
-                                self.reportTestingResult("No quiz for barcode \(barcode.index)")
-                            }
-                        }
-                    }
-                })
-            } else {
-                if self.isScanningConstantly {
-                    self.done()
-                } else {
-                    self.reportTestingResult("failure")
-                }
-            }
-            
-        }
-    }
-    
-    func reportTestingResult(result: String) {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            let c = UIAlertController(title: "RESULT:", message: result, preferredStyle: UIAlertControllerStyle.Alert)
-            c.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: { (_) -> Void in
-                self.done()
-            }))
-            self.presentViewController(c, animated: true, completion: nil)
-            println("RESULT: \n\(result)")
-        })
-    }
-    
-    func done() {
-        if self.isScanningConstantly {
-            self.snap()
-        }
-    }
-    
 }

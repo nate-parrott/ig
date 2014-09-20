@@ -8,17 +8,6 @@
 
 import UIKit
 
-public func extractScannedPage(image: UIImage, callback: (ScannedPage? -> ())) {
-    PageExtraction().extract(image) {
-        (imageOpt: UIImage?) in
-        if let image = imageOpt {
-            callback(ScannedPage(image: image))
-        } else {
-            callback(nil)
-        }
-    }
-}
-
 public class ScannedPage {
     var image: UIImage
     var data: ImagePixelData
