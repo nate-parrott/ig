@@ -8,6 +8,15 @@
 
 @implementation Quiz
 
-// Custom logic goes here.
+- (NSInteger)totalPages {
+    NSInteger totalPages = 1;
+    for (NSDictionary *item in [self.json valueForKey:@"items"]) {
+        if (item[@"frame"]) {
+            NSInteger pageNum = [[item[@"frame"] firstObject] integerValue];
+            totalPages = MAX(pageNum + 1, totalPages);
+        }
+    }
+    return totalPages;
+}
 
 @end
