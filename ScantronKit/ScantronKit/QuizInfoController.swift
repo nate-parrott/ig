@@ -22,6 +22,7 @@ class QuizInfoController: NSObject {
                 self.addPage(page, withQuiz: quiz)
             } else {
                 // todo: somehow relay this to the user after a certain amount of time?
+                println("Unknown index code \(page.barcode.index)")
             }
         }
     }
@@ -62,10 +63,19 @@ class QuizInfoController: NSObject {
         }
     }
     
-    enum Status {
+    enum Status : Printable {
         case None
         case PartialScan(pages: Int, total: Int)
         case Done
+        var description : String {
+            get {
+                switch self {
+                case .None: return "None"
+                case .PartialScan(pages: let pages, total: let total): return "PartialScan(\(pages) / \(total))"
+                case .Done: return "Done"
+                }
+            }
+        }
     }
     
     var status: Status = .None {

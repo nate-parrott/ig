@@ -7,6 +7,8 @@ import re
 from reportlab.lib.colors import yellow, red, black, white, gray
 import math
 
+NO_LAYOUT_BOUNDS = 9999999
+
 # decorator for layout functions that automatically adds things like margins
 def respects_margin(func):
 	def func_respecting_margin(self, canvas, frame, draw):
@@ -311,6 +313,10 @@ class Question(Layout):
 	
 	@respects_margin
 	def layout(self, canvas, frame, draw):
+		left, top, right, bottom = frame
+		if not draw:
+			bottom = NO_LAYOUT_BOUNDS
+		frame = (left, top, right, bottom)
 		description_text = None if not self.show_description else self.dict.get('description', None)
 		if description_text == '': description_text = None
 		if description_text != None and self.visible_index != None:
@@ -460,6 +466,8 @@ def render(form_json, output_file):
 	PAGE_LAYOUTER.total_pages = num_pages
 	PAGE_LAYOUTER.render(cvs, items, draw=True)
 	cvs.save()
+	
+	form_json['pageCount'] = num_pages
 	
 	print form_json
 	return form_json

@@ -14,10 +14,18 @@ class Scanner: NSObject {
         super.init()
     }
     // MARK: Status
-    enum Status {
+    enum Status : Printable {
         case Off
         case On
         case PossibleScan
+        
+        var description : String {
+            switch self {
+            case .Off: return "Off"
+            case .On: return "On"
+            case .PossibleScan: return "PossibleScan"
+            }
+        }
     }
     private var stopping = false
     private(set) var status: Status = Status.Off {

@@ -21,7 +21,8 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     }
     
     func reload() {
-        let url = "http://\(APIHost):\(APIPort)/get_token"
+        let (host, port) = APIHost()
+        let url = "http://\(host):\(port)/get_token"
         self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)))
     }
     

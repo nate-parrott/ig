@@ -8,10 +8,11 @@
 
 import UIKit
 
- let APIHost = "localhost"
- let APIPort = 13080
-// let APIHost = "instagradeformbuilder.appspot.com"
-// let APIPort = 80
+func APIHost() -> (String, Int) {
+    let host = IS_SIMULATOR() ? "localhost" : "instagradeformbuilder.appspot.com"
+    let port = IS_SIMULATOR() ? 13080 : 80
+    return (host, port)
+}
 
 class API: NSObject {
     var userEmail: String? {
@@ -39,8 +40,9 @@ class API: NSObject {
     func call(endpoint: String, var args: [String: String], callback: NSData? -> ()) -> NSURLSessionTask {
         let urlComponents = NSURLComponents()
         
-        urlComponents.host = APIHost
-        urlComponents.port = APIPort
+        let (host, port) = APIHost()
+        urlComponents.host = host
+        urlComponents.port = port
         
         if let token = userToken {
             args["token"] = token

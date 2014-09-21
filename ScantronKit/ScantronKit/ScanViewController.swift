@@ -18,13 +18,27 @@ class ScanViewController: UIViewController {
         scanner = Scanner(cameraView: self.cameraView!)
         scanner!.onScannedPage = {
             page in
-            let barcode = page.barcode
+            self.infoController.addPage(page)
+            /*let barcode = page.barcode
             let alert = UIAlertController(title: "Scanned", message: "Barcode is index \(barcode.index) and page # \(barcode.pageNum)", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.presentViewController(alert, animated: true, completion: nil)*/
         }
         if IS_SIMULATOR() {
             self.testShutterButton!.hidden = false
+        }
+        
+        scanner!.onStatusChanged = {
+            self.updateStatusMessage()
+        }
+        infoController.onStatusChanged = {
+            self.updateStatusMessage()
+        }
+        infoController.onShowAdvisoryMessage = {
+            (message: String) in
+            self.lastMessage = message
+            self.lastMessageTime = NSDate.timeIntervalSinceReferenceDate()
+            self.updateStatusMessage()
         }
     }
     
@@ -82,4 +96,24 @@ class ScanViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: quiz info controller
+    var infoController = QuizInfoController()
+    
+    @IBAction func clear() {
+        infoController.clear()
+    }
+    
+    @IBOutlet var statusLabel: UILabel?
+    
+    func updateStatusMessage() {
+        var s = "\(scanner!.status), \(infoController.status)"
+        if NSDate.timeIntervalSinceReferenceDate() - lastMessageTime < 5 {
+            s += ", " + lastMessage
+        }
+        self.statusLabel!.text = s
+    }
+    
+    var lastMessage: String = ""
+    var lastMessageTime: NSTimeInterval = 0.0
 }
