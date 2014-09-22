@@ -11,20 +11,32 @@ import UIKit
 class QuizInfoController: NSObject {
     var pages: [ScannedPage] = []
     var quiz: Quiz?
-    var quizDownloadTask: NSURLSessionDataTask?
     
     func addPage(page: ScannedPage) {
         loadingCount++
-        SharedAPI().getQuizWithIndex(page.barcode.index) {
-            quizOpt in
-            self.loadingCount--
-            if let quiz = quizOpt {
-                self.addPage(page, withQuiz: quiz)
+        if SharedAPI().queriedQuizIds.contains(page.barcode.index) {
+            // don't fetch again; only handle if this quiz is present locally:
+            if let quiz = SharedAPI().findLocalQuizWithIndex(page.barcode.index) {
+                addPage(page, withQuiz: quiz)
             } else {
-                // todo: somehow relay this to the user after a certain amount of time?
-                println("Unknown index code \(page.barcode.index)")
+                unknownIndex(page.barcode.index)
+            }
+        } else {
+            SharedAPI().fetchQuizWithIndex(page.barcode.index) {
+                quizOpt in
+                self.loadingCount--
+                if let quiz = quizOpt {
+                    self.addPage(page, withQuiz: quiz)
+                } else {
+                    self.unknownIndex(page.barcode.index)
+                }
             }
         }
+    }
+    
+    func unknownIndex(index: Int) {
+        // todo: somehow relay this to the user after a certain amount of time?
+        println("Unknown index code \(index)")
     }
     
     func addPage(page: ScannedPage, withQuiz: Quiz) {
@@ -57,10 +69,6 @@ class QuizInfoController: NSObject {
         pages = []
         quiz = nil
         status = .None
-        if let task = quizDownloadTask {
-            task.cancel()
-            quizDownloadTask = nil
-        }
     }
     
     enum Status : Printable {

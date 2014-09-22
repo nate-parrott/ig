@@ -13,3 +13,4 @@
 #import "ImageConcatenationFilter.h"
 #import "Quiz.h"
 #import "QuizInstance.h"
+#import "PageImage.h"

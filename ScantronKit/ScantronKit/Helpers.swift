@@ -69,4 +69,7 @@ extension NSURL {
     }
 }
 
+func AsyncOnMainQueue(code: () -> ()) {
+    dispatch_async(dispatch_get_main_queue(), code)
+}
 

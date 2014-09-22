@@ -34,6 +34,9 @@
 		5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328D19C8C9E600B2C5DA /* UIImage+PixelData.m */; };
 		5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F92831B1989EC45006C693A /* SKTestbed.mm */; };
 		5F928323198D5857006C693A /* CGGeomoetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F928322198D5857006C693A /* CGGeomoetry.swift */; };
+		5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22C19CFD0B500F9AD90 /* _PageImage.m */; };
+		5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22E19CFD0B500F9AD90 /* PageImage.m */; };
+		5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED23419CFD12400F9AD90 /* Grading.swift */; };
 		5FC1D1A419CBE51400377CF6 /* _Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D19D19CBE51400377CF6 /* _Quiz.m */; };
 		5FC1D1A519CBE51400377CF6 /* _QuizInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D19F19CBE51400377CF6 /* _QuizInstance.m */; };
 		5FC1D1A619CBE51400377CF6 /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D1A119CBE51400377CF6 /* Quiz.m */; };
@@ -95,6 +98,11 @@
 		5F92831A1989EC45006C693A /* SKTestbed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTestbed.h; sourceTree = "<group>"; };
 		5F92831B1989EC45006C693A /* SKTestbed.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTestbed.mm; sourceTree = "<group>"; };
 		5F928322198D5857006C693A /* CGGeomoetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGGeomoetry.swift; sourceTree = "<group>"; };
+		5FAED22B19CFD0B500F9AD90 /* _PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _PageImage.h; path = Models/_PageImage.h; sourceTree = "<group>"; };
+		5FAED22C19CFD0B500F9AD90 /* _PageImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _PageImage.m; path = Models/_PageImage.m; sourceTree = "<group>"; };
+		5FAED22D19CFD0B500F9AD90 /* PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageImage.h; path = Models/PageImage.h; sourceTree = "<group>"; };
+		5FAED22E19CFD0B500F9AD90 /* PageImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageImage.m; path = Models/PageImage.m; sourceTree = "<group>"; };
+		5FAED23419CFD12400F9AD90 /* Grading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grading.swift; sourceTree = "<group>"; };
 		5FC1D19C19CBE51400377CF6 /* _Quiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _Quiz.h; path = Models/_Quiz.h; sourceTree = "<group>"; };
 		5FC1D19D19CBE51400377CF6 /* _Quiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _Quiz.m; path = Models/_Quiz.m; sourceTree = "<group>"; };
 		5FC1D19E19CBE51400377CF6 /* _QuizInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _QuizInstance.h; path = Models/_QuizInstance.h; sourceTree = "<group>"; };
@@ -271,10 +279,15 @@
 				5FC1D19D19CBE51400377CF6 /* _Quiz.m */,
 				5FC1D19E19CBE51400377CF6 /* _QuizInstance.h */,
 				5FC1D19F19CBE51400377CF6 /* _QuizInstance.m */,
+				5FAED22B19CFD0B500F9AD90 /* _PageImage.h */,
+				5FAED22C19CFD0B500F9AD90 /* _PageImage.m */,
 				5FC1D1A019CBE51400377CF6 /* Quiz.h */,
 				5FC1D1A119CBE51400377CF6 /* Quiz.m */,
 				5FC1D1A219CBE51400377CF6 /* QuizInstance.h */,
 				5FC1D1A319CBE51400377CF6 /* QuizInstance.m */,
+				5FAED22D19CFD0B500F9AD90 /* PageImage.h */,
+				5FAED22E19CFD0B500F9AD90 /* PageImage.m */,
+				5FAED23419CFD12400F9AD90 /* Grading.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -441,8 +454,10 @@
 				5F03C511198EB8A5002DECCF /* Tracking.swift in Sources */,
 				5F92327F19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld in Sources */,
 				5F07D1D419C78EBE00B9E615 /* CameraView.swift in Sources */,
+				5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */,
 				5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */,
 				5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */,
+				5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */,
 				5F03C514198EB99F002DECCF /* ContourExtractor.mm in Sources */,
 				5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */,
 				5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */,
@@ -468,6 +483,7 @@
 				5FC1D1A419CBE51400377CF6 /* _Quiz.m in Sources */,
 				5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */,
 				5F07D1D019C7844000B9E615 /* ScanViewController.swift in Sources */,
+				5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

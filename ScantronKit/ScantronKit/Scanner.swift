@@ -57,19 +57,28 @@ class Scanner: NSObject {
         if let output = cameraView.stillImageOutput {
             let connection = cameraView.stillImageOutput!.connections.first! as AVCaptureConnection
             cameraView.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sample: CMSampleBuffer!, error: NSError?) -> Void in
-                let jpegData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sample)
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
-                    let image = UIImage(data: jpegData)
-                    self.handleImage(image)
-                })
+                if sample == nil {
+                    println("ERROR: \(error)")
+                    self.scanALittleLater()
+                } else {
+                    let jpegData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sample)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+                        let image = UIImage(data: jpegData)
+                        self.handleImage(image)
+                    })
+                }
             })
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.7 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
-                if self.stopping {
-                   self.status = .Off
-                } else {
-                    self.scanNow()
-                }
+            scanALittleLater()
+        }
+    }
+    
+    func scanALittleLater() {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.7 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) {
+            if self.stopping {
+                self.status = .Off
+            } else {
+                self.scanNow()
             }
         }
     }

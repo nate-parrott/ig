@@ -59,12 +59,11 @@ class API: NSObject {
         task.resume()
         return task
     }
-    func getQuizWithIndex(index: Int, callback: Quiz? -> ()) {
-        let query = NSFetchRequest(entityName: "Quiz")
-        query.predicate = NSPredicate(format: "index = %@", NSNumber(integer: index))
-        if let quiz = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)?.first as? Quiz {
+    func fetchQuizWithIndex(index: Int, callback: Quiz? -> ()) {
+        if let quiz = findLocalQuizWithIndex(index) {
             callback(quiz)
         } else {
+            queriedQuizIds.add(index)
             call("/\(index)/details", args: [String: String]()) {
                 (dataOpt: NSData?) in
                 if let data = dataOpt {
@@ -73,14 +72,23 @@ class API: NSObject {
                         quiz.title = response["title"]! as String
                         quiz.added = NSDate()
                         quiz.json = response["json"]!
+                        quiz.index = index
                         callback(quiz)
                         return
                     }
+                } else {
+                    self.queriedQuizIds.remove(index)
                 }
                 callback(nil)
             }
         }
     }
+    func findLocalQuizWithIndex(index: Int) -> Quiz? {
+        let query = NSFetchRequest(entityName: "Quiz")
+        query.predicate = NSPredicate(format: "index = %@", NSNumber(integer: index))
+        return SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)?.first as? Quiz
+    }
+    var queriedQuizIds = Set<Int>()
 }
 
 var _sharedAPI: API? = nil

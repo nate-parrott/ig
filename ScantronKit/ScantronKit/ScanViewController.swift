@@ -18,7 +18,9 @@ class ScanViewController: UIViewController {
         scanner = Scanner(cameraView: self.cameraView!)
         scanner!.onScannedPage = {
             page in
-            self.infoController.addPage(page)
+            AsyncOnMainQueue {
+                self.infoController.addPage(page)
+            }
             /*let barcode = page.barcode
             let alert = UIAlertController(title: "Scanned", message: "Barcode is index \(barcode.index) and page # \(barcode.pageNum)", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -29,16 +31,22 @@ class ScanViewController: UIViewController {
         }
         
         scanner!.onStatusChanged = {
-            self.updateStatusMessage()
+            AsyncOnMainQueue {
+                self.updateStatusMessage()
+            }
         }
         infoController.onStatusChanged = {
-            self.updateStatusMessage()
+            AsyncOnMainQueue {
+                self.updateStatusMessage()
+            }
         }
         infoController.onShowAdvisoryMessage = {
             (message: String) in
-            self.lastMessage = message
-            self.lastMessageTime = NSDate.timeIntervalSinceReferenceDate()
-            self.updateStatusMessage()
+            AsyncOnMainQueue {
+                self.lastMessage = message
+                self.lastMessageTime = NSDate.timeIntervalSinceReferenceDate()
+                self.updateStatusMessage()
+            }
         }
     }
     
@@ -107,9 +115,12 @@ class ScanViewController: UIViewController {
     @IBOutlet var statusLabel: UILabel?
     
     func updateStatusMessage() {
-        var s = "\(scanner!.status), \(infoController.status)"
+        var s = "\(scanner!.status)\n\(infoController.status)"
+        if infoController.loadingCount > 0 {
+            s += " (loading)"
+        }
         if NSDate.timeIntervalSinceReferenceDate() - lastMessageTime < 5 {
-            s += ", " + lastMessage
+            s += "\n" + lastMessage
         }
         self.statusLabel!.text = s
     }
