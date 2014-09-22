@@ -16,11 +16,15 @@
 - (float)brightnessAtX:(NSInteger)x y:(NSInteger)y;
 - (double)averageBrightnessInRect:(CGRect)rect;
 
+- (double)blurrinessMetric;
+
 @end
 
 @interface UIImage ()
 
 - (ImagePixelData *)pixelData;
+
+- (double)blurinessMetric;
 
 @end
 

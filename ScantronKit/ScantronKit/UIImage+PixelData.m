@@ -8,6 +8,12 @@
 
 #import "UIImage+PixelData.h"
 
+@interface ImagePixelData () {
+    double _bluriness;
+}
+
+@end
+
 @implementation ImagePixelData
 
 - (void)dealloc {
@@ -37,6 +43,26 @@
     return sum / ((x2-x1) * (y2-y1));
 }
 
+- (double)blurrinessMetric {
+    if (_bluriness) return _bluriness;
+    double totalBluriness = 0;
+    NSInteger width = self.width;
+    NSInteger height = self.height;
+    UInt8 *bytes = self.bytes;
+    for (NSInteger row=0; row < height; row++) {
+        UInt8 *rowBytes = bytes + 4 * (row * width);
+        double colBlur = 0;
+        for (NSInteger col=0; col < width - 1; col++) {
+            UInt8 byte1 = rowBytes[col];
+            UInt8 byte2 = rowBytes[row];
+            colBlur += pow(byte1 / 255.0 - byte2 / 255.0, 2);
+        }
+        totalBluriness += colBlur / width;
+    }
+    _bluriness = - totalBluriness / height;
+    return _bluriness;
+}
+
 @end
 
 
@@ -63,5 +89,5 @@
     return d;
 }
 
-
 @end
+

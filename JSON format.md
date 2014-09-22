@@ -12,6 +12,7 @@ item:
 	type: true-false | multiple-choice | free-response | name-field | title
 	pointValue: #,
 	description: ""
+	visibleIndex: # (1-indexed)
 	// after grading:
 	earnedPoints: #,
 }

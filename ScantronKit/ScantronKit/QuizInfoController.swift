@@ -13,7 +13,6 @@ class QuizInfoController: NSObject {
     var quiz: Quiz?
     
     func addPage(page: ScannedPage) {
-        loadingCount++
         if SharedAPI().queriedQuizIds.contains(page.barcode.index) {
             // don't fetch again; only handle if this quiz is present locally:
             if let quiz = SharedAPI().findLocalQuizWithIndex(page.barcode.index) {
@@ -22,6 +21,7 @@ class QuizInfoController: NSObject {
                 unknownIndex(page.barcode.index)
             }
         } else {
+            loadingCount++
             SharedAPI().fetchQuizWithIndex(page.barcode.index) {
                 quizOpt in
                 self.loadingCount--
@@ -56,7 +56,10 @@ class QuizInfoController: NSObject {
                     }
                 }
             } else {
-                // ignore; this is just a re-scan of the last scanned page
+                // this is just a re-scan of the last scanned page; see if it's less blurry:
+                if page.blurriness < pages[countElements(pages) - 1].blurriness {
+                    pages[countElements(pages) - 1] = page
+                }
             }
         } else {
             if let show = onShowAdvisoryMessage {
@@ -71,7 +74,7 @@ class QuizInfoController: NSObject {
         status = .None
     }
     
-    enum Status : Printable {
+    enum Status : Printable, Equatable {
         case None
         case PartialScan(pages: Int, total: Int)
         case Done
@@ -105,3 +108,13 @@ class QuizInfoController: NSObject {
     var onStatusChanged: (() -> ())?
     var onShowAdvisoryMessage: ((String) -> ())?
 }
+
+func ==(lhs: QuizInfoController.Status, rhs: QuizInfoController.Status) -> Bool {
+    switch (lhs, rhs) {
+    case (.None, .None): return true
+    case (.Done, .Done): return true
+    case (.PartialScan(pages: let p1, total: let t1), .PartialScan(pages: let p2, total: let t2)): return p1 == p2 && t1 == t2
+    default: return false
+    }
+}
+

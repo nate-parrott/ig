@@ -55,6 +55,10 @@ public class ScannedPage {
         let bitsForIndex = (BARCODE_HORIZONTAL_BITS * BARCODE_VERTICAL_BITS) - 2 - BARCODE_BITS_FOR_PAGE_NUM
         return Barcode(pageNum: intFromBarcodeRange(2, BARCODE_BITS_FOR_PAGE_NUM), index: intFromBarcodeRange(2 + BARCODE_BITS_FOR_PAGE_NUM, bitsForIndex))
     }()
+    
+    lazy public var blurriness: Double = {
+        return self.data.blurrinessMetric()
+    }()
 }
 
 let BARCODE_HORIZONTAL_BITS = 14

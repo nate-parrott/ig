@@ -32,22 +32,32 @@ class ScanViewController: UIViewController {
         
         scanner!.onStatusChanged = {
             AsyncOnMainQueue {
-                self.updateStatusMessage()
+                self.statusChanged()
             }
         }
         infoController.onStatusChanged = {
             AsyncOnMainQueue {
-                self.updateStatusMessage()
+                self.statusChanged()
             }
         }
         infoController.onShowAdvisoryMessage = {
             (message: String) in
             AsyncOnMainQueue {
-                self.lastMessage = message
-                self.lastMessageTime = NSDate.timeIntervalSinceReferenceDate()
-                self.updateStatusMessage()
+                self.statusChanged()
             }
         }
+        
+        UINib(nibName: "StatusView", bundle: nil).instantiateWithOwner(self, options: nil)
+        view.addSubview(statusView)
+        
+        animator = UIDynamicAnimator(referenceView: view)
+        
+        statusView.backgroundColor = UIColor.clearColor()
+        statusBackdrop = UIView()
+        statusBackdrop.backgroundColor = UIColor(white: 0.1, alpha: 0.7)
+        view.insertSubview(statusBackdrop, belowSubview: statusView)
+        
+        viewDidLayoutSubviews()
     }
     
     deinit {
@@ -82,7 +92,7 @@ class ScanViewController: UIViewController {
     var appIsActive = true
     var vcIsVisible = false
     func updateScanConstantly() {
-        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible
+        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible && infoController.status != QuizInfoController.Status.Done
         if shouldScanConstantly {
             scanner!.start()
         } else {
@@ -108,23 +118,112 @@ class ScanViewController: UIViewController {
     // MARK: quiz info controller
     var infoController = QuizInfoController()
     
-    @IBAction func clear() {
+    func statusChanged() {
+        updateScanConstantly()
+        darknessViewAlpha = scanner!.status == Scanner.Status.PossibleScan ? 0.4 : 0.0
+        view.setNeedsLayout()
+        switch infoController.status {
+        case .Done:
+            pageStatusLabel.text = NSLocalizedString("Scan Complete", comment: "")
+        case .None:
+            // do nothing
+            if infoController.loadingCount > 0 {
+                pageStatusLabel.text = "Loading..."
+            }
+            0
+        case .PartialScan(pages: let pages, total: let total):
+            pageStatusLabel.text = NSString(format: NSLocalizedString("Page %i/%i", comment: ""), pages, total)
+        }
+    }
+    
+    // MARK: Layout
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let width: CGFloat = min(500, view.bounds.size.width)
+        let height: CGFloat = 70
+        statusView!.bounds = CGRectMake(0, 0, width, height)
+        
+        var y: CGFloat = 0
+        switch infoController.status {
+        case .None:
+            if infoController.loadingCount > 0 {
+                y = view.bounds.size.height - statusView!.bounds.size.height/2
+            } else {
+                y = view.bounds.size.height + statusView!.bounds.size.height/2 + 20
+            }
+        case .PartialScan(pages: _, total: _):
+            y = view.bounds.size.height - statusView!.bounds.size.height/2
+        case .Done:
+            y = view.bounds.size.height - statusView!.bounds.size.height/2
+        }
+        statusViewCenterPoint = CGPointMake(view.bounds.size.width/2, y)
+        
+        statusBackdrop.frame = CGRectMake(0, view.bounds.size.height - statusView!.bounds.size.height, view.bounds.size.width, statusView!.bounds.size.height)
+    }
+    
+    var statusViewCenterPoint: CGPoint = CGPointZero {
+        willSet(val) {
+            if val != statusViewCenterPoint {
+                if let existing = statusViewPositioningBehavior {
+                    animator!.removeBehavior(existing)
+                }
+                statusViewPositioningBehavior = UISnapBehavior(item: statusView!, snapToPoint: val)
+                animator!.addBehavior(statusViewPositioningBehavior!)
+                UIView.animateWithDuration(0.6, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+                    self.statusBackdrop.alpha = (val == CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - self.statusView.bounds.size.height/2)) ? 1 : 0
+                    }, completion: { (_) -> Void in
+                        
+                })
+            }
+        }
+    }
+    var darknessViewAlpha: CGFloat = 0.0 {
+        willSet(val) {
+            if val != darknessViewAlpha {
+                UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+                    self.darkness.alpha = val
+                }, completion: { (_) -> Void in
+                    
+                })
+            }
+        }
+    }
+    
+    var animator: UIDynamicAnimator?
+    
+    // MARK: Status view
+    @IBOutlet var statusView: StatusView!
+    var statusBackdrop: UIView!
+    var statusViewPositioningBehavior: UISnapBehavior?
+    @IBOutlet var pageStatusLabel: UILabel!
+    @IBOutlet var okayButton: UIButton!
+    
+    @IBOutlet var darkness: UIImageView!
+    
+    @IBAction func clearScannedPages() {
         infoController.clear()
     }
     
-    @IBOutlet var statusLabel: UILabel?
-    
-    func updateStatusMessage() {
-        var s = "\(scanner!.status)\n\(infoController.status)"
-        if infoController.loadingCount > 0 {
-            s += " (loading)"
+    @IBAction func acceptScannedQuiz() {
+        // TODO: everything
+        
+        if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
+            let manualResponseTemplates = infoController.quiz!.getManuallyGradedResponseTemplates()
+            if countElements(manualResponseTemplates.filter( { $0 != nil} )) > 0 {
+                let navController = storyboard!.instantiateViewControllerWithIdentifier("ManualResponseNavController") as UINavigationController
+                let manualResponseVC = navController.viewControllers.first! as ManualResponseViewController
+                manualResponseVC.setupWithItems(manualResponseTemplates, pages: infoController.pages)
+                navController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
+                presentViewController(navController, animated: true, completion: nil)
+            }
         }
-        if NSDate.timeIntervalSinceReferenceDate() - lastMessageTime < 5 {
-            s += "\n" + lastMessage
-        }
-        self.statusLabel!.text = s
+        
+        infoController.clear()
     }
-    
-    var lastMessage: String = ""
-    var lastMessageTime: NSTimeInterval = 0.0
 }

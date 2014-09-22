@@ -41,6 +41,7 @@ class Scanner: NSObject {
     func start() {
         stopping = false
         if status == .Off {
+            status = .On
             scanNow()
         }
     }
@@ -53,7 +54,6 @@ class Scanner: NSObject {
     var cameraView: CameraView
     
     private func scanNow() {
-        status = .On
         if let output = cameraView.stillImageOutput {
             let connection = cameraView.stillImageOutput!.connections.first! as AVCaptureConnection
             cameraView.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sample: CMSampleBuffer!, error: NSError?) -> Void in
@@ -94,11 +94,14 @@ class Scanner: NSObject {
                     self.status = .PossibleScan
                 }
                 let page = ScannedPage(image: extractedImage)
+                let _ = page.blurriness // cause it to compute the lazy prop (so we don't do it later on the main thread)
                 dispatch_async(dispatch_get_main_queue()) {
                     if let callback = self.onScannedPage {
                         callback(page)
                     }
                 }
+            } else {
+                self.status = .On
             }
             self.doneWithSingleScan()
         }
@@ -110,8 +113,9 @@ class Scanner: NSObject {
         println("\(elapsed) elapsed")
         
         dispatch_async(dispatch_get_main_queue()) {
-            self.status = .Off
-            if !self.stopping {
+            if self.stopping {
+                self.status = .Off
+            } else {
                 self.scanNow()
             }
         }

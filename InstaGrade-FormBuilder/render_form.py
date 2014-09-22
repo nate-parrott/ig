@@ -25,7 +25,7 @@ def respects_margin(func):
 			bottom -= mb
 		
 		if draw and self.on_render:
-			self.on_render((left,right,top,bottom))
+			self.on_render((left,top,right,bottom))
 		
 		thickness = 0
 		if hasattr(self, 'border'):
@@ -65,6 +65,12 @@ def frame_json(frame):
 	pagew, pageh = (PAGE_LAYOUTER.width*1.0, PAGE_LAYOUTER.height*1.0)
 	page_n = PAGE_LAYOUTER.page_number
 	left, top, right, bottom = frame
+	left -= PAGE_LAYOUTER.margin
+	top -= PAGE_LAYOUTER.margin
+	right -= PAGE_LAYOUTER.margin
+	bottom -= PAGE_LAYOUTER.margin
+	pagew -= PAGE_LAYOUTER.margin*2
+	pageh -= PAGE_LAYOUTER.margin*2
 	return [page_n, left/pagew, top/pageh, right/pagew, bottom/pageh]
 
 class Layout(object):
@@ -309,6 +315,8 @@ class Question(Layout):
 	def __init__(self, dict, visible_index=None, show_description=False):
 		self.dict = dict
 		self.visible_index = visible_index
+		if visible_index != None:
+			self.dict['visibleIndex'] = visible_index
 		self.show_description = show_description
 	
 	@respects_margin
