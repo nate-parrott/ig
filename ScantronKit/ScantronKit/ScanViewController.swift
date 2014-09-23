@@ -120,7 +120,7 @@ class ScanViewController: UIViewController {
     
     func statusChanged() {
         updateScanConstantly()
-        darknessViewAlpha = scanner!.status == Scanner.Status.PossibleScan ? 0.4 : 0.0
+        darknessViewAlpha = scanner!.status == Scanner.Status.PossibleScan ? 0.5 : 0.0
         view.setNeedsLayout()
         switch infoController.status {
         case .Done:
@@ -175,22 +175,16 @@ class ScanViewController: UIViewController {
                 }
                 statusViewPositioningBehavior = UISnapBehavior(item: statusView!, snapToPoint: val)
                 animator!.addBehavior(statusViewPositioningBehavior!)
-                UIView.animateWithDuration(0.6, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
-                    self.statusBackdrop.alpha = (val == CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - self.statusView.bounds.size.height/2)) ? 1 : 0
-                    }, completion: { (_) -> Void in
-                        
-                })
+                
+                let alpha: CGFloat = (val == CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height - self.statusView.bounds.size.height/2)) ? 1 : 0
+                self.statusBackdrop.animateAlphaTo(alpha, duration: 0.6)
             }
         }
     }
     var darknessViewAlpha: CGFloat = 0.0 {
         willSet(val) {
             if val != darknessViewAlpha {
-                UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
-                    self.darkness.alpha = val
-                }, completion: { (_) -> Void in
-                    
-                })
+                self.darkness.animateAlphaTo(val, duration: 0.6)
             }
         }
     }

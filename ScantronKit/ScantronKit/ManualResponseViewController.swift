@@ -19,7 +19,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
         scannedPages = pages
         dataSource = self
         setViewControllers([viewControllerAtIndex(nextNonEmptyIndexAfter(-1)!)], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-        UIImageWriteToSavedPhotosAlbum(scannedPages.first!.image, nil, nil, nil)
+        // UIImageWriteToSavedPhotosAlbum(scannedPages.first!.image, nil, nil, nil)
     }
     
     var responseItems: [QuizItemManuallyGradedResponse?]!

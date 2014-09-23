@@ -46,6 +46,9 @@
 		5FC1D1A519CBE51400377CF6 /* _QuizInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D19F19CBE51400377CF6 /* _QuizInstance.m */; };
 		5FC1D1A619CBE51400377CF6 /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D1A119CBE51400377CF6 /* Quiz.m */; };
 		5FC1D1A719CBE51400377CF6 /* QuizInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FC1D1A319CBE51400377CF6 /* QuizInstance.m */; };
+		5FC2F9D719D0D8EC00D81AFD /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC2F9D619D0D8EC00D81AFD /* UIViewExtensions.swift */; };
+		5FC2F9E319D1C11800D81AFD /* Scratch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC2F9E219D1C11800D81AFD /* Scratch.storyboard */; };
+		5FC2F9E519D1C12A00D81AFD /* ScratchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC2F9E419D1C12A00D81AFD /* ScratchViewController.swift */; };
 		5FC9E96719C8E03B0091EF1A /* UIImage+SubImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */; };
 		5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */; };
 		5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC12D1996D737009736D5 /* Unprojection.swift */; };
@@ -121,6 +124,9 @@
 		5FC1D1A119CBE51400377CF6 /* Quiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Quiz.m; path = Models/Quiz.m; sourceTree = "<group>"; };
 		5FC1D1A219CBE51400377CF6 /* QuizInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuizInstance.h; path = Models/QuizInstance.h; sourceTree = "<group>"; };
 		5FC1D1A319CBE51400377CF6 /* QuizInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuizInstance.m; path = Models/QuizInstance.m; sourceTree = "<group>"; };
+		5FC2F9D619D0D8EC00D81AFD /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		5FC2F9E219D1C11800D81AFD /* Scratch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Scratch.storyboard; sourceTree = "<group>"; };
+		5FC2F9E419D1C12A00D81AFD /* ScratchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScratchViewController.swift; sourceTree = "<group>"; };
 		5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+SubImage.swift"; sourceTree = "<group>"; };
 		5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		5FFEC12D1996D737009736D5 /* Unprojection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unprojection.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 				5F92831B1989EC45006C693A /* SKTestbed.mm */,
 				5F03C515198F0B04002DECCF /* TestViewController.swift */,
 				5F03C516198F0B04002DECCF /* TestViewController.xib */,
+				5FC2F9E219D1C11800D81AFD /* Scratch.storyboard */,
+				5FC2F9E419D1C12A00D81AFD /* ScratchViewController.swift */,
 			);
 			name = Testing;
 			sourceTree = "<group>";
@@ -206,6 +214,7 @@
 				5F92328D19C8C9E600B2C5DA /* UIImage+PixelData.m */,
 				5F3CA65A19CB565A006EC181 /* Logging.h */,
 				5F3CA65B19CB565A006EC181 /* Logging.mm */,
+				5FC2F9D619D0D8EC00D81AFD /* UIViewExtensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -400,6 +409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F66A11A19CA02E8009B14AE /* Login.storyboard in Resources */,
+				5FC2F9E319D1C11800D81AFD /* Scratch.storyboard in Resources */,
 				5F03C518198F0B04002DECCF /* TestViewController.xib in Resources */,
 				5F1CCE0D19D0918C002B7C3E /* StatusView.xib in Resources */,
 				5F6232501989E4E300706593 /* Images.xcassets in Resources */,
@@ -477,6 +487,7 @@
 				5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */,
 				5F03C514198EB99F002DECCF /* ContourExtractor.mm in Sources */,
 				5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */,
+				5FC2F9D719D0D8EC00D81AFD /* UIViewExtensions.swift in Sources */,
 				5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */,
 				5F07D1D619C78EF000B9E615 /* API.swift in Sources */,
 				5F3A5D6C19D0B013009552D5 /* PointsPickerView.swift in Sources */,
@@ -490,6 +501,7 @@
 				5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */,
 				5FC1D1A619CBE51400377CF6 /* Quiz.m in Sources */,
 				5F03C517198F0B04002DECCF /* TestViewController.swift in Sources */,
+				5FC2F9E519D1C12A00D81AFD /* ScratchViewController.swift in Sources */,
 				5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */,
 				5F3A5D6819D0AE7A009552D5 /* ManualResponseViewController.swift in Sources */,
 				5F92328A19C8C31700B2C5DA /* ScannedPage.swift in Sources */,

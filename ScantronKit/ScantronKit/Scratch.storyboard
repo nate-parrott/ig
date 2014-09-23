@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8bd-Fz-Z3p">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--Scratch View Controller-->
+        <scene sceneID="MRT-5I-Vs5">
+            <objects>
+                <viewController id="8bd-Fz-Z3p" customClass="ScratchViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CEI-px-IIj"/>
+                        <viewControllerLayoutGuide type="bottom" id="AhX-U6-fDP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SLW-JY-eDP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhj-RU-0JJ" customClass="PointsPickerView" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="541" width="600" height="51"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="0QG-bM-uTd"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="fhj-RU-0JJ" secondAttribute="width" id="eYy-cO-jkC"/>
+                            <constraint firstAttribute="centerX" secondItem="fhj-RU-0JJ" secondAttribute="centerX" id="eva-M2-Kh5"/>
+                            <constraint firstItem="AhX-U6-fDP" firstAttribute="top" secondItem="fhj-RU-0JJ" secondAttribute="bottom" constant="8" id="v5W-x8-1SP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pointsPickerView" destination="fhj-RU-0JJ" id="mbI-zG-QHN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fCX-fy-4Hb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="302" y="373"/>
+        </scene>
+    </scenes>
+</document>

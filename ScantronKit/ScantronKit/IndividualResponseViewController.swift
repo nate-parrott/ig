@@ -30,5 +30,6 @@ class IndividualResponseViewController: UIViewController {
         imageViewHeightConstraint.constant = responseSnapshot.size.height
         imageAspectRatioConstraint.constant = responseSnapshot.size.width / responseSnapshot.size.height
         pointsView.maxPoints = responseItem.pointValue
+        pointsView.selectedValue = responseItem.earnedPoints
     }
 }
