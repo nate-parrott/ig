@@ -36,13 +36,13 @@ extension QuizInstance {
             let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
             let response = indexOfDarkestFrame(frames)
             let correctResponse = item.getOrDefault("correct", defaultVal: 0) as Int
-            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("pointValue", defaultVal: 0) as Double : 0
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
             item["response"] = response
         case "true-false":
             let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
             let response = indexOfDarkestFrame(frames) == 0
             let correctResponse = item.getOrDefault("correct", defaultVal: true) as Bool
-            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("pointValue", defaultVal: 0) as Double : 0
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
             item["response"] = response
         case "free-response":
             item["pointsEarned"] = manuallyGraded!.pointValue
@@ -79,7 +79,7 @@ class QuizItemManuallyGradedResponse {
     init(item: QuizItem) {
         self.item = item
         frame = QuizItemFrame(array: item.getOrDefault("frame", defaultVal: []) as [Double])
-        pointValue = item.getOrDefault("pointValue", defaultVal: 0.0) as Double
+        pointValue = item.getOrDefault("points", defaultVal: 0.0) as Double
     }
     var frame: QuizItemFrame
     var item: QuizItem

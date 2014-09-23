@@ -36,11 +36,11 @@ class PointsPickerMarkerView: UIView {
         }
     }
     
-    let minLabelWidth: CGFloat = 10
+    let minLabelWidth: CGFloat = 16
     
     var label: UILabel?
     var labelBackground: UIView?
-    var labelPadding: CGFloat = 2
+    var labelPadding: CGFloat = 4
     
     override func drawRect(rect: CGRect) {
         if label == nil {
@@ -51,7 +51,8 @@ class PointsPickerMarkerView: UIView {
             label = UILabel()
             addSubview(label!)
             label!.textColor = UIColor.whiteColor()
-            label!.font = UIFont.boldSystemFontOfSize(12)
+            label!.font = UIFont.boldSystemFontOfSize(14)
+            label!.textAlignment = NSTextAlignment.Center
         }
         
         let path = UIBezierPath()
@@ -61,10 +62,10 @@ class PointsPickerMarkerView: UIView {
         
         label!.text = NSString(format: "%g", value)
         label!.sizeToFit()
-        labelBackground!.frame = CGRectMake(0, 0, label!.frame.size.width + labelPadding * 2, label!.frame.size.height + labelPadding * 2)
+        labelBackground!.frame = CGRectMake(0, 0, max(minLabelWidth, label!.frame.size.width) + labelPadding * 2, label!.frame.size.height + labelPadding * 2)
         label!.frame = CGRectMake(labelPadding, labelPadding, max(minLabelWidth, label!.frame.size.width), label!.frame.size.height)
         
-        path.addLineToPoint(CGPointMake(minLabelWidth, labelBackground!.frame.size.height))
+        path.addLineToPoint(CGPointMake(minLabelWidth / 2, labelBackground!.frame.size.height))
         
         path.closePath()
         path.fill()
@@ -73,6 +74,16 @@ class PointsPickerMarkerView: UIView {
 
 
 class PointsPickerView: UIView {
+    var panGesture: UIPanGestureRecognizer?
+    
+    override func willMoveToWindow(newWindow: UIWindow?) {
+        super.willMoveToWindow(newWindow)
+        if panGesture == nil {
+            panGesture = UIPanGestureRecognizer(target: self, action: "panned:")
+            addGestureRecognizer(panGesture!)
+        }
+    }
+    
     var maxPoints: Double = 1 {
         didSet {
             setNeedsDisplay()
@@ -90,7 +101,11 @@ class PointsPickerView: UIView {
     let xPadding: CGFloat = 30
     func valueForX(pos: CGFloat, precise: Bool) -> Double {
         let mapped = Double(max(0, min(1, (pos - xPadding) / (bounds.size.width - xPadding * 2)))) * maxPoints
-        let rounding = pow(10, round(log10(maxPoints)) - 1)
+        let roundingMagnitude: Double = round(Double(log10(maxPoints))) - Double(1.0)
+        var rounding = pow(Double(10), roundingMagnitude)
+        if precise {
+            rounding /= 4.0
+        }
         return round(mapped / rounding) * rounding
     }
     
@@ -125,11 +140,41 @@ class PointsPickerView: UIView {
                 marker.backgroundColor = UIColor.clearColor()
             }
             bringSubviewToFront(marker)
-            marker.frame = CGRectMake(xForValue, -5, 10, bounds.size.height - 10)
+            marker.frame = CGRectMake(xForValue, -14, 10, bounds.size.height - 10)
             marker.value = val
         } else {
-            marker.removeFromSuperview()
-            marker = nil
+            if let m = marker {
+                m.removeFromSuperview()
+                marker = nil
+            }
+        }
+    }
+    
+    // MARK: touches
+    func panned(gestureRec: UIPanGestureRecognizer) {
+        switch gestureRec.state {
+        case .Began:
+            selectedValue = valueForX(gestureRec.locationInView(self).x, precise: false)
+        case .Changed:
+            selectedValue = valueForX(gestureRec.locationInView(self).x, precise: true)
+        case .Ended:
+            if let cb = onAssignedPoints {
+                if let val = selectedValue {
+                    cb(selectedValue!)
+                }
+            }
+        default: 0
+        }
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        selectedValue = valueForX((touches.anyObject()! as UITouch).locationInView(self).x, precise: false)
+    }
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        if let cb = onAssignedPoints {
+            if let val = selectedValue {
+                cb(selectedValue!)
+            }
         }
     }
 }

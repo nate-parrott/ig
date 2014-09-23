@@ -15,6 +15,5 @@ class ScratchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pointsPickerView.maxPoints = 1
-        pointsPickerView.selectedValue = 0.5
     }
 }

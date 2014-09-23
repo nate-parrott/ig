@@ -92,7 +92,7 @@ class ScanViewController: UIViewController {
     var appIsActive = true
     var vcIsVisible = false
     func updateScanConstantly() {
-        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible && infoController.status != QuizInfoController.Status.Done
+        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible
         if shouldScanConstantly {
             scanner!.start()
         } else {

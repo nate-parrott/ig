@@ -12,6 +12,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     func setupWithItems(items: [QuizItemManuallyGradedResponse?], pages: [ScannedPage]) {
