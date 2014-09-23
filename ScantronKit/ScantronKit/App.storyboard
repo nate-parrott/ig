@@ -2,8 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -39,96 +37,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ASg-Rv-m9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1254" y="-314"/>
-        </scene>
-        <!--Individual Response View Controller-->
-        <scene sceneID="1ba-jk-N1x">
-            <objects>
-                <viewController storyboardIdentifier="IndividualResponseViewController" id="ftj-Y6-j08" customClass="IndividualResponseViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3EQ-f1-Nvr"/>
-                        <viewControllerLayoutGuide type="bottom" id="Hnb-FF-Nz0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="5r6-nq-30I">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question 12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxn-cm-7Q6">
-                                <rect key="frame" x="16" y="11" width="568" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What is 1 + 1, in base 7?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O48-82-9Au">
-                                <rect key="frame" x="16" y="38" width="568" height="19.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AsC-NK-dYa">
-                                <rect key="frame" x="16" y="66" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" priority="500" constant="200" id="HOv-OM-kW5"/>
-                                    <constraint firstAttribute="width" secondItem="AsC-NK-dYa" secondAttribute="height" multiplier="1:1" id="Jz9-3x-lCX"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How many points should be awarded?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ma9-rI-EHG">
-                                <rect key="frame" x="16" y="464" width="568" height="13.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHb-oa-CJI" customClass="PointsPickerView" customModule="InstaGrade_Scanner" customModuleProvider="target">
-                                <rect key="frame" x="16" y="486" width="568" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="GaA-Eh-PVO"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ma9-rI-EHG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="4XX-BQ-oJP"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="trailing" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="6c3-RF-Zbn"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="7Je-O6-d9b"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="CQg-cV-5fl"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="trailing" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="F3b-93-j1g"/>
-                            <constraint firstItem="ma9-rI-EHG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AsC-NK-dYa" secondAttribute="bottom" constant="8" id="JM0-U7-5Of"/>
-                            <constraint firstItem="Hnb-FF-Nz0" firstAttribute="top" secondItem="DHb-oa-CJI" secondAttribute="bottom" id="X5o-5e-dGa"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="top" secondItem="3EQ-f1-Nvr" secondAttribute="bottom" id="YfD-eR-CqO"/>
-                            <constraint firstItem="DHb-oa-CJI" firstAttribute="trailing" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="cOi-3a-XPH"/>
-                            <constraint firstItem="AsC-NK-dYa" firstAttribute="top" secondItem="O48-82-9Au" secondAttribute="bottom" constant="8" id="dq7-R3-H0J"/>
-                            <constraint firstItem="AsC-NK-dYa" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="gdQ-3S-iFg"/>
-                            <constraint firstItem="ma9-rI-EHG" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="gef-oS-ce3"/>
-                            <constraint firstItem="mxn-cm-7Q6" firstAttribute="top" secondItem="3EQ-f1-Nvr" secondAttribute="bottom" constant="11" id="jVx-MQ-CJN"/>
-                            <constraint firstItem="O48-82-9Au" firstAttribute="top" secondItem="mxn-cm-7Q6" secondAttribute="bottom" constant="8" id="n9K-5J-30e"/>
-                            <constraint firstItem="O48-82-9Au" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="oY2-5k-bH1"/>
-                            <constraint firstItem="DHb-oa-CJI" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="uWw-7B-xj6"/>
-                            <constraint firstItem="O48-82-9Au" firstAttribute="trailing" secondItem="5r6-nq-30I" secondAttribute="trailingMargin" id="voB-zv-Z6f"/>
-                            <constraint firstItem="AsC-NK-dYa" firstAttribute="leading" secondItem="5r6-nq-30I" secondAttribute="leadingMargin" id="wzh-N1-BgA"/>
-                            <constraint firstItem="DHb-oa-CJI" firstAttribute="top" secondItem="ma9-rI-EHG" secondAttribute="bottom" constant="8" id="zhB-Vq-hx1"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="CQg-cV-5fl"/>
-                                <exclude reference="F3b-93-j1g"/>
-                                <exclude reference="YfD-eR-CqO"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="imageAspectRatioConstraint" destination="Jz9-3x-lCX" id="7Z4-3S-6AB"/>
-                        <outlet property="imageView" destination="AsC-NK-dYa" id="1TB-3e-vhp"/>
-                        <outlet property="imageViewHeightConstraint" destination="HOv-OM-kW5" id="jSC-Kc-pAA"/>
-                        <outlet property="pointsView" destination="DHb-oa-CJI" id="CTC-Vy-pVQ"/>
-                        <outlet property="questionLabel" destination="O48-82-9Au" id="DPh-Y2-xNr"/>
-                        <outlet property="questionNumberLabel" destination="mxn-cm-7Q6" id="fvG-bU-o8U"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ztg-2g-5j7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1956" y="-314"/>
         </scene>
         <!--Scan View Controller-->
         <scene sceneID="DrZ-mS-zW0">

@@ -26,6 +26,7 @@
 		5F3A5D6C19D0B013009552D5 /* PointsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6B19D0B013009552D5 /* PointsPickerView.swift */; };
 		5F3CA65C19CB565A006EC181 /* Logging.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65B19CB565A006EC181 /* Logging.mm */; };
 		5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65F19CBB5EC006EC181 /* ImageConcatenationFilter.m */; };
+		5F570AB519D1F2A70074EFB9 /* IndividualResponseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F570AB419D1F2A70074EFB9 /* IndividualResponseViewController.xib */; };
 		5F57578619C796D6009A4A59 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F57578419C796D6009A4A59 /* Helpers.swift */; };
 		5F57578719C796D6009A4A59 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F57578519C796D6009A4A59 /* Set.swift */; };
 		5F62324E1989E4E300706593 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62324D1989E4E300706593 /* AppDelegate.swift */; };
@@ -90,6 +91,7 @@
 		5F3CA65B19CB565A006EC181 /* Logging.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Logging.mm; sourceTree = "<group>"; };
 		5F3CA65E19CBB5EC006EC181 /* ImageConcatenationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageConcatenationFilter.h; sourceTree = "<group>"; };
 		5F3CA65F19CBB5EC006EC181 /* ImageConcatenationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageConcatenationFilter.m; sourceTree = "<group>"; };
+		5F570AB419D1F2A70074EFB9 /* IndividualResponseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndividualResponseViewController.xib; sourceTree = "<group>"; };
 		5F57578419C796D6009A4A59 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5F57578519C796D6009A4A59 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
 		5F6232481989E4E300706593 /* InstaGrade Scanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InstaGrade Scanner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -249,6 +251,7 @@
 				5F07D1DC19C78FF900B9E615 /* Page extraction */,
 				5F07D1C919C77BF400B9E615 /* App.storyboard */,
 				5F66A11919CA02E8009B14AE /* Login.storyboard */,
+				5F570AB419D1F2A70074EFB9 /* IndividualResponseViewController.xib */,
 				5FC1D1A819CBE51900377CF6 /* Models */,
 				5F07D1DD19C7900500B9E615 /* UI */,
 				5F07D1D519C78EF000B9E615 /* API.swift */,
@@ -408,6 +411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F570AB519D1F2A70074EFB9 /* IndividualResponseViewController.xib in Resources */,
 				5F66A11A19CA02E8009B14AE /* Login.storyboard in Resources */,
 				5FC2F9E319D1C11800D81AFD /* Scratch.storyboard in Resources */,
 				5F03C518198F0B04002DECCF /* TestViewController.xib in Resources */,

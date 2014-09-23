@@ -27,7 +27,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     var scannedPages: [ScannedPage]!
     
     func viewControllerAtIndex(index: Int) -> IndividualResponseViewController {
-        let vc = storyboard!.instantiateViewControllerWithIdentifier("IndividualResponseViewController") as IndividualResponseViewController
+        let vc = IndividualResponseViewController(nibName: "IndividualResponseViewController", bundle: nil)
         vc.responseItem = responseItems[index]!
         vc.index = index
         vc.scannedPages = scannedPages

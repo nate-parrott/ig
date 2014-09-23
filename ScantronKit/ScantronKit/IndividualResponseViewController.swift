@@ -9,12 +9,11 @@
 import UIKit
 
 class IndividualResponseViewController: UIViewController {
-    @IBOutlet var imageViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet var imageAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var questionNumberLabel: UILabel!
     @IBOutlet var questionLabel: UILabel!
     @IBOutlet var pointsView: PointsPickerView!
+    @IBOutlet var pointsViewLabel: UILabel!
     
     var responseItem: QuizItemManuallyGradedResponse!
     var index: Int!
@@ -27,9 +26,28 @@ class IndividualResponseViewController: UIViewController {
         let pageImage = scannedPages[responseItem.frame.page].image
         let responseSnapshot = pageImage.subImage(responseItem.frame.toRect(pageImage.size))
         imageView.image = responseSnapshot
-        imageViewHeightConstraint.constant = responseSnapshot.size.height
-        imageAspectRatioConstraint.constant = responseSnapshot.size.width / responseSnapshot.size.height
         pointsView.maxPoints = responseItem.pointValue
         pointsView.selectedValue = responseItem.earnedPoints
+        view.setNeedsLayout()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        questionNumberLabel.sizeToFit()
+        let p: CGFloat = 10
+        questionNumberLabel.top = topLayoutGuide.length + p
+        questionNumberLabel.left = p
+        questionLabel.size = questionLabel.sizeThatFits(CGSizeMake(view.width - p * 2, 200))
+        pointsView.frame = CGRectMake(0, view.height - p - 50, view.width, 50)
+        pointsViewLabel.sizeToFit()
+        pointsViewLabel.left = p
+        pointsViewLabel.top = pointsView.top - pointsViewLabel.height
+        imageView.top = questionLabel.bottom + p
+        imageView.left = p
+        let availableImageSize = CGSizeMake(view.width-p - imageView.left, pointsViewLabel.top-p - imageView.top)
+        let imageSize = imageView.image!.size
+        let scale = min(1, min(availableImageSize.width / imageSize.width, availableImageSize.height / imageSize.height))
+        imageView.size = CGSizeMake(scale * imageSize.width, scale * imageSize.height)
+        println("avail: \(availableImageSize), image: \(imageSize), scale: \(scale), frame: \(imageView.frame)")
     }
 }

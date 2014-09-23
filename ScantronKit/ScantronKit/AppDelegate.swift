@@ -27,8 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func updateRootUI() {
-        //window!.rootViewController = UIStoryboard(name: "Scratch", bundle: nil).instantiateInitialViewController() as? UIViewController
-        //return
+        // window!.rootViewController = UIStoryboard(name: "Scratch", bundle: nil).instantiateInitialViewController() as? UIViewController
+        // return
         
         if SharedAPI().userEmail != nil {
             self.window!.rootViewController = UIStoryboard(name: "App", bundle: nil).instantiateInitialViewController() as? UIViewController
