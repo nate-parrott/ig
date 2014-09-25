@@ -47,6 +47,7 @@ class QuizInfoController: NSObject {
                     quiz = withQuiz
                     if countElements(pages) == withQuiz.totalPages() {
                         status = .Done
+                        needsGrading()
                     } else {
                         status = .PartialScan(pages: countElements(pages), total: withQuiz.totalPages())
                     }
@@ -59,6 +60,7 @@ class QuizInfoController: NSObject {
                 // this is just a re-scan of the last scanned page; see if it's less blurry:
                 if page.blurriness < pages[countElements(pages) - 1].blurriness {
                     pages[countElements(pages) - 1] = page
+                    needsGrading()
                 }
             }
         } else {
@@ -68,10 +70,15 @@ class QuizInfoController: NSObject {
         }
     }
     
+    var lastClearedDate: NSTimeInterval = 0
     func clear() {
         pages = []
         quiz = nil
         status = .None
+        lastGradeForThisScan = nil
+        currentlyGrading = false
+        lastClearedDate = NSDate.timeIntervalSinceReferenceDate()
+        manualResponseItems = nil
     }
     
     enum Status : Printable, Equatable {
@@ -104,7 +111,60 @@ class QuizInfoController: NSObject {
             }
         }
     }
+    // MARK: Grading
+    var lastGradeForThisScan: [QuizItem]? {
+        didSet {
+            if let callback = onStatusChanged {
+                callback()
+            }
+        }
+    }
+    var currentlyGrading: Bool = false {
+        didSet {
+            if let callback = onStatusChanged {
+                callback()
+            }
+        }
+    }
+    private var needsGradingAfter: Bool = false
+    private func needsGrading() {
+        if quiz != nil {
+            if quiz!.canGradeAutomatically || manualResponseItems != nil {
+                if currentlyGrading {
+                    needsGradingAfter = true
+                } else {
+                    gradeNow()
+                }
+            }
+        }
+    }
+    var manualResponseItems: [QuizItemManuallyGradedResponse?]? {
+        didSet {
+            needsGrading()
+        }
+    }
+    private func gradeNow() {
+        currentlyGrading = true
+        let quiz = self.quiz!
+        let pages = self.pages
+        let startedDate = NSDate.timeIntervalSinceReferenceDate()
+        let responseItems = manualResponseItems != nil ? manualResponseItems! : quiz.getManuallyGradedResponseTemplates()
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
+            let gradedItems = quiz.generateResponseItemsWithScannedPages(pages, manuallyGradedResponses: responseItems)
+            AsyncOnMainQueue() {
+                if self.lastClearedDate < startedDate {
+                    self.lastGradeForThisScan = gradedItems
+                }
+                self.currentlyGrading = false
+                if self.needsGradingAfter {
+                    self.needsGradingAfter = false
+                    self.needsGrading()
+                }
+            }
+        })
+    }
     
+    // MARK: Callbacks
     var onStatusChanged: (() -> ())?
     var onShowAdvisoryMessage: ((String) -> ())?
 }

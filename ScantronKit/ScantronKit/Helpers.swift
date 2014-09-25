@@ -40,6 +40,11 @@ extension Dictionary {
         }
         return items
     }
+    func get(key: Key) -> Value? {
+        // because subscripts are fucked
+        let result: Value? = self[key]
+        return result
+    }
 }
 
 extension Dictionary {

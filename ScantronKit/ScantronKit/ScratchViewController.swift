@@ -15,5 +15,16 @@ class ScratchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pointsPickerView.maxPoints = 1
+        
+        let names = ["blur0", "blur1", "blur2"]
+        let images = names.map({ UIImage(named: $0) })
+        for method in ["slow", "fast"] {
+            println("METHOD: \(method)")
+            for (image, name) in Zip2(images, names) {
+                let data = image.pixelData()
+                let blurriness = method == "fast" ? data.fastBlurrinessMetric() : data.blurrinessMetric()
+                println(" \(name): \(blurriness)")
+            }
+        }
     }
 }

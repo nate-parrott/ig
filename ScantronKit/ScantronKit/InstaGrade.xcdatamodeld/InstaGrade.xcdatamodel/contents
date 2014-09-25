@@ -17,13 +17,16 @@
         </compoundIndexes>
     </entity>
     <entity name="QuizInstance" representedClassName="QuizInstance" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="earnedScore" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="itemsWithResponses" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="maximumScore" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <relationship name="pageImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PageImage" inverseName="quizInstance" inverseEntity="PageImage" syncable="YES"/>
         <relationship name="quiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quiz" inverseName="instances" inverseEntity="Quiz" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Quiz" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="QuizInstance" positionX="189" positionY="-135" width="128" height="88"/>
         <element name="PageImage" positionX="81" positionY="-18" width="128" height="73"/>
+        <element name="Quiz" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="QuizInstance" positionX="189" positionY="-135" width="128" height="135"/>
     </elements>
 </model>

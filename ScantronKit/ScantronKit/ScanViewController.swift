@@ -66,6 +66,7 @@ class ScanViewController: UIViewController {
     
     @IBOutlet var cameraView: CameraView?
     @IBOutlet var testShutterButton: UIButton?
+    @IBOutlet var savedQuizzesButton: UIButton!
     
     // MARK: Continuous scanning
     override func viewWillAppear(animated: Bool) {
@@ -124,13 +125,19 @@ class ScanViewController: UIViewController {
         view.setNeedsLayout()
         switch infoController.status {
         case .Done:
-            pageStatusLabel.text = NSLocalizedString("Scan Complete", comment: "")
+            if let gradedItems = infoController.lastGradeForThisScan {
+                let result = GenerateGradeForItemsWithResponses(gradedItems)
+                pageStatusLabel.text = "\(result.points) / \(result.total)"
+            } else if infoController.currentlyGrading {
+                pageStatusLabel.text = "Grading..."
+            } else {
+                pageStatusLabel.text = "Scan Complete"
+            }
         case .None:
             // do nothing
             if infoController.loadingCount > 0 {
                 pageStatusLabel.text = "Loading..."
             }
-            0
         case .PartialScan(pages: let pages, total: let total):
             pageStatusLabel.text = NSString(format: NSLocalizedString("Page %i/%i", comment: ""), pages, total)
         }
@@ -215,7 +222,58 @@ class ScanViewController: UIViewController {
                 manualResponseVC.setupWithItems(manualResponseTemplates, pages: infoController.pages)
                 navController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
                 presentViewController(navController, animated: true, completion: nil)
+                manualResponseVC.onFinished = {
+                    (responseItems) in
+                    self.infoController.manualResponseItems = responseItems
+                }
+                manualResponseVC.onDismissalAnimationCompleted = {
+                    [weak self] in
+                    self!.saveScannedQuiz()
+                }
+            } else {
+                saveScannedQuiz()
             }
+        }
+    }
+        
+    func saveScannedQuiz() {
+        let gradeFlyingAnimatedView = pageStatusLabel.snapshotViewAfterScreenUpdates(false)
+        view.addSubview(gradeFlyingAnimatedView)
+        gradeFlyingAnimatedView.frame = view.convertRect(pageStatusLabel.bounds, fromView: pageStatusLabel)
+        
+        func scaleValues(values: [CGFloat]) -> [NSValue] {
+            return values.map({ NSValue(CATransform3D: CATransform3DMakeScale($0, $0, $0)) })
+        }
+        
+        CATransaction.begin()
+        let fly = CAKeyframeAnimation(keyPath: "position")
+        let fromPos = gradeFlyingAnimatedView.center
+        let toPos = savedQuizzesButton.center
+        let controlPoint = CGPointMake(fromPos.x, toPos.y)
+        let path = UIBezierPath()
+        path.moveToPoint(fromPos)
+        path.addQuadCurveToPoint(toPos, controlPoint: controlPoint)
+        fly.path = path.CGPath
+        fly.duration = 1
+        gradeFlyingAnimatedView.layer.addAnimation(fly, forKey: "gradeFlyingAnimatedView")
+        let growAndShrink = CAKeyframeAnimation(keyPath: "transform")
+        growAndShrink.keyTimes = [0.0, 0.5, 1.0]
+        growAndShrink.values = scaleValues([1, 2, 0.01])
+        gradeFlyingAnimatedView.layer.addAnimation(growAndShrink, forKey: "growAndShrink")
+        let growAndShrinkButton = CAKeyframeAnimation(keyPath: "transform")
+        growAndShrinkButton.keyTimes = [0.0, 0.8, 1.0]
+        growAndShrinkButton.values = scaleValues([1, 2, 1])
+        savedQuizzesButton.layer.addAnimation(growAndShrinkButton, forKey: "savedQuizzesButton")
+        CATransaction.setCompletionBlock { () -> Void in
+            
+        }
+        CATransaction.commit()
+        
+        pageStatusLabel.alpha = 0
+        UIView.animateWithDuration(0.3, delay: 1.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+            self.pageStatusLabel.alpha = 1
+        }) { (_) -> Void in
+            
         }
         
         infoController.clear()

@@ -7,6 +7,7 @@
 //
 
 #import "UIImage+PixelData.h"
+#import <Accelerate/Accelerate.h>
 
 @interface ImagePixelData () {
     double _bluriness;
@@ -63,6 +64,38 @@
     return _bluriness;
 }
 
+- (double)fastBlurrinessMetric {
+    vImage_Buffer buffer;
+    buffer.width = self.width;
+    buffer.height = self.height;
+    buffer.rowBytes = buffer.width * 4;
+    buffer.data = self.bytes;
+    
+    vImage_Buffer convolved;
+    convolved.width = buffer.width;
+    convolved.height = buffer.height;
+    convolved.rowBytes = buffer.rowBytes;
+    convolved.data = malloc(4 * convolved.rowBytes * convolved.height);
+    
+    int16_t kernel[9] = {
+        -1, -1, -1
+        -1, 0, -1,
+        1, 1, 1
+    };
+    vImageConvolveWithBias_ARGB8888(&buffer, &convolved, NULL, 0, 0, kernel, 3, 3, 3, 127, nil, kvImageEdgeExtend);
+    vImagePixelCount *pixelCounts = malloc(sizeof(vImagePixelCount) * 256 * 4);
+    vImagePixelCount *histogramsForChannels[4] = {pixelCounts, pixelCounts + 256, pixelCounts + 512, pixelCounts + 768};
+    vImageHistogramCalculation_ARGB8888(&convolved, histogramsForChannels, 0);
+    double bluriness = 0;
+    for (int i=0; i<256; i++) {
+        bluriness += histogramsForChannels[1][i] * (256 - i) / 256.0;
+    }
+    free(pixelCounts);
+    free(convolved.data);
+    
+    return bluriness;
+}
+
 @end
 
 
@@ -81,8 +114,8 @@
     CGColorSpaceRelease(colorSpace);
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), image);
     ImagePixelData *d = [ImagePixelData new];
-    d.bytes = malloc(height * width * 4);
-    memcpy(d.bytes, rawData, height * width * 4);
+    d.bytes = rawData;//malloc(height * width * 4);
+    //memcpy(d.bytes, rawData, height * width * 4);
     d.width = width;
     d.height = height;
     CGContextRelease(context);

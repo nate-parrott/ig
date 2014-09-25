@@ -17,14 +17,13 @@
 - (double)averageBrightnessInRect:(CGRect)rect;
 
 - (double)blurrinessMetric;
+- (double)fastBlurrinessMetric;
 
 @end
 
 @interface UIImage ()
 
 - (ImagePixelData *)pixelData;
-
-- (double)blurinessMetric;
 
 @end
 

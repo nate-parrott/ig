@@ -90,12 +90,17 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
         if let nextVC = nextVCOpt {
             setViewControllers([nextVC], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         } else {
-            navigationController!.dismissViewControllerAnimated(true, completion: nil)
+            if let cb = self.onFinished {
+                cb(responseItems)
+            }
+            navigationController!.dismissViewControllerAnimated(true, completion: onDismissalAnimationCompleted)
         }
     }
     
     @IBAction func cancel() {
         navigationController!.dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
+    var onFinished: ([QuizItemManuallyGradedResponse?] -> ())?
+    var onDismissalAnimationCompleted: (() -> ())?
 }

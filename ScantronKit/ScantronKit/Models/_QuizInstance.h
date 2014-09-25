@@ -4,7 +4,10 @@
 #import <CoreData/CoreData.h>
 
 extern const struct QuizInstanceAttributes {
+	__unsafe_unretained NSString *date;
+	__unsafe_unretained NSString *earnedScore;
 	__unsafe_unretained NSString *itemsWithResponses;
+	__unsafe_unretained NSString *maximumScore;
 } QuizInstanceAttributes;
 
 extern const struct QuizInstanceRelationships {
@@ -26,9 +29,29 @@ extern const struct QuizInstanceRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) QuizInstanceID* objectID;
 
+@property (nonatomic, strong) NSDate* date;
+
+//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* earnedScore;
+
+@property (atomic) double earnedScoreValue;
+- (double)earnedScoreValue;
+- (void)setEarnedScoreValue:(double)value_;
+
+//- (BOOL)validateEarnedScore:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) id itemsWithResponses;
 
 //- (BOOL)validateItemsWithResponses:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSNumber* maximumScore;
+
+@property (atomic) double maximumScoreValue;
+- (double)maximumScoreValue;
+- (void)setMaximumScoreValue:(double)value_;
+
+//- (BOOL)validateMaximumScore:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSOrderedSet *pageImages;
 
@@ -57,8 +80,23 @@ extern const struct QuizInstanceRelationships {
 
 @interface _QuizInstance (CoreDataGeneratedPrimitiveAccessors)
 
+- (NSDate*)primitiveDate;
+- (void)setPrimitiveDate:(NSDate*)value;
+
+- (NSNumber*)primitiveEarnedScore;
+- (void)setPrimitiveEarnedScore:(NSNumber*)value;
+
+- (double)primitiveEarnedScoreValue;
+- (void)setPrimitiveEarnedScoreValue:(double)value_;
+
 - (id)primitiveItemsWithResponses;
 - (void)setPrimitiveItemsWithResponses:(id)value;
+
+- (NSNumber*)primitiveMaximumScore;
+- (void)setPrimitiveMaximumScore:(NSNumber*)value;
+
+- (double)primitiveMaximumScoreValue;
+- (void)setPrimitiveMaximumScoreValue:(double)value_;
 
 - (NSMutableOrderedSet*)primitivePageImages;
 - (void)setPrimitivePageImages:(NSMutableOrderedSet*)value;

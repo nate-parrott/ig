@@ -4,7 +4,10 @@
 #import "_QuizInstance.h"
 
 const struct QuizInstanceAttributes QuizInstanceAttributes = {
+	.date = @"date",
+	.earnedScore = @"earnedScore",
 	.itemsWithResponses = @"itemsWithResponses",
+	.maximumScore = @"maximumScore",
 };
 
 const struct QuizInstanceRelationships QuizInstanceRelationships = {
@@ -38,10 +41,63 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 
+	if ([key isEqualToString:@"earnedScoreValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"earnedScore"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"maximumScoreValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"maximumScore"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+
 	return keyPaths;
 }
 
+@dynamic date;
+
+@dynamic earnedScore;
+
+- (double)earnedScoreValue {
+	NSNumber *result = [self earnedScore];
+	return [result doubleValue];
+}
+
+- (void)setEarnedScoreValue:(double)value_ {
+	[self setEarnedScore:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveEarnedScoreValue {
+	NSNumber *result = [self primitiveEarnedScore];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveEarnedScoreValue:(double)value_ {
+	[self setPrimitiveEarnedScore:[NSNumber numberWithDouble:value_]];
+}
+
 @dynamic itemsWithResponses;
+
+@dynamic maximumScore;
+
+- (double)maximumScoreValue {
+	NSNumber *result = [self maximumScore];
+	return [result doubleValue];
+}
+
+- (void)setMaximumScoreValue:(double)value_ {
+	[self setMaximumScore:[NSNumber numberWithDouble:value_]];
+}
+
+- (double)primitiveMaximumScoreValue {
+	NSNumber *result = [self primitiveMaximumScore];
+	return [result doubleValue];
+}
+
+- (void)setPrimitiveMaximumScoreValue:(double)value_ {
+	[self setPrimitiveMaximumScore:[NSNumber numberWithDouble:value_]];
+}
 
 @dynamic pageImages;
 
