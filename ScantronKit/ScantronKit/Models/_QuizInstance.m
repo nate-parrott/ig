@@ -8,6 +8,8 @@ const struct QuizInstanceAttributes QuizInstanceAttributes = {
 	.earnedScore = @"earnedScore",
 	.itemsWithResponses = @"itemsWithResponses",
 	.maximumScore = @"maximumScore",
+	.uploaded = @"uploaded",
+	.uploadedInBatch = @"uploadedInBatch",
 };
 
 const struct QuizInstanceRelationships QuizInstanceRelationships = {
@@ -48,6 +50,11 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 	}
 	if ([key isEqualToString:@"maximumScoreValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"maximumScore"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"uploadedValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"uploaded"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -98,6 +105,28 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 - (void)setPrimitiveMaximumScoreValue:(double)value_ {
 	[self setPrimitiveMaximumScore:[NSNumber numberWithDouble:value_]];
 }
+
+@dynamic uploaded;
+
+- (BOOL)uploadedValue {
+	NSNumber *result = [self uploaded];
+	return [result boolValue];
+}
+
+- (void)setUploadedValue:(BOOL)value_ {
+	[self setUploaded:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveUploadedValue {
+	NSNumber *result = [self primitiveUploaded];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveUploadedValue:(BOOL)value_ {
+	[self setPrimitiveUploaded:[NSNumber numberWithBool:value_]];
+}
+
+@dynamic uploadedInBatch;
 
 @dynamic pageImages;
 

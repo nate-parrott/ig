@@ -88,4 +88,10 @@ class CoreDataManager: NSObject {
         obj.setValue(UIImagePNGRepresentation(image), forKey: "data")
         return obj
     }
+    
+    func save() {
+        if managedObjectContext!.hasChanges {
+            managedObjectContext!.save(nil)
+        }
+    }
 }

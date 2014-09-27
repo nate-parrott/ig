@@ -1,13 +1,16 @@
 PODS:
   - GPUImage (0.1.4)
+  - msgpack (0.1.3)
   - OpenCV (2.4.8)
 
 DEPENDENCIES:
   - GPUImage
+  - msgpack
   - OpenCV
 
 SPEC CHECKSUMS:
   GPUImage: ac2bde5f4dbea02a81ced6313964cec1f2043ca9
+  msgpack: 417e3765eba6706e43e103a211a607a75a15d470
   OpenCV: 7d5de7dc31a8f3925eb643b62d16c2cafa373527
 
 COCOAPODS: 0.33.1

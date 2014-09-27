@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-InstaGrade Scanner-msgpack.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-InstaGrade Scanner.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>A5996FAE1A774AB39A33A3FB</key>
+		<key>12D67D11EA13461FB0ABBD63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DDD4DADB39EE4EAEB8604E35</key>
+		<key>31894631AB574E868B3D46D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F7523385E45647EB8A1F022A</key>
+		<key>488450EFCD2F443E9EC9A0B3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A192F76DFCE14D83AD0C7F08</key>
 		<dict>
 			<key>primary</key>
 			<true/>

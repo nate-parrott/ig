@@ -14,7 +14,7 @@ func APIHost() -> (String, Int) {
     return (host, port)
 }
 
-class API: NSObject {
+class API: NSObject, NSURLSessionDelegate {
     var userEmail: String? {
         get {
             return NSUserDefaults.standardUserDefaults().objectForKey("Email") as? String
@@ -37,7 +37,8 @@ class API: NSObject {
         }
         NSNotificationCenter.defaultCenter().postNotificationName("APILoginStatusChangedNotification", object: nil)
     }
-    func call(endpoint: String, var args: [String: String], callback: NSData? -> ()) -> NSURLSessionTask {
+    
+    private func makeURLRequest(endpoint: String, var args: [String: String]) -> NSMutableURLRequest {
         let urlComponents = NSURLComponents()
         
         let (host, port) = APIHost()
@@ -52,13 +53,19 @@ class API: NSObject {
         urlComponents.scheme = "http"
         let url = urlComponents.URL!
         println("URL: \(url)")
-        let request = NSURLRequest(URL: url)
+        let request = NSMutableURLRequest(URL: url)
+        return request
+    }
+    
+    func call(endpoint: String, args: [String: String], callback: NSData? -> ()) -> NSURLSessionTask {
+        let request = makeURLRequest(endpoint, args: args)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             callback(data)
         })
         task.resume()
         return task
     }
+    
     func fetchQuizWithIndex(index: Int, callback: Quiz? -> ()) {
         if let quiz = findLocalQuizWithIndex(index) {
             callback(quiz)
@@ -83,12 +90,40 @@ class API: NSObject {
             }
         }
     }
+    
+    func uploadQuizInstances() {
+        let maxQuizzesToUpload = 20
+        
+        let query = NSFetchRequest(entityName: "QuizInstance")
+        query.predicate = NSPredicate(format: "uploadedInBatch = NULL")
+        let notYetUploaded = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)! as [QuizInstance]
+        if countElements(notYetUploaded) > 0 {
+            let rangeEnd = min(countElements(notYetUploaded), maxQuizzesToUpload)
+            let uploading = Array(notYetUploaded[0..<rangeEnd])
+            
+            let batchName = "date:\(NSDate.timeIntervalSinceReferenceDate())"
+            for item in uploading {
+                item.uploadedInBatch = batchName
+            }
+            
+            let postJson: [String: AnyObject] = ["quizInstances": uploading.map({ $0.serialize() })]
+            let postData = (postJson as NSDictionary).messagePack()
+            let urlReq = makeURLRequest("/upload_quiz_instances", args: [String: String]())
+            urlReq.HTTPMethod = "POST"
+            urlReq.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+            SharedBackgroundUploader().startUpload(urlReq, data: postData, type: "QuizUpload", info: ["BatchName": batchName])
+        }
+    }
+    
     func findLocalQuizWithIndex(index: Int) -> Quiz? {
         let query = NSFetchRequest(entityName: "Quiz")
         query.predicate = NSPredicate(format: "index = %@", NSNumber(integer: index))
         return SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)?.first as? Quiz
     }
     var queriedQuizIds = Set<Int>()
+    
+    
+    
 }
 
 var _sharedAPI: API? = nil
@@ -102,3 +137,25 @@ func SharedAPI() -> API {
 }
 
 let APILoginStatusChangedNotification = "APILoginStatusChangedNotification"
+
+
+func setupQuizUploadHandler(uploader: BackgroundUploader) {
+    uploader.handlersForTypes["QuizUpload"] = {
+        (task: NSURLSessionTask, error: NSError?, userInfo: [String: AnyObject]) in
+        AsyncOnMainQueue() {
+            let batchName = userInfo.get("BatchName")! as String
+            let query = NSFetchRequest(entityName: "QuizInstance")
+            query.predicate = NSPredicate(format: "uploadedInBatch = %@", batchName)
+            let itemsInBatch = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)! as [QuizInstance]
+            if let actualError = error {
+                for item in itemsInBatch {
+                    item.uploadedInBatch = nil
+                }
+            } else {
+                for item in itemsInBatch {
+                    item.uploaded = true
+                }
+            }
+        }
+    }
+}

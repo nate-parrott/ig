@@ -19,6 +19,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3d3-0v-m0A">
                     <rect key="frame" x="262" y="-1" width="50" height="70.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                    <accessibility key="accessibilityConfiguration" label="Dismiss quiz"/>
                     <state key="normal" image="Cancel">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -41,6 +42,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="whP-YM-82c">
                     <rect key="frame" x="8" y="0.0" width="50" height="70"/>
                     <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                    <accessibility key="accessibilityConfiguration" label="Save quiz"/>
                     <state key="normal" image="Save">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

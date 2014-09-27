@@ -6,7 +6,7 @@ import login
 
 class PrintForm(webapp2.RequestHandler):
 	def get(self, index):
-		form = Form.all().filter("index =", int(index)).filter("user =", login.current_user(self)).get()
+		form = Form.all().filter("index =", int(index)).ancestor(login.current_user(self)).get()
 		if not form:
 			self.error(404)
 			return

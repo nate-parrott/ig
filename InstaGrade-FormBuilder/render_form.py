@@ -87,8 +87,9 @@ class Layout(object):
 		return (0,0)
 
 class Container(Layout):
-	items = []
-	items_not_fit = []
+	def __init__(self):
+		self.items = []
+		self.items_not_fit = []
 
 class Vertical(Container):
 	@respects_margin
@@ -206,12 +207,13 @@ class Text(Layout):
 		return (max_width, height)
 
 class PageLayouter(object):
+	def __init__(self):
+		self.page_decorators = []
 	container_class = Vertical
 	width, height = (0, 0)
 	margin = 0
 	border_image = None
 	border_content_proportional_insets = (0,0,0,0)
-	page_decorators = []
 	def render(self, canvas, layout_items, draw=True):
 		self.page_number = 0
 		while True:
@@ -276,13 +278,17 @@ class BarcodeDecorator(object):
 		total_bits = BARCODE_HORIZONTAL_BITS*BARCODE_VERTICAL_BITS
 		all_bits = '01' + bits(page_number, BARCODE_BITS_FOR_PAGE_NUM) + bits(self.id, (total_bits - BARCODE_BITS_FOR_PAGE_NUM - 2))
 		canvas.setFillColor(black)
+		bit_matrix = map(lambda _: ["0"] * BARCODE_HORIZONTAL_BITS, range(BARCODE_VERTICAL_BITS))
 		for i in xrange(total_bits):
 			col = i % BARCODE_HORIZONTAL_BITS
 			row = i / BARCODE_HORIZONTAL_BITS
 			bit_w = (right-left) * 1.0 / BARCODE_HORIZONTAL_BITS
 			bit_h = (bottom-top) * 1.0 / BARCODE_VERTICAL_BITS
 			if all_bits[i] == '1':
+				bit_matrix[row][col] = '1'
 				canvas.rect(left + bit_w * col, top + bit_h * row, bit_w, bit_h, fill=1)
+		print "id: {0}:{1}\n, BITS: {2}\nMATRIX: \n{3}".format(self.id, bits(self.id, (total_bits - BARCODE_BITS_FOR_PAGE_NUM - 2)), all_bits, "\n".join(map(lambda x: "".join(x), bit_matrix)))
+		
 		
 def bits(num, width):
 	format_string = "{0:0>"+str(width)+"b}"

@@ -2,4 +2,7 @@
 
 @interface QuizInstance : _QuizInstance {}
 // Custom logic goes here.
+
+- (NSDictionary *)serialize;
+
 @end

@@ -12,6 +12,7 @@ class ScanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appBecameActive", name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillBecomeInactive", name: UIApplicationWillResignActiveNotification, object: nil)
         
@@ -56,6 +57,10 @@ class ScanViewController: UIViewController {
         statusBackdrop = UIView()
         statusBackdrop.backgroundColor = UIColor(white: 0.1, alpha: 0.7)
         view.insertSubview(statusBackdrop, belowSubview: statusView)
+        
+        savedQuizzesButton.layer.borderWidth = 2
+        savedQuizzesButton.layer.cornerRadius = savedQuizzesButton.width / 2
+        savedQuizzesButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         viewDidLayoutSubviews()
     }
@@ -103,13 +108,14 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "1202652")
+        let image = UIImage(named: "1769634")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
                 let scanned = ScannedPage(image: image)
                 let barcode = scanned.barcode
                 println("Barcode is index \(barcode.index) and page # \(barcode.pageNum)")
+                self.infoController.addPage(scanned)
             } else {
                 println("Scan failed")
             }
@@ -133,13 +139,16 @@ class ScanViewController: UIViewController {
             } else {
                 pageStatusLabel.text = "Scan Complete"
             }
+            okayButton.enabled = true
         case .None:
             // do nothing
             if infoController.loadingCount > 0 {
                 pageStatusLabel.text = "Loading..."
             }
+            okayButton.enabled = false
         case .PartialScan(pages: let pages, total: let total):
             pageStatusLabel.text = NSString(format: NSLocalizedString("Page %i/%i", comment: ""), pages, total)
+            okayButton.enabled = false
         }
     }
     
@@ -212,8 +221,6 @@ class ScanViewController: UIViewController {
     }
     
     @IBAction func acceptScannedQuiz() {
-        // TODO: everything
-        
         if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
             let manualResponseTemplates = infoController.quiz!.getManuallyGradedResponseTemplates()
             if countElements(manualResponseTemplates.filter( { $0 != nil} )) > 0 {
@@ -235,8 +242,19 @@ class ScanViewController: UIViewController {
             }
         }
     }
+    
+    var justSavedQuizCount: Int = 0 {
+        didSet {
+            savedQuizzesButton.setTitle("\(justSavedQuizCount)", forState: UIControlState.Normal)
+        }
+    }
         
     func saveScannedQuiz() {
+        let instance = infoController.createGradedQuizInstance()
+        SharedAPI().uploadQuizInstances()
+        
+        // do animation:
+        
         let gradeFlyingAnimatedView = pageStatusLabel.snapshotViewAfterScreenUpdates(false)
         view.addSubview(gradeFlyingAnimatedView)
         gradeFlyingAnimatedView.frame = view.convertRect(pageStatusLabel.bounds, fromView: pageStatusLabel)
@@ -244,9 +262,18 @@ class ScanViewController: UIViewController {
         func scaleValues(values: [CGFloat]) -> [NSValue] {
             return values.map({ NSValue(CATransform3D: CATransform3DMakeScale($0, $0, $0)) })
         }
+
+        let duration: NSTimeInterval = 0.6
         
         CATransaction.begin()
+        CATransaction.setCompletionBlock { () -> Void in
+            gradeFlyingAnimatedView.removeFromSuperview()
+            self.justSavedQuizCount++
+        }
         let fly = CAKeyframeAnimation(keyPath: "position")
+        fly.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        fly.removedOnCompletion = false
+        fly.fillMode = kCAFillModeForwards
         let fromPos = gradeFlyingAnimatedView.center
         let toPos = savedQuizzesButton.center
         let controlPoint = CGPointMake(fromPos.x, toPos.y)
@@ -254,28 +281,41 @@ class ScanViewController: UIViewController {
         path.moveToPoint(fromPos)
         path.addQuadCurveToPoint(toPos, controlPoint: controlPoint)
         fly.path = path.CGPath
-        fly.duration = 1
+        fly.duration = duration
         gradeFlyingAnimatedView.layer.addAnimation(fly, forKey: "gradeFlyingAnimatedView")
         let growAndShrink = CAKeyframeAnimation(keyPath: "transform")
+        growAndShrink.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        growAndShrink.removedOnCompletion = false
+        growAndShrink.fillMode = kCAFillModeForwards
+        growAndShrink.duration = duration
         growAndShrink.keyTimes = [0.0, 0.5, 1.0]
-        growAndShrink.values = scaleValues([1, 2, 0.01])
+        growAndShrink.values = scaleValues([1, 1.5, 0.01])
         gradeFlyingAnimatedView.layer.addAnimation(growAndShrink, forKey: "growAndShrink")
         let growAndShrinkButton = CAKeyframeAnimation(keyPath: "transform")
+        growAndShrinkButton.duration = duration
         growAndShrinkButton.keyTimes = [0.0, 0.8, 1.0]
-        growAndShrinkButton.values = scaleValues([1, 2, 1])
+        growAndShrinkButton.values = scaleValues([1, 1.2, 1])
         savedQuizzesButton.layer.addAnimation(growAndShrinkButton, forKey: "savedQuizzesButton")
-        CATransaction.setCompletionBlock { () -> Void in
-            
-        }
         CATransaction.commit()
         
         pageStatusLabel.alpha = 0
-        UIView.animateWithDuration(0.3, delay: 1.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, delay: duration + 0.5, options: UIViewAnimationOptions.AllowUserInteraction, animations: { () -> Void in
             self.pageStatusLabel.alpha = 1
         }) { (_) -> Void in
             
         }
         
+        
         infoController.clear()
+    }
+    
+    // MARK: Transitions
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowResults" {
+            let resultsVC = (segue.destinationViewController as ResultsTableViewController)
+            resultsVC.transitioningDelegate = resultsVC
+            resultsVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+            justSavedQuizCount = 0
+        }
     }
 }

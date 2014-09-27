@@ -8,6 +8,8 @@ extern const struct QuizInstanceAttributes {
 	__unsafe_unretained NSString *earnedScore;
 	__unsafe_unretained NSString *itemsWithResponses;
 	__unsafe_unretained NSString *maximumScore;
+	__unsafe_unretained NSString *uploaded;
+	__unsafe_unretained NSString *uploadedInBatch;
 } QuizInstanceAttributes;
 
 extern const struct QuizInstanceRelationships {
@@ -53,6 +55,18 @@ extern const struct QuizInstanceRelationships {
 
 //- (BOOL)validateMaximumScore:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSNumber* uploaded;
+
+@property (atomic) BOOL uploadedValue;
+- (BOOL)uploadedValue;
+- (void)setUploadedValue:(BOOL)value_;
+
+//- (BOOL)validateUploaded:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NSString* uploadedInBatch;
+
+//- (BOOL)validateUploadedInBatch:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSOrderedSet *pageImages;
 
 - (NSMutableOrderedSet*)pageImagesSet;
@@ -97,6 +111,15 @@ extern const struct QuizInstanceRelationships {
 
 - (double)primitiveMaximumScoreValue;
 - (void)setPrimitiveMaximumScoreValue:(double)value_;
+
+- (NSNumber*)primitiveUploaded;
+- (void)setPrimitiveUploaded:(NSNumber*)value;
+
+- (BOOL)primitiveUploadedValue;
+- (void)setPrimitiveUploadedValue:(BOOL)value_;
+
+- (NSString*)primitiveUploadedInBatch;
+- (void)setPrimitiveUploadedInBatch:(NSString*)value;
 
 - (NSMutableOrderedSet*)primitivePageImages;
 - (void)setPrimitivePageImages:(NSMutableOrderedSet*)value;

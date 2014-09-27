@@ -8,90 +8,157 @@
 
 import UIKit
 
-class ResultsTableViewController: UITableViewController {
-
+class ResultsTableViewController: UITableViewController, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+    
+    let topMargin: CGFloat = 50
+    var contentBackdrop: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        scrollViewDidScroll(tableView)
+        
+        tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, 1, topMargin))
+        let tapRec = UITapGestureRecognizer(target: self, action: "dismiss")
+        tableView.tableHeaderView!.addGestureRecognizer(tapRec)
+        
+        contentBackdrop = UIView()
+        contentBackdrop.backgroundColor = UIColor.whiteColor()
+        tableView.insertSubview(contentBackdrop, atIndex: 0)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        reloadData()
+        view.setNeedsLayout()
     }
-
-    // MARK: - Table view data source
-
+    
+    var sections: [[QuizInstance]] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    func groupInstancesByQuiz(instances: [QuizInstance]) -> [[QuizInstance]] {
+        if let first = instances.first {
+            let firstQuiz = first.quiz!
+            for i in 0..<countElements(instances) {
+                if instances[i].quiz != firstQuiz {
+                    let group = Array(instances[0..<i])
+                    let leftover = Array(instances[i..<countElements(instances)])
+                    return [group] + groupInstancesByQuiz(leftover)
+                }
+            }
+            // these are all from the same quiz:
+            return [instances]
+        } else {
+            return []
+        }
+    }
+    
+    func reloadData() {
+        let fetchReq = NSFetchRequest(entityName: "QuizInstance")
+        fetchReq.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        let instances = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(fetchReq, error: nil)! as [QuizInstance]
+        sections = groupInstancesByQuiz(instances)
+    }
+    
+    // MARK: TableView
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
+        return countElements(sections)
     }
-
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].first!.quiz.title
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+        return countElements(sections[section])
     }
-
-    /*
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("QuizInstanceCell", forIndexPath: indexPath) as QuizInstanceCell
+        cell.quizInstance = sections[indexPath.section][indexPath.row]
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    
+    // MARK: Transitioning
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return self
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
+    
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+        return 0.7
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+    
+    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        let isDismissal = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) == self
+        let duration = transitionDuration(transitionContext)
+        let containerView = transitionContext.containerView()
+        let dimmingView = UIView(frame: containerView.bounds)
+        if isDismissal {
+            containerView.insertSubview(dimmingView, belowSubview: self.view)
+            dimmingView.backgroundColor = tableView.backgroundColor
+            tableView.backgroundColor = UIColor.clearColor()
+            UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: -dismissVelocity / containerView.height, options: nil, animations: { () -> Void in
+                self.view.transform = CGAffineTransformMakeTranslation(0, containerView.height)
+                dimmingView.alpha = 0
+            }, completion: { (_) -> Void in
+                self.view.removeFromSuperview()
+                dimmingView.removeFromSuperview()
+                transitionContext.completeTransition(true)
+            })
+        } else {
+            containerView.addSubview(dimmingView)
+            dimmingView.backgroundColor = UIColor.clearColor()
+            containerView.addSubview(self.view)
+            self.view.frame = transitionContext.finalFrameForViewController(self)
+            self.view.transform = CGAffineTransformMakeTranslation(0, containerView.height)
+            tableView.backgroundColor = UIColor.clearColor()
+            UIView.animateWithDuration(duration, animations: { () -> Void in
+                self.view.transform = CGAffineTransformIdentity
+                dimmingView.backgroundColor = UIColor(white: 0.1, alpha: 0.5)
+            }, completion: { (_) -> Void in
+                dimmingView.removeFromSuperview()
+                self.scrollViewDidScroll(self.tableView)
+                transitionContext.completeTransition(true)
+            })
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    
+    // MARK: Interaction
+    var isDismissing = false
+    @IBAction func dismiss() {
+        isDismissing = true
+        dismissViewControllerAnimated(true, completion: nil)
     }
-    */
-
+    
+    var dismissVelocity: CGFloat = 1
+    override func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if scrollView.contentOffset.y < -10 && velocity.y < -1 {
+            dismissVelocity = velocity.y
+            dismiss()
+        }
+    }
+    
+    // MARK: Layout
+    override func prefersStatusBarHidden() -> Bool {
+        return false
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if !isDismissing {
+            let scrollUpProportion: CGFloat = -scrollView.contentOffset.y / (view.height - topMargin)
+            let fadeOut: CGFloat = min(1.0, max(0.0, scrollUpProportion))
+            tableView.backgroundColor = UIColor(white: 0.1, alpha: (1 - fadeOut) * 0.5)
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentBackdrop.frame = CGRectMake(0, topMargin, view.width, tableView.contentSize.height + view.height)
+    }
 }

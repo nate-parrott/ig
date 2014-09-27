@@ -167,6 +167,11 @@ class QuizInfoController: NSObject {
     // MARK: Callbacks
     var onStatusChanged: (() -> ())?
     var onShowAdvisoryMessage: ((String) -> ())?
+    
+    func createGradedQuizInstance() -> QuizInstance {
+        let manualResponses = self.manualResponseItems != nil ? self.manualResponseItems! : quiz!.getManuallyGradedResponseTemplates()
+        return CreateQuizInstance(quiz!, pages, manualResponses)
+    }
 }
 
 func ==(lhs: QuizInfoController.Status, rhs: QuizInfoController.Status) -> Bool {

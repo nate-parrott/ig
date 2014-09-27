@@ -42,5 +42,6 @@ app = webapp2.WSGIApplication([
 		('/(.+)/created', created.Created),
 		('/auth_and_save', form.AuthAndSave),
 		('/(.+)/print', print_form.PrintForm),
-		('/(.+)/details', api.FormDetail)
+		('/(.+)/details', api.FormDetail),
+		('/upload_quiz_instances', api.UploadQuizInstances)
 ], debug=True)

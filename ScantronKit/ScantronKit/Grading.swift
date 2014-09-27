@@ -12,6 +12,7 @@ typealias QuizItem = [String: AnyObject]
 
 func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponses: [QuizItemManuallyGradedResponse?]) -> QuizInstance {
     let instance = SharedCoreDataManager().newEntity("QuizInstance") as QuizInstance
+    instance.quiz = quiz
     let createPageImage = {
         (page: ScannedPage) -> PageImage in
         let entity = SharedCoreDataManager().newEntity("PageImage") as PageImage
@@ -21,7 +22,12 @@ func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponse
     }
     instance.pageImages = NSOrderedSet(array: pages.map({ createPageImage($0) }))
     
-    instance.itemsWithResponses = quiz.generateResponseItemsWithScannedPages(pages, manuallyGradedResponses: manuallyGradedResponses)
+    let itemsWithResponses = quiz.generateResponseItemsWithScannedPages(pages, manuallyGradedResponses: manuallyGradedResponses)
+    instance.itemsWithResponses = itemsWithResponses
+    let grade = GenerateGradeForItemsWithResponses(itemsWithResponses)
+    instance.earnedScore = grade.points
+    instance.maximumScore = grade.total
+    instance.date = NSDate()
     
     return instance
 }
@@ -133,5 +139,18 @@ func indexOfDarkestFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int {
     let brightnesses = frames.map({ pixels.averageBrightnessInRect($0.toRect(image.size)) })
     let darkestIndex = sorted(Array(0..<countElements(frames)), { brightnesses[$0] < brightnesses[$1] }).first!
     return darkestIndex
+}
+
+extension QuizInstance {
+    @objc func nameImage() -> UIImage? {
+        let quizItems = (quiz.json as [String: AnyObject]).get("items")! as [QuizItem]
+        var nameItemOpt = quizItems.filter({ ($0.get("type")! as String) == "name-field" }).first
+        if let nameItem = nameItemOpt {
+            let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
+            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
+            return pageImage.subImage(frame.toRect(pageImage.size))
+        }
+        return nil
+    }
 }
 

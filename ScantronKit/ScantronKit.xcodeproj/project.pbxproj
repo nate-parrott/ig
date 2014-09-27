@@ -18,6 +18,7 @@
 		5F07D1D419C78EBE00B9E615 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D319C78EBE00B9E615 /* CameraView.swift */; };
 		5F07D1D619C78EF000B9E615 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D519C78EF000B9E615 /* API.swift */; };
 		5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */; };
+		5F14D84219D527FF000A962E /* BackgroundUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14D84119D527FF000A962E /* BackgroundUploader.swift */; };
 		5F1CCE0919D090CC002B7C3E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0819D090CC002B7C3E /* StatusView.swift */; };
 		5F1CCE0D19D0918C002B7C3E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0C19D0918C002B7C3E /* StatusView.xib */; };
 		5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38339919CD16D900DE6C71 /* Scanner.swift */; };
@@ -52,6 +53,7 @@
 		5FC2F9E519D1C12A00D81AFD /* ScratchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC2F9E419D1C12A00D81AFD /* ScratchViewController.swift */; };
 		5FC9E96719C8E03B0091EF1A /* UIImage+SubImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */; };
 		5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */; };
+		5FD4F96319D65AA500BFC553 /* QuizInstanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */; };
 		5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC12D1996D737009736D5 /* Unprojection.swift */; };
 		5FFEC1331996DD7C009736D5 /* SKMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1321996DD7C009736D5 /* SKMath.mm */; };
 		5FFEC1351996DF72009736D5 /* PageExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1341996DF72009736D5 /* PageExtraction.swift */; };
@@ -81,6 +83,7 @@
 		5F07D1D319C78EBE00B9E615 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		5F07D1D519C78EF000B9E615 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5F14D84119D527FF000A962E /* BackgroundUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundUploader.swift; sourceTree = "<group>"; };
 		5F1CCE0819D090CC002B7C3E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		5F1CCE0C19D0918C002B7C3E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		5F38339919CD16D900DE6C71 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
@@ -131,6 +134,7 @@
 		5FC2F9E419D1C12A00D81AFD /* ScratchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScratchViewController.swift; sourceTree = "<group>"; };
 		5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+SubImage.swift"; sourceTree = "<group>"; };
 		5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizInstanceCell.swift; sourceTree = "<group>"; };
 		5FFEC12D1996D737009736D5 /* Unprojection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unprojection.swift; sourceTree = "<group>"; };
 		5FFEC1311996DD7C009736D5 /* SKMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMath.h; sourceTree = "<group>"; };
 		5FFEC1321996DD7C009736D5 /* SKMath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKMath.mm; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			children = (
 				5F07D1CF19C7844000B9E615 /* ScanViewController.swift */,
 				5F07D1D119C7845900B9E615 /* ResultsTableViewController.swift */,
+				5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */,
 				5F07D1D319C78EBE00B9E615 /* CameraView.swift */,
 				5F66A11B19CA0343009B14AE /* LoginViewController.swift */,
 				5F1CCE0819D090CC002B7C3E /* StatusView.swift */,
@@ -255,6 +260,7 @@
 				5FC1D1A819CBE51900377CF6 /* Models */,
 				5F07D1DD19C7900500B9E615 /* UI */,
 				5F07D1D519C78EF000B9E615 /* API.swift */,
+				5F14D84119D527FF000A962E /* BackgroundUploader.swift */,
 				5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */,
 				5F38339919CD16D900DE6C71 /* Scanner.swift */,
 				5F6BF93C19CE2B4B00AB5582 /* QuizInfoController.swift */,
@@ -381,6 +387,12 @@
 				TargetAttributes = {
 					5F6232471989E4E300706593 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = VPN8ZW6EAC;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					5F6232541989E4E300706593 = {
 						CreatedOnToolsVersion = 6.0;
@@ -496,6 +508,7 @@
 				5F07D1D619C78EF000B9E615 /* API.swift in Sources */,
 				5F3A5D6C19D0B013009552D5 /* PointsPickerView.swift in Sources */,
 				5FFEC1331996DD7C009736D5 /* SKMath.mm in Sources */,
+				5FD4F96319D65AA500BFC553 /* QuizInstanceCell.swift in Sources */,
 				5F1CCE0919D090CC002B7C3E /* StatusView.swift in Sources */,
 				5FFEC1351996DF72009736D5 /* PageExtraction.swift in Sources */,
 				5F62324E1989E4E300706593 /* AppDelegate.swift in Sources */,
@@ -512,6 +525,7 @@
 				5F6BF93D19CE2B4B00AB5582 /* QuizInfoController.swift in Sources */,
 				5FC1D1A719CBE51400377CF6 /* QuizInstance.m in Sources */,
 				5F57578619C796D6009A4A59 /* Helpers.swift in Sources */,
+				5F14D84219D527FF000A962E /* BackgroundUploader.swift in Sources */,
 				5F57578719C796D6009A4A59 /* Set.swift in Sources */,
 				5F3CA65C19CB565A006EC181 /* Logging.mm in Sources */,
 				5F928323198D5857006C693A /* CGGeomoetry.swift in Sources */,

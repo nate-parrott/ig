@@ -11,6 +11,7 @@ import UIKit
 class CameraView: UIView {
     
     override func willMoveToWindow(newWindow: UIWindow?) {
+        super.willMoveToWindow(newWindow)
         running = (newWindow != nil)
     }
     

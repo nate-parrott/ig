@@ -18,3 +18,9 @@
 #define COCOAPODS_VERSION_MINOR_OpenCV 4
 #define COCOAPODS_VERSION_PATCH_OpenCV 8
 
+// msgpack
+#define COCOAPODS_POD_AVAILABLE_msgpack
+#define COCOAPODS_VERSION_MAJOR_msgpack 0
+#define COCOAPODS_VERSION_MINOR_msgpack 1
+#define COCOAPODS_VERSION_PATCH_msgpack 3
+
