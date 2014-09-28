@@ -25,7 +25,7 @@
              @"maximumScore": self.maximumScore,
              @"responseItems": self.itemsWithResponses,
              @"quizIndex": self.quiz.index,
-             @"timestamp": @(self.date.timeIntervalSinceReferenceDate),
+             @"timestamp": @(self.date.timeIntervalSince1970),
              @"nameImage": nameImageData
              };
 }

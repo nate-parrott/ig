@@ -1,0 +1,10 @@
+{% extends "base_email.html" %}
+
+{% block content %}
+
+<h1>We've graded more copies of <strong>{{ quiz.title }}</strong></h1>
+<p>We've graded some more copies of <em>{{ quiz.title }}</em>. You can view the results online:</p>
+
+<a class='cta' href='http://instagradeformbuilder.appspot.com/{{ quiz.secret }}'>View Results</div> 
+
+{% endblock %}

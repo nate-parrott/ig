@@ -4,19 +4,22 @@ import json
 import render_form
 import StringIO
 from google.appengine.api import users
-from google.appengine.api import mail
-from html2text import html2text
+from send_mail import send_mail
 import util
 from util import templ8
 import render_form
 import login
+import os
+import uuid
+import base64
 
 class Form(db.Model):
 	title = db.StringProperty()
 	json = db.TextProperty()
-	viewed_results_since_last_email_sent = db.BooleanProperty(default=False)
+	viewed_results_since_last_email_sent = db.BooleanProperty(default=True)
 	created = db.DateTimeProperty(auto_now_add=True)
 	index = db.IntegerProperty()
+	secret = db.StringProperty()
 	
 	def new_model_attached_to_user(self, user):
 		models_for_user = Form.all().ancestor(user)
@@ -25,9 +28,10 @@ class Form(db.Model):
 		form_json = json.loads(self.json)
 		form_json['index'] = self.index
 		self.json = json.dumps(form_json)
-		all_keys = 'title json viewed_results_since_last_email_sent created index'.split(' ')
+		all_keys = 'title json viewed_results_since_last_email_sent created index secret'.split(' ')
 		key_dict = dict([(key, getattr(self, key)) for key in all_keys])
 		new_model = Form(parent=user, **key_dict)
+		new_model.secret = base64.urlsafe_b64encode(os.urandom(64) + uuid.uuid4().bytes)
 		new_model.put()
 		
 		try:
@@ -36,13 +40,10 @@ class Form(db.Model):
 			pass
 		
 		# send the email:
-		sender = "InstaGrade Robot <robot@instagradeapp.com>"
 		recipient = new_model.parent().email
 		subject = "Your quiz, \"%s\", is ready to scan" % (new_model.title)
 		html = templ8("created_email.html", {"form": new_model, "id": new_model.key().id(), "HOST": util.HOST})
-		body = html2text(html)
-		print "BODY: ", body
-		mail.send_mail(sender, recipient, subject, body, html=html)
+		send_mail(recipient, subject, html)
 		
 		return new_model
 	
@@ -62,8 +63,8 @@ class Submit(webapp2.RequestHandler):
 		
 		model = Form(title=title, json=json.dumps(form_json))
 		if login.current_user(self):
-			index = model.new_model_attached_to_user(login.current_user(self)).index
-			self.redirect('/{0}/created'.format(model.index))
+			model = model.new_model_attached_to_user(login.current_user(self))
+			self.redirect('/{0}?created=1'.format(model.secret))
 		else:
 			model.put()
 			self.redirect(users.create_login_url('/auth_and_save?id={0}'.format(model.key().id())))
@@ -71,14 +72,5 @@ class Submit(webapp2.RequestHandler):
 class AuthAndSave(webapp2.RequestHandler):
 	def get(self):
 		form = Form.get_by_id(int(self.request.get('id')))
-		form.new_model_attached_to_user(login.current_user(self))
-		self.redirect('/{0}/created'.format(form.index))
-
-class GetFormJSON(webapp2.RequestHandler):
-	def get(self, token):
-		form = Form.FromToken(token)
-		if not form:
-			self.error(404)
-			return
-		self.response.headers['Content-Type'] = 'application/json'
-		self.response.write(form.json)
+		form = form.new_model_attached_to_user(login.current_user(self))
+		self.redirect('/{0}?created=1'.format(form.secret))

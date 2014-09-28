@@ -13,7 +13,10 @@ html, body {
 
 #form .sidebar {
 	position: fixed;
-	top: 0px;
+	
+	/*top: 0px;*/
+	top: 200px;
+	
 	bottom: 0px;
 	width: 180px;
 	margin-top: 1em;
@@ -190,3 +193,42 @@ html, body {
 	background-color: #c11;
 }
 
+/* email list subscription */
+
+#email-list {
+	background-color: #111;
+	color: white;
+	padding: 20px;
+}
+#email-list > div {
+	width: 100%;
+	max-width: 600px;
+	margin: auto;
+	text-align: center;
+}
+#email-list input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	border: none;
+	border-bottom: 2px solid white;
+	background-color: transparent;
+	color: white;
+	font-size: 16px;
+}
+
+#email-list input[type=submit] {
+	position: relative;
+	bottom: 2px;
+}
+
+#subscribed {
+	display: none;
+	margin: auto;
+	border-bottom: 2px solid white;
+	padding-top: 20px;
+}
+#subscribed:target {
+	display: block;
+}

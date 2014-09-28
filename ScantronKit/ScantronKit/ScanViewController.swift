@@ -108,7 +108,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "1769634")
+        let image = UIImage(named: "ab")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
@@ -263,7 +263,7 @@ class ScanViewController: UIViewController {
             return values.map({ NSValue(CATransform3D: CATransform3DMakeScale($0, $0, $0)) })
         }
 
-        let duration: NSTimeInterval = 0.6
+        let duration: NSTimeInterval = 0.5
         
         CATransaction.begin()
         CATransaction.setCompletionBlock { () -> Void in

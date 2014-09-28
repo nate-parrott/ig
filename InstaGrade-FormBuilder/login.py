@@ -27,7 +27,7 @@ def current_user(handler=None):
 		if token != None:
 			username = uid
 	elif users.get_current_user():
-		username = users.get_current_user().nickname()
+		username = users.get_current_user().email()
 	
 	if username:
 		return User.get_or_insert(username, email=username)

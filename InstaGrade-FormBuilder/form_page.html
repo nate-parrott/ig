@@ -1,0 +1,27 @@
+{% extends "centered.html" %}
+
+{% block content %}
+
+{% if just_created %}
+
+<h1>Created "{{ form.title }}"</h1>
+<p>Now you'll want to <a href='/{{secret}}/print'>print some quizzes</a> and <a href='/download_scanner'>download InstaGrade Scanner</a> to start scanning them. We've also sent you an email with a link to the app.</p>
+
+{% else %}
+
+<h1>{{ form.title }}</h1>
+<p><a href='/{{secret}}/print'>Print answer sheets</a> | <a href='/download_scanner'>Download the Instagrade Scanner app</a></p>
+
+{% endif %}
+
+<ul id='instances'>
+	{% for instance in instances %}
+	<li>
+		<img src='{{ instance.name_image_url }}'/>
+		<div class='score'>{{ instance.points }} / {{ instance.max_points }}</div>
+		<div class='date'>{{ instance.date }}</div>
+	</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

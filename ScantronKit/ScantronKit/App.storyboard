@@ -54,10 +54,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-za-PvR">
-                                            <rect key="frame" x="8" y="6" width="514" height="56.5"/>
+                                            <rect key="frame" x="8" y="6" width="510.5" height="56.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMS-fF-NeX">
-                                            <rect key="frame" x="530" y="20" width="61.5" height="28.5"/>
+                                            <rect key="frame" x="526.5" y="20" width="61.5" height="28.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -68,7 +68,7 @@
                                         <constraint firstAttribute="centerY" secondItem="Gep-za-PvR" secondAttribute="centerY" constant="0.75" id="7EE-VE-pNA"/>
                                         <constraint firstAttribute="centerY" secondItem="NMS-fF-NeX" secondAttribute="centerY" constant="0.25" id="BiX-xT-dHI"/>
                                         <constraint firstItem="NMS-fF-NeX" firstAttribute="leading" secondItem="Gep-za-PvR" secondAttribute="trailing" constant="8" id="ZCk-Le-0Ss"/>
-                                        <constraint firstItem="NMS-fF-NeX" firstAttribute="trailing" secondItem="3eW-q5-PJI" secondAttribute="trailingMargin" id="sPV-ZI-RrN"/>
+                                        <constraint firstItem="NMS-fF-NeX" firstAttribute="trailing" secondItem="3eW-q5-PJI" secondAttribute="trailingMargin" constant="-4" id="sPV-ZI-RrN"/>
                                         <constraint firstItem="Gep-za-PvR" firstAttribute="top" secondItem="3eW-q5-PJI" secondAttribute="topMargin" constant="-2" id="xxC-CP-Cgg"/>
                                     </constraints>
                                 </tableViewCellContentView>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	
+	#message {
+		line-height: 1.5;
+		color: #111;
+		width: 90%;
+		max-width: 600px;
+		margin: auto;
+		font-family: sans-serif;
+	}
+	
+	a {
+		color: #f22;
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		font-family: "Helvetica Neue", sans-serif;
+		font-weight: 300;
+	}
+
+	h1 {
+		margin: auto;
+		padding-left: 1em;
+		padding-right: 1em;
+		border-bottom: 2px solid #f22;
+	}
+	
+	.cta {
+		max-width: 300px;
+		margin: 1em auto;
+		background-color: #f22;
+		color: white;
+		font-size: large;
+		font-weight: bold;
+		padding: 1em;
+		text-decoration: none;
+	}
+	
+	</style>
+</head>
+<body>
+	<div id='message'>
+		<div>
+			<img id='logo' src='http://instagradeformbuilder.appspot.com/static/logo.png' alt='Instagrade'/>
+		</div>
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>

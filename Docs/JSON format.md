@@ -1,6 +1,7 @@
 # JSON format
 
-QUIZ:
+## quizzes
+
 {
 	title: "",
 	pageCount: #,
@@ -10,7 +11,7 @@ QUIZ:
 item:
 {
 	type: true-false | multiple-choice | free-response | name-field | title
-	pointValue: #,
+	points: #,
 	description: ""
 	visibleIndex: # (1-indexed)
 	// after grading:
@@ -45,3 +46,18 @@ arrays of 5 floats.
 first is the page # that this item appears on
 last 4 are left, top, right, bottom, from 0..1
 
+
+## quiz instance uploads:
+{quizInstances: [quiz instances]}
+
+## graded quiz instances
+...are sent via `msgpack`
+
+{
+	earnedScore:
+	maximumScore:
+	responseItems:
+	quizIndex:
+	timestamp:
+	nameImage: <jpeg data>
+}

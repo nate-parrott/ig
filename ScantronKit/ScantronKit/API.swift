@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Nate Parrott. All rights reserved.
 //
 
+// TODO: clear the queried quizzes list after a while in case someone erroneously picks up the id while it's invalid and then it later becomes valid
+
 import UIKit
 
 func APIHost() -> (String, Int) {
