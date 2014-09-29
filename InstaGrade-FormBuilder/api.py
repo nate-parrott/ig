@@ -49,7 +49,7 @@ class UploadQuizInstances(webapp2.RequestHandler):
 				quiz.viewed_results_since_last_email_sent = False
 				to_save.append(quiz)
 				
-				subject = "We've grades some copies of your quiz, '{0}'".format(quiz.title)
+				subject = "We've graded some copies of your quiz, '{0}'".format(quiz.title)
 				html = templ8("graded_email.html", {"quiz": quiz})
 				send_mail(quiz.parent().email, subject, html)
 		

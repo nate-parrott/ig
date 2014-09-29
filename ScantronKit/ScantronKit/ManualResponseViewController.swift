@@ -15,9 +15,10 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
         
     }
     
-    func setupWithItems(items: [QuizItemManuallyGradedResponse?], pages: [ScannedPage]) {
+    func setupWithItems(items: [QuizItemManuallyGradedResponse?], pages: [ScannedPage], quiz: Quiz) {
         responseItems = items
         scannedPages = pages
+        self.quiz = quiz
         dataSource = self
         setViewControllers([viewControllerAtIndex(nextNonEmptyIndexAfter(-1)!)], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         // UIImageWriteToSavedPhotosAlbum(scannedPages.first!.image, nil, nil, nil)
@@ -25,12 +26,14 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     
     var responseItems: [QuizItemManuallyGradedResponse?]!
     var scannedPages: [ScannedPage]!
+    var quiz: Quiz!
     
     func viewControllerAtIndex(index: Int) -> IndividualResponseViewController {
         let vc = IndividualResponseViewController(nibName: "IndividualResponseViewController", bundle: nil)
         vc.responseItem = responseItems[index]!
         vc.index = index
         vc.scannedPages = scannedPages
+        vc.quiz = quiz
         vc.loadView()
         vc.pointsView.onAssignedPoints = {
             [weak self, weak vc]

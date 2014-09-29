@@ -1,5 +1,12 @@
 {% extends "centered.html" %}
 
+{% block head %}
+
+{{ super() }}
+<link rel='stylesheet' href='/static/form_page.css'/>
+
+{% endblock %}
+
 {% block content %}
 
 {% if just_created %}
@@ -14,14 +21,28 @@
 
 {% endif %}
 
-<ul id='instances'>
+{% if instances|length > 0 %}
+
+<table id='results'>
+	<tr>
+		<th colspan='2'>
+			{{ instances|length }} copies graded, with an average score of {{ average_points }} / {{ instances[0].max_points }}.
+		</th>
+	</tr>
+	
 	{% for instance in instances %}
-	<li>
-		<img src='{{ instance.name_image_url }}'/>
-		<div class='score'>{{ instance.points }} / {{ instance.max_points }}</div>
-		<div class='date'>{{ instance.date }}</div>
-	</li>
+	<tr>
+		<td>
+			<img src='{{ instance.name_image_url }}'/>
+		</td>
+		<td class='score'>
+			{{ instance.points }} / {{ instance.max_points }}
+		</td>
+		<!--<div class='date'>{{ instance.date }}</div>-->
+	</tr>
 	{% endfor %}
-</ul>
+</div>
+
+{% endif %}
 
 {% endblock %}

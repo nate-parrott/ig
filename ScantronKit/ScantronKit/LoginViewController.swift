@@ -20,7 +20,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func reload() {
+    @IBAction func reload() {
         let (host, port) = APIHost()
         let url = "http://\(host):\(port)/get_token"
         self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)))
@@ -37,4 +37,21 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         }
         return true
     }
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        loader.animateAlphaTo(1, duration: 0.5)
+        error.hidden = true
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        loader.animateAlphaTo(0, duration: 0.5)
+    }
+    
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+        self.error.hidden = false
+    }
+    
+    @IBOutlet var loader: UIActivityIndicatorView!
+    
+    @IBOutlet var error: UIView!
 }

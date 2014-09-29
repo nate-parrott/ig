@@ -13,23 +13,62 @@ html, body {
 	height: 100%;
 }
 .centered > div {
+	display: table-row;
+}
+.centered > div > div {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
 }
-.centered > div > div {
-	padding: 3em;
-	text-align: center;
-	display: inline-block;
+#header-row {
+	height: 40px;
+	background-color: #eee;
+}
+#header-row > div {
+	padding: 6px;
+}
+#header-row > div:first-child {
+	text-align: left;
+}
+#header-row > div:first-child * {
+	vertical-align: middle;
+}
+
+#main-content {
 	max-width: 700px;
+	padding: 2em;
+	margin: auto;
+}
+#logo {
+	max-height: 40px;
+}
+#header-row h3 {
+	margin: 0px;
+	display: inline-block;
+}
+#header-row a {
+	text-decoration: none;
+	padding: 0 20px;
 }
 </style>
 
 <div class='centered'>
+	<div id='header-row'>
+		<div>
+			<img id='logo' src='/static/logo-black.png'/>
+			<h3>Instagrade</h3>
+			<a href='/'>New quiz</a>
+			{% if global_logout_url %}
+			<a id='logout' href='{{ global_logout_url }}'>Log out {{ global_email }}</a>
+			{% endif %}
+		</div>
+	</div>
 	<div>
 		<div>
-			{% block content %}
-			{% endblock %}
+			<div id='main-content'>
+				{% block content %}
+				{% endblock %}
+			</div>
 		</div>
 	</div>
 </div>

@@ -24,6 +24,7 @@ from google.appengine.api import users
 import login
 import api
 import email_list
+import info
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -42,8 +43,10 @@ app = webapp2.WSGIApplication([
 		('/download_scanner', DownloadScanner),
 		('/auth_and_save', form.AuthAndSave),
 		('/(.+)/print', print_form.PrintForm),
+		('/(.+)/print/(.+)', print_form.PrintForm),
 		('/(.+)/details', api.FormDetail),
 		('/upload_quiz_instances', api.UploadQuizInstances),
 		('/add_to_email_list', email_list.Add),
+		('/how-it-works', info.HowItWorks),
 		('/(.+)', form_page.FormPage)
 ], debug=True)

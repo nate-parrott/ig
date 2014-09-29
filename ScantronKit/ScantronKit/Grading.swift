@@ -103,6 +103,11 @@ extension Quiz {
             return countElements(getManuallyGradedResponseTemplates().filter({ $0 != nil })) == 0
         }
     }
+    var aspectRatio: CGFloat {
+        get {
+            return (self.json as [String: AnyObject]).getOrDefault("aspectRatio", defaultVal: 1.0) as CGFloat
+        }
+    }
 }
 
 class QuizItemManuallyGradedResponse {
@@ -130,6 +135,17 @@ struct QuizItemFrame {
     func toRect(size: CGSize) -> CGRect {
         return CGRectMake(CGFloat(left) * size.width, CGFloat(top) * size.height, CGFloat(right - left) * size.width, CGFloat(bottom - top) * size.height)
     }
+    func extract(image: UIImage, aspectRatio: CGFloat) -> UIImage {
+        let rect = toRect(image.size)
+        let image = image.subImage(rect)
+        var imageSize = image.size
+        if aspectRatio > 1 {
+            imageSize.width *= aspectRatio
+        } else {
+            imageSize.height /= aspectRatio
+        }
+        return image.resizeTo(imageSize)
+    }
 }
 
 func indexOfDarkestFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int {
@@ -148,7 +164,7 @@ extension QuizInstance {
         if let nameItem = nameItemOpt {
             let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
             let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
-            return pageImage.subImage(frame.toRect(pageImage.size))
+            return frame.extract(pageImage, aspectRatio: quiz.aspectRatio)
         }
         return nil
     }

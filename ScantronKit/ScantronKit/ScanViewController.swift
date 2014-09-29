@@ -8,6 +8,8 @@
 
 import UIKit
 
+let HasEverGradedQuizDefaultsKey = "HasEverGradedQuizDefaultsKey"
+
 class ScanViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -165,20 +167,22 @@ class ScanViewController: UIViewController {
         let height: CGFloat = 70
         statusView!.bounds = CGRectMake(0, 0, width, height)
         
-        var y: CGFloat = 0
+        var statusVisible = false
         switch infoController.status {
         case .None:
             if infoController.loadingCount > 0 {
-                y = view.bounds.size.height - statusView!.bounds.size.height/2
-            } else {
-                y = view.bounds.size.height + statusView!.bounds.size.height/2 + 20
+                statusVisible = true
             }
         case .PartialScan(pages: _, total: _):
-            y = view.bounds.size.height - statusView!.bounds.size.height/2
+            statusVisible = true
         case .Done:
-            y = view.bounds.size.height - statusView!.bounds.size.height/2
+            statusVisible = true
         }
+        let y: CGFloat = statusVisible ? view.bounds.size.height - statusView!.bounds.size.height/2 : view.bounds.size.height + statusView!.bounds.size.height/2 + 20
         statusViewCenterPoint = CGPointMake(view.bounds.size.width/2, y)
+        
+        let showEdu = !NSUserDefaults.standardUserDefaults().boolForKey(HasEverGradedQuizDefaultsKey).boolValue && !statusVisible
+        edu.animateAlphaTo(showEdu ? 1 : 0, duration: 0.5)
         
         statusBackdrop.frame = CGRectMake(0, view.bounds.size.height - statusView!.bounds.size.height, view.bounds.size.width, statusView!.bounds.size.height)
     }
@@ -226,7 +230,7 @@ class ScanViewController: UIViewController {
             if countElements(manualResponseTemplates.filter( { $0 != nil} )) > 0 {
                 let navController = storyboard!.instantiateViewControllerWithIdentifier("ManualResponseNavController") as UINavigationController
                 let manualResponseVC = navController.viewControllers.first! as ManualResponseViewController
-                manualResponseVC.setupWithItems(manualResponseTemplates, pages: infoController.pages)
+                manualResponseVC.setupWithItems(manualResponseTemplates, pages: infoController.pages, quiz: infoController.quiz!)
                 navController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
                 presentViewController(navController, animated: true, completion: nil)
                 manualResponseVC.onFinished = {
@@ -305,6 +309,7 @@ class ScanViewController: UIViewController {
             
         }
         
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: HasEverGradedQuizDefaultsKey)
         
         infoController.clear()
     }
@@ -318,4 +323,25 @@ class ScanViewController: UIViewController {
             justSavedQuizCount = 0
         }
     }
+    
+    // MARK: Flash
+    var flash: Bool = false {
+        didSet {
+            flashButton.selected = flash
+            if let camera = cameraView!.captureDevice {
+                if camera.lockForConfiguration(nil) {
+                    camera.torchMode = flash ? .On : .Off
+                    camera.unlockForConfiguration()
+                }
+            }
+        }
+    }
+    @IBOutlet var flashButton: UIButton!
+    @IBAction func toggleFlash() {
+        flash = !flash
+    }
+    
+    // MARK: Edu
+    @IBOutlet var edu: UIView!
+    
 }

@@ -482,6 +482,7 @@ def render(form_json, output_file):
 	cvs.save()
 	
 	form_json['pageCount'] = num_pages
+	form_json['aspectRatio'] = (PAGE_LAYOUTER.width - PAGE_LAYOUTER.margin*2) * 1.0 / (PAGE_LAYOUTER.height - PAGE_LAYOUTER.margin*2)
 	
 	print form_json
 	return form_json

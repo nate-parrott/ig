@@ -17,6 +17,9 @@ class FormPage(webapp2.RequestHandler):
 			if not form.viewed_results_since_last_email_sent:
 				form.viewed_results_since_last_email_sent = True
 				form.put()
-			instances = QuizInstance.all().ancestor(form.parent()).filter("quiz_index =", form.index).order('-date').run()
-			self.response.write(templ8("form_page.html", {"form": form, "secret": secret, "just_created": self.request.get('created', "") != "", "instances": instances}))
+			instances = list(QuizInstance.all().ancestor(form.parent()).filter("quiz_index =", form.index).order('-date').run())
+			average_points = None
+			if len(instances):
+				average_points = str(sum([i.points for i in instances]) * 1.0 / len(instances))
+			self.response.write(templ8("form_page.html", {"form": form, "secret": secret, "just_created": self.request.get('created', "") != "", "instances": instances, "average_points": average_points}))
 

@@ -30,6 +30,7 @@ class ResultsTableViewController: UITableViewController, UIViewControllerTransit
         super.viewWillAppear(animated)
         reloadData()
         view.setNeedsLayout()
+        logoutButton.setTitle(NSString(format: NSLocalizedString("Log out %@", comment: ""), SharedAPI().userEmail!), forState: UIControlState.Normal)
     }
     
     var sections: [[QuizInstance]] = [] {
@@ -129,6 +130,13 @@ class ResultsTableViewController: UITableViewController, UIViewControllerTransit
         }
     }
     
+    override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == countElements(sections) - 1 {
+            return "We've emailed you more detailed results and analysis at \(SharedAPI().userEmail!)"
+        }
+        return nil
+    }
+    
     // MARK: Interaction
     var isDismissing = false
     @IBAction func dismiss() {
@@ -161,4 +169,6 @@ class ResultsTableViewController: UITableViewController, UIViewControllerTransit
         super.viewDidLayoutSubviews()
         contentBackdrop.frame = CGRectMake(0, topMargin, view.width, tableView.contentSize.height + view.height)
     }
+    
+    @IBOutlet var logoutButton: UIButton!
 }

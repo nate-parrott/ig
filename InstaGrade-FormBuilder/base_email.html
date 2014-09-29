@@ -25,27 +25,32 @@
 		margin: auto;
 		padding-left: 1em;
 		padding-right: 1em;
-		border-bottom: 2px solid #f22;
+		border-bottom: 2px solid #0CA5B0;
+		text-align: center;
 	}
 	
 	.cta {
-		max-width: 300px;
+		display: block;
+		text-align: center;
 		margin: 1em auto;
-		background-color: #f22;
+		background-color: #0CA5B0;
 		color: white;
-		font-size: large;
 		font-weight: bold;
 		padding: 1em;
 		text-decoration: none;
+	}
+	
+	#logo {
+		display: block;
+		margin: auto;
+		width: 150px;
 	}
 	
 	</style>
 </head>
 <body>
 	<div id='message'>
-		<div>
-			<img id='logo' src='http://instagradeformbuilder.appspot.com/static/logo.png' alt='Instagrade'/>
-		</div>
+		<img id='logo' src='http://instagradeformbuilder.appspot.com/static/logo-blue.png' alt='Instagrade'/>
 		{% block content %}{% endblock %}
 	</div>
 </body>

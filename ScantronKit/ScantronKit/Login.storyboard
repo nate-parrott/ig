@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TVE-qa-BtR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vrG-1q-UXQ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="wh8-io-Cbk">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="vrG-1q-UXQ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CY2-JK-9ab">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="4vJ-C2-iaV" kind="relationship" relationship="rootViewController" id="F5H-nZ-cnm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jjv-EU-JTl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1203" y="267"/>
+        </scene>
+        <!--Onboarding View Controller-->
+        <scene sceneID="zP7-EK-ACz">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="4vJ-C2-iaV" customClass="OnboardingViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vBs-da-GDk"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Qj-tv-lVC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="q1F-FS-pc6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIk-QD-We9">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4vJ-C2-iaV" id="zoA-QL-geR"/>
+                                </connections>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWT-Qq-436">
+                                <rect key="frame" x="193" y="529" width="215" height="51"/>
+                                <color key="backgroundColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="215" id="LXU-NY-mdn"/>
+                                    <constraint firstAttribute="height" constant="51" id="zOF-Xk-4wp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                <state key="normal" title="Log in with Google">
+                                    <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="TVE-qa-BtR" kind="show" id="5mt-eb-ywd"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="e6e-f5-2K8">
+                                <rect key="frame" x="273" y="491" width="55" height="37"/>
+                                <color key="pageIndicatorTintColor" red="0.68365609645843506" green="0.68360990285873413" blue="0.68363696336746216" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99313521385192871" green="0.99310553073883057" blue="0.99312233924865723" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="zIk-QD-We9" firstAttribute="top" secondItem="q1F-FS-pc6" secondAttribute="top" id="Oxr-1u-yaq"/>
+                            <constraint firstItem="zIk-QD-We9" firstAttribute="leading" secondItem="q1F-FS-pc6" secondAttribute="leading" id="Qtl-cA-qJW"/>
+                            <constraint firstAttribute="centerX" secondItem="bWT-Qq-436" secondAttribute="centerX" constant="-0.5" id="W6w-7w-m89"/>
+                            <constraint firstItem="bWT-Qq-436" firstAttribute="top" secondItem="e6e-f5-2K8" secondAttribute="bottom" constant="1" id="WCe-Rp-RXK"/>
+                            <constraint firstItem="bWT-Qq-436" firstAttribute="centerX" secondItem="e6e-f5-2K8" secondAttribute="centerX" id="bCL-Zc-9nQ"/>
+                            <constraint firstItem="8Qj-tv-lVC" firstAttribute="top" secondItem="bWT-Qq-436" secondAttribute="bottom" constant="20" id="bQj-g2-p0t"/>
+                            <constraint firstItem="8Qj-tv-lVC" firstAttribute="top" secondItem="zIk-QD-We9" secondAttribute="bottom" id="iTj-TC-rqU"/>
+                            <constraint firstAttribute="trailing" secondItem="zIk-QD-We9" secondAttribute="trailing" id="rhM-1O-hsF"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="LmX-Ks-yg0"/>
+                    <connections>
+                        <outlet property="pageControl" destination="e6e-f5-2K8" id="E8C-N3-2GP"/>
+                        <outlet property="scrollView" destination="zIk-QD-We9" id="bf8-wR-Nbz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kGg-MS-gpM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-485" y="299"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="iG0-2A-VJx">
             <objects>
@@ -24,16 +102,61 @@
                                     <outlet property="delegate" destination="TVE-qa-BtR" id="jAn-EY-MCf"/>
                                 </connections>
                             </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ovs-cU-qRw">
+                                <rect key="frame" x="20" y="560" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwC-oR-aNe" userLabel="Error view">
+                                <rect key="frame" x="156" y="249" width="288" height="101"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't connect to the Internet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqr-Cx-PMz">
+                                        <rect key="frame" x="14" y="8" width="260" height="20.5"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlc-ga-xsC">
+                                        <rect key="frame" x="101" y="37" width="86" height="44"/>
+                                        <color key="backgroundColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="NaS-ZS-x7g"/>
+                                            <constraint firstAttribute="width" constant="86" id="gVq-VW-LQt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Retry">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="reload" destination="TVE-qa-BtR" eventType="touchUpInside" id="5b5-GQ-U0B"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Jqr-Cx-PMz" firstAttribute="top" secondItem="uwC-oR-aNe" secondAttribute="top" constant="8" id="0DC-ur-fBx"/>
+                                    <constraint firstItem="mlc-ga-xsC" firstAttribute="top" secondItem="Jqr-Cx-PMz" secondAttribute="bottom" constant="8" id="JWS-yq-8z3"/>
+                                    <constraint firstAttribute="bottom" secondItem="mlc-ga-xsC" secondAttribute="bottom" constant="20" id="Pa8-eo-hwQ"/>
+                                    <constraint firstItem="Jqr-Cx-PMz" firstAttribute="leading" secondItem="uwC-oR-aNe" secondAttribute="leading" constant="14" id="TIg-m5-b05"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jqr-Cx-PMz" secondAttribute="trailing" constant="14" id="YZb-8N-t2l"/>
+                                    <constraint firstItem="Jqr-Cx-PMz" firstAttribute="centerX" secondItem="mlc-ga-xsC" secondAttribute="centerX" id="ttX-QB-7ve"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fwy-0U-QI3" firstAttribute="top" secondItem="Moq-f7-jU0" secondAttribute="top" id="TzG-GQ-D6N"/>
                             <constraint firstItem="fwy-0U-QI3" firstAttribute="leading" secondItem="Moq-f7-jU0" secondAttribute="leading" id="ZSZ-vL-jCZ"/>
                             <constraint firstItem="D89-es-xru" firstAttribute="top" secondItem="fwy-0U-QI3" secondAttribute="bottom" id="aeO-pX-S44"/>
+                            <constraint firstItem="ovs-cU-qRw" firstAttribute="leading" secondItem="Moq-f7-jU0" secondAttribute="leading" constant="20" id="c1h-5t-1R1"/>
+                            <constraint firstItem="fwy-0U-QI3" firstAttribute="centerX" secondItem="uwC-oR-aNe" secondAttribute="centerX" id="rzh-CF-fyG"/>
+                            <constraint firstItem="D89-es-xru" firstAttribute="top" secondItem="ovs-cU-qRw" secondAttribute="bottom" constant="20" id="wAb-Ao-FxA"/>
                             <constraint firstAttribute="trailing" secondItem="fwy-0U-QI3" secondAttribute="trailing" id="wIN-65-jns"/>
+                            <constraint firstItem="fwy-0U-QI3" firstAttribute="centerY" secondItem="uwC-oR-aNe" secondAttribute="centerY" constant="0.5" id="y7d-vU-hj4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="error" destination="uwC-oR-aNe" id="xCH-ss-l2t"/>
+                        <outlet property="loader" destination="ovs-cU-qRw" id="kNc-hf-8Pc"/>
                         <outlet property="webView" destination="fwy-0U-QI3" id="ics-gr-DSR"/>
                     </connections>
                 </viewController>

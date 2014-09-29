@@ -10,8 +10,8 @@ def upload_file_and_get_url(data, mimetype='application/octet-stream'):
 	gcs_file = gcs.open('/'+bucket_name+'/'+filename,
 	                        'w',
 	                        content_type=mimetype,
-	                        options={},
+	                        options={'x-goog-acl': 'public-read'},
 	                        retry_params=write_retry_params)
 	gcs_file.write(data)
 	gcs_file.close()
-	return "https://{0}.storage.googleapis.com/{1}".format(bucket_name, filename)
+	return "https://storage.googleapis.com/{0}/{1}".format(bucket_name, filename)

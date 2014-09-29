@@ -1,0 +1,24 @@
+#results {
+	margin: auto;
+}
+
+#results th {
+	background-color: #eee;
+	padding: 6px;
+	text-align: center;
+	font-weight: normal;
+}
+
+#results img {
+	height: 30px;
+}
+
+#results td {
+	vertical-align: middle;
+}
+
+.score {
+	display: inline-block;
+	font-size: 20px;
+	padding-left: 10px;
+}

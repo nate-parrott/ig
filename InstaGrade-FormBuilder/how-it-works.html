@@ -1,0 +1,96 @@
+{% extends "centered.html" %}
+
+{% block head %}
+
+<!--TODO: add app banner-->
+
+<title>How Instagrade works</title>
+<style>
+#main-logo {
+	width: 140px;
+	display: none;
+}
+
+@media screen and (min-width: 600px) {
+	#steps img {
+		height: 200px;
+		clear: both;
+		margin: 20px;
+	}
+	#steps > div {
+		display: inline-block;
+		width: 100%;
+	}
+	#steps > div:nth-child(2n+1) {
+		text-align: left;
+	}
+	#steps > div:nth-child(2n) {
+		text-align: right;
+	}
+	#steps > div:nth-child(2n+1) img {
+		float: left;
+		margin-left: 0;
+	}
+	#steps > div:nth-child(2n) img {
+		float: right;
+		margin-right: 0;
+	}
+	#mobile-cta {
+		display: none;
+	}
+}
+@media screen and (max-width: 600px) {
+	#steps img {
+		display: block;
+		height: 100px;
+		margin: auto;
+	}
+	#cta {
+		display: none;
+	}
+}
+.cta {
+	display: inline-block;
+	margin: auto;
+	padding: 10px 20px;
+	background-color: #0CA5B0;
+	color: white;
+	text-decoration: none;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<img id='main-logo' src='/static/logo-gray.png' alt='Instagrade' />
+<h1>How Instagrade works</h1>
+<h5>Create quizzes with your computer + grade them with your phone</h5>
+<div id='steps'>
+	<div>
+		<img src='/static/how-it-works/Web.png'/>
+		<h2>Create quizzes online with our <a href='/'>quiz creator.</a></h2>
+		<p>They can have an unlimited number of multiple-choice, true-or-false, or free-response questions.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Paper.png'/>
+		<h2>Print out answer sheets and administer the quiz.</h2>
+		<p>Questions can be printed separately from answer sheets—or, for short quizzes, on the same page.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Mobile.png'/>
+		<h2>Scan completed answer sheets with <a href='/download_scanner'>InstaGrade Scanner</a> for iOS.</h2>
+		<p>If there are free-response questions, we'll prompt you to grade them right there. Otherwise, it's completely automatic.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Graded.png'/>
+		<h2>Get graded quizzes in your inbox.</h2>
+		<p>See which questions your students are having trouble on, or export the results to Excel and do more. Forward results directly to students' emails or their parents. <em>(some features coming soon)</em></p>
+</div>
+
+<a id='cta' href='/' class='cta'>Create a quiz</a>
+<h5 id='mobile-cta' class='cta'>
+	Visit <strong>instagradeapp.com</strong> on your computer to create quizzes.
+</h5>
+
+{% endblock %}

@@ -2,22 +2,14 @@
 
 {% block head %}
 
+<!--TODO: app banner-->
+
 <link rel='stylesheet' href='/static/form.css'/>
 <link rel='stylesheet' href='/static/icomoon/style.css'/>
 
 {% endblock %}
 
 {% block body %}
-	<form id='email-list' method='POST' action='/add_to_email_list'>
-		<div>
-			<p>Instagrade isn't ready yet — you can try out the answer-sheet creator, but the magical app that grades answer sheets isn't ready yet. If you'd like to beta-test the app before release (or if you want to know when it's on the App Store), you should sign up for updates:</p>
-			<p>
-				<input placeholder='email@school.edu' name='email' type='email'/>
-				<input type='submit' value='Keep me posted'/>
-			</p>
-			<p id='subscribed'>Subscribed! We'll let you know when Instagrade is ready to go.</p>
-		</div>
-	</form>
 
 	<div id='form'></div>
 	
@@ -32,6 +24,19 @@
 	LOGOUT_URL = null;
 	</script>
 	{% endif %}
+	
+	<div id='mobile-splash'>
+		<div>
+			<div>
+				<p>InstaGrade lets you  <strong>create quizzes on your computer</strong> and <strong>grade them with your phone</strong>.</p>
+				<img src='/static/how-it-works/Mobile.png'/>
+				<a href='/download_scanner'>Download the scanner</a>
+				<a href='/how-it-works'>Learn more</a>
+				<a href='/' class='disabled'>Use your computer to create a quiz</a>
+				<p>(if you <em>are</em> on a computer, please make your window wider.)</p>
+			</div>
+		</div>
+	</div>
 	
 	<script type="text/jsx" src='/static/form.jsx'></script>
 {% endblock %}

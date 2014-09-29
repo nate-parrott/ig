@@ -16,6 +16,7 @@ class IndividualResponseViewController: UIViewController {
     @IBOutlet var pointsViewLabel: UILabel!
     
     var responseItem: QuizItemManuallyGradedResponse!
+    var quiz: Quiz!
     var index: Int!
     var scannedPages: [ScannedPage]!
     
@@ -24,7 +25,7 @@ class IndividualResponseViewController: UIViewController {
         questionNumberLabel.text = "Question \(questionNum)"
         questionLabel.text = responseItem.item.getOrDefault("description", defaultVal: "") as? String
         let pageImage = scannedPages[responseItem.frame.page].image
-        let responseSnapshot = pageImage.subImage(responseItem.frame.toRect(pageImage.size))
+        let responseSnapshot = responseItem.frame.extract(pageImage, aspectRatio: quiz.aspectRatio)
         imageView.image = responseSnapshot
         pointsView.maxPoints = responseItem.pointValue
         pointsView.selectedValue = responseItem.earnedPoints
