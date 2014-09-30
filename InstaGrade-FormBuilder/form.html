@@ -7,6 +7,10 @@
 <link rel='stylesheet' href='/static/form.css'/>
 <link rel='stylesheet' href='/static/icomoon/style.css'/>
 
+{% if form_json %}
+<div style='display: none' id='form_json'>{{form_json}}</div>
+{% endif %}
+
 {% endblock %}
 
 {% block body %}
@@ -39,4 +43,7 @@
 	</div>
 	
 	<script type="text/jsx" src='/static/form.jsx'></script>
+	<script type="text/jsx">/** @jsx React.DOM */
+	React.renderComponent(<FormEditor/>, document.getElementById('form'));
+	</script>
 {% endblock %}

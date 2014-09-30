@@ -46,6 +46,15 @@ class Form(db.Model):
 		send_mail(recipient, subject, html)
 		
 		return new_model
+
+	@classmethod
+	def WithSecret(cls, secret, handler=None):
+		query = Form.all().filter("secret =", secret)
+		user = login.current_user(handler)
+		if user:
+			query = query.ancestor(user)
+		form = query.get()
+		return form
 	
 class Submit(webapp2.RequestHandler):
 	def post(self):

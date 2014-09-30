@@ -17,7 +17,7 @@ class ScratchViewController: UIViewController {
         pointsPickerView.maxPoints = 1
         
         let names = ["blur0", "blur1", "blur2"]
-        let images = names.map({ UIImage(named: $0) })
+        let images = names.map({ UIImage(named: $0)! })
         for method in ["slow", "fast"] {
             println("METHOD: \(method)")
             for (image, name) in Zip2(images, names) {

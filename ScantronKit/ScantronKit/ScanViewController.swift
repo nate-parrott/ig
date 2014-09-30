@@ -50,7 +50,7 @@ class ScanViewController: UIViewController {
             }
         }
         
-        UINib(nibName: "StatusView", bundle: nil).instantiateWithOwner(self, options: nil)
+        UINib(nibName: "StatusView", bundle: nil)!.instantiateWithOwner(self, options: nil)
         view.addSubview(statusView)
         
         animator = UIDynamicAnimator(referenceView: view)
@@ -65,6 +65,10 @@ class ScanViewController: UIViewController {
         savedQuizzesButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         viewDidLayoutSubviews()
+        
+        if DEBUGMODE() {
+            cameraView!.backgroundColor = UIColor(white: 0.5, alpha: 1)
+        }
     }
     
     deinit {
@@ -86,6 +90,11 @@ class ScanViewController: UIViewController {
         super.viewWillDisappear(animated)
         vcIsVisible = false
         updateScanConstantly()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        cameraView!.animateAlphaTo(1, duration: 0.2)
     }
     
     func appBecameActive() {
@@ -110,7 +119,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "ab")
+        let image = UIImage(named: "ab")!
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {

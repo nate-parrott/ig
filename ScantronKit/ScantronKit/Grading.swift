@@ -74,6 +74,7 @@ func AddResponseInfoForItem(var item: QuizItem, manuallyGraded: QuizItemManually
         item["pointsEarned"] = manuallyGraded!.earnedPoints!
     default: 0
     }
+    item["gradingDescription"] = ResponseDescriptionStringForGradedQuizItem(item)
     return item
 }
 
@@ -163,10 +164,42 @@ extension QuizInstance {
         var nameItemOpt = quizItems.filter({ ($0.get("type")! as String) == "name-field" }).first
         if let nameItem = nameItemOpt {
             let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
-            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
+            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)!
             return frame.extract(pageImage, aspectRatio: quiz.aspectRatio)
         }
         return nil
     }
+}
+
+func ResponseDescriptionStringForGradedQuizItem(item: QuizItem) -> String? {
+    let type = item.getOrDefault("type", defaultVal: "") as String
+    var s = ""
+    let earned = item.getOrDefault("pointsEarned", defaultVal: 0) as Double
+    let maxPoints = item.getOrDefault("points", defaultVal: 0) as Double
+    switch type {
+        case "true-false":
+            let correct = item.getOrDefault("correct", defaultVal: false) as Bool
+            let response = item.getOrDefault("response", defaultVal: false) as Bool
+            if correct == response {
+                s = response ? "Correctly answered 'true'" : "Correctly answered 'false'"
+            } else {
+                s = response ? "Answered 'true', the correct answer was 'false'" : "Answered 'false', the correct answer was 'true'"
+            }
+        case "multiple-choice":
+            let letters = "ABCDEFGHIJKLMNOPQRSTUVWYZ"
+            let correctIndex = item.getOrDefault("correct", defaultVal: 0) as Int
+            let responseIndex = item.getOrDefault("response", defaultVal: 0) as Int
+            let correct = letters.substring(correctIndex, length: 1)
+            let response = letters.substring(responseIndex, length: 1)
+            if correctIndex == responseIndex {
+                s = "Correctly answered '\(correct)'"
+            } else {
+                s = "Answered '\(response)'; the correct answer was '\(correct)'"
+            }
+        case "free-response":
+            s = "You gave this \(earned)/\(maxPoints) points"
+    default: 0
+    }
+    return s
 }
 

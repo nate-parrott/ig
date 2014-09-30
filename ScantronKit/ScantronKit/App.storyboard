@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -53,11 +53,13 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku2-wX-0h9">
                                     <rect key="frame" x="8" y="0.0" width="584" height="44"/>
+                                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="16"/>
                                     <state key="normal" title="Log out">
+                                        <color key="titleColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="dismiss" destination="PAp-G0-K30" eventType="touchUpInside" id="caW-UJ-wci"/>
+                                        <action selector="logout" destination="PAp-G0-K30" eventType="touchUpInside" id="SBr-Df-uig"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -97,6 +99,7 @@
                                 <connections>
                                     <outlet property="nameImageView" destination="Gep-za-PvR" id="22b-NO-lIc"/>
                                     <outlet property="scoreLabel" destination="NMS-fF-NeX" id="T2d-6o-kgq"/>
+                                    <segue destination="apl-sM-KCp" kind="showDetail" identifier="QuizDetail" id="qA9-Yt-E4j"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -105,10 +108,116 @@
                             <outlet property="delegate" destination="PAp-G0-K30" id="Bzj-gn-Bgb"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="logoutButton" destination="ku2-wX-0h9" id="a5a-vj-aYJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdM-YT-rkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1388" y="385"/>
+        </scene>
+        <!--Individual Result Table View Controller-->
+        <scene sceneID="iRG-Ac-xzp">
+            <objects>
+                <tableViewController id="apl-sM-KCp" customClass="IndividualResultTableViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="BYi-VC-A16">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="QuizInstanceCell" rowHeight="70" id="myc-Pb-NgD" customClass="QuizInstanceCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="myc-Pb-NgD" id="Qq5-Lq-wtq">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0wk-q4-MVa">
+                                            <rect key="frame" x="8" y="6" width="510.5" height="56.5"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr1-sl-YqM">
+                                            <rect key="frame" x="526.5" y="20" width="61.5" height="28.5"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Gr1-sl-YqM" firstAttribute="trailing" secondItem="Qq5-Lq-wtq" secondAttribute="trailingMargin" constant="-4" id="RFb-kh-bZ5"/>
+                                        <constraint firstItem="0wk-q4-MVa" firstAttribute="top" secondItem="Qq5-Lq-wtq" secondAttribute="topMargin" constant="-2" id="bFK-tE-BTV"/>
+                                        <constraint firstAttribute="centerY" secondItem="0wk-q4-MVa" secondAttribute="centerY" constant="0.75" id="gtY-2A-cdr"/>
+                                        <constraint firstItem="0wk-q4-MVa" firstAttribute="leading" secondItem="Qq5-Lq-wtq" secondAttribute="leadingMargin" id="ldO-Pb-j0c"/>
+                                        <constraint firstItem="Gr1-sl-YqM" firstAttribute="leading" secondItem="0wk-q4-MVa" secondAttribute="trailing" constant="8" id="or7-iC-4b8"/>
+                                        <constraint firstAttribute="centerY" secondItem="Gr1-sl-YqM" secondAttribute="centerY" id="xXK-HR-gxG"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameImageView" destination="0wk-q4-MVa" id="ScU-iZ-oj6"/>
+                                    <outlet property="scoreLabel" destination="Gr1-sl-YqM" id="wyS-pw-DNW"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="QuizItemCell" rowHeight="61" id="qFs-qj-4cl" customClass="QuizItemCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qFs-qj-4cl" id="lgs-1a-Hmk">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOs-vv-cCx">
+                                            <rect key="frame" x="8" y="23" width="12.5" height="13.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                            <color key="textColor" red="0.32866310589999997" green="0.32866310589999997" blue="0.32866310589999997" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" text="Response description goes here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZH-sN-LEg">
+                                            <rect key="frame" x="29" y="21.5" width="516" height="31"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="900" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1/5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOl-9b-Iwg">
+                                            <rect key="frame" x="553" y="16" width="35" height="28.5"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="400" text="Question goes here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zd-oI-LuL">
+                                            <rect key="frame" x="28" y="8" width="516.5" height="13.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="tintColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="CZH-sN-LEg" firstAttribute="top" secondItem="7zd-oI-LuL" secondAttribute="bottom" id="2u1-A0-OHv"/>
+                                        <constraint firstItem="7zd-oI-LuL" firstAttribute="top" secondItem="lgs-1a-Hmk" secondAttribute="topMargin" id="7N5-YR-8wQ"/>
+                                        <constraint firstItem="dOl-9b-Iwg" firstAttribute="leading" secondItem="7zd-oI-LuL" secondAttribute="trailing" constant="8" id="813-hb-Am6"/>
+                                        <constraint firstItem="7zd-oI-LuL" firstAttribute="leading" secondItem="QOs-vv-cCx" secondAttribute="trailing" constant="8" id="GT7-GD-Cj1"/>
+                                        <constraint firstItem="dOl-9b-Iwg" firstAttribute="leading" secondItem="CZH-sN-LEg" secondAttribute="trailing" constant="8" id="Jnx-5a-QQu"/>
+                                        <constraint firstItem="dOl-9b-Iwg" firstAttribute="trailing" secondItem="lgs-1a-Hmk" secondAttribute="trailingMargin" constant="-4" id="LSu-zW-Tp8"/>
+                                        <constraint firstItem="CZH-sN-LEg" firstAttribute="bottom" secondItem="lgs-1a-Hmk" secondAttribute="bottomMargin" id="T53-Tb-lk3"/>
+                                        <constraint firstItem="QOs-vv-cCx" firstAttribute="leading" secondItem="lgs-1a-Hmk" secondAttribute="leadingMargin" id="fB2-Kw-OPE"/>
+                                        <constraint firstAttribute="centerY" secondItem="QOs-vv-cCx" secondAttribute="centerY" id="fS5-H4-6Qx"/>
+                                        <constraint firstItem="7zd-oI-LuL" firstAttribute="leading" secondItem="QOs-vv-cCx" secondAttribute="trailing" constant="8" id="hmQ-uv-Jtz"/>
+                                        <constraint firstAttribute="centerY" secondItem="dOl-9b-Iwg" secondAttribute="centerY" id="imA-bS-7rI"/>
+                                        <constraint firstItem="CZH-sN-LEg" firstAttribute="leading" secondItem="QOs-vv-cCx" secondAttribute="trailing" constant="8.5" id="xyz-Bn-Bw0"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="gradingDescription" destination="CZH-sN-LEg" id="mY7-4U-1GE"/>
+                                    <outlet property="index" destination="QOs-vv-cCx" id="ZaC-ef-ZlU"/>
+                                    <outlet property="points" destination="dOl-9b-Iwg" id="XED-Z6-UpY"/>
+                                    <outlet property="question" destination="7zd-oI-LuL" id="fdr-Zy-i2v"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="apl-sM-KCp" id="q52-Tb-hgi"/>
+                            <outlet property="delegate" destination="apl-sM-KCp" id="lMg-9s-Ge1"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g4w-Ib-7wA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2052" y="385"/>
         </scene>
         <!--Scan View Controller-->
         <scene sceneID="DrZ-mS-zW0">
@@ -122,7 +231,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4X-hg-Z5Q" userLabel="No permissions view">
@@ -186,19 +295,6 @@
                                     <outlet property="permissionDialog" destination="J4X-hg-Z5Q" id="c2f-yN-zOF"/>
                                 </connections>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-r0-M2v">
-                                <rect key="frame" x="249" y="524" width="103" height="56"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="QLO-Xi-qjN"/>
-                                    <constraint firstAttribute="width" constant="103" id="ie7-wz-J5m"/>
-                                </constraints>
-                                <state key="normal" title="Snap">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="testShutter" destination="KOu-qy-yat" eventType="touchUpInside" id="K5N-gp-pdo"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="darkness" translatesAutoresizingMaskIntoConstraints="NO" id="QGc-8I-pAh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
@@ -232,7 +328,7 @@
                                     <action selector="toggleFlash" destination="KOu-qy-yat" eventType="touchUpInside" id="x2N-4F-1nw"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BS2-qj-7MJ" userLabel="Edu">
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BS2-qj-7MJ" userLabel="Edu">
                                 <rect key="frame" x="0.0" y="514" width="600" height="86"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yf-ix-54f">
@@ -271,6 +367,19 @@
                                     <constraint firstAttribute="trailing" secondItem="3Yf-ix-54f" secondAttribute="trailing" constant="8" id="lB3-Wi-HA1"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGJ-r0-M2v">
+                                <rect key="frame" x="249" y="524" width="103" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="QLO-Xi-qjN"/>
+                                    <constraint firstAttribute="width" constant="103" id="ie7-wz-J5m"/>
+                                </constraints>
+                                <state key="normal" title="Snap">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="testShutter" destination="KOu-qy-yat" eventType="touchUpInside" id="K5N-gp-pdo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

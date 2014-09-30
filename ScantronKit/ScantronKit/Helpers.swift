@@ -65,7 +65,7 @@ extension Array {
 
 extension NSURL {
     func queryValueForKey(key: String) -> String? {
-        let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
+        let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)!
         if let queryItems = components.queryItems as? [NSURLQueryItem] {
             let matchingItems = queryItems.filter({ $0.name == key })
             return matchingItems.first?.value
@@ -78,3 +78,11 @@ func AsyncOnMainQueue(code: () -> ()) {
     dispatch_async(dispatch_get_main_queue(), code)
 }
 
+extension String {
+    func substring(start: Int, length: Int) -> String {
+        let fromIndex = advance(self.startIndex, start)
+        let toIndex = advance(self.startIndex, start + length)
+        let range = fromIndex..<toIndex
+        return self[range]
+    }
+}

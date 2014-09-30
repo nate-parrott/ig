@@ -12,12 +12,15 @@
 {% if just_created %}
 
 <h1>Created "{{ form.title }}"</h1>
-<p>Now you'll want to <a href='/{{secret}}/print'>print some quizzes</a> and <a href='/download_scanner'>download InstaGrade Scanner</a> to start scanning them. We've also sent you an email with a link to the app.</p>
+<p>
+Now you'll want to <a href='/{{secret}}/print'>print some quizzes</a> and <a href='/download_scanner'>download InstaGrade Scanner</a> to start scanning them. We've also sent you an email with a link to the app.
+If want to change the quiz, you can <a href='/?f={{secret}}'>make a new quiz based off this one.</a>
+</p>
 
 {% else %}
 
 <h1>{{ form.title }}</h1>
-<p><a href='/{{secret}}/print'>Print answer sheets</a> | <a href='/download_scanner'>Download the Instagrade Scanner app</a></p>
+<p><a href='/{{secret}}/print'>Print answer sheets</a> | <a href='/download_scanner'>Download the Instagrade Scanner app</a></p> | <a href='/?f={{secret}}'>New quiz based off this</a>
 
 {% endif %}
 

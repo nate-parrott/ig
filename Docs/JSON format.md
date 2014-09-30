@@ -15,7 +15,8 @@ item:
 	description: ""
 	visibleIndex: # (1-indexed)
 	// after grading:
-	earnedPoints: #,
+	pointsEarned: #,
+    gradingDescription: ""
 }
 
 ## items

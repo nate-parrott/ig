@@ -27,6 +27,8 @@
 		5F3A5D6C19D0B013009552D5 /* PointsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6B19D0B013009552D5 /* PointsPickerView.swift */; };
 		5F3CA65C19CB565A006EC181 /* Logging.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65B19CB565A006EC181 /* Logging.mm */; };
 		5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F3CA65F19CBB5EC006EC181 /* ImageConcatenationFilter.m */; };
+		5F47F0D319DB25B600ACE416 /* IndividualResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47F0D219DB25B600ACE416 /* IndividualResultTableViewController.swift */; };
+		5F4D0EE019DB4463009758EA /* SwipeAwayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D0EDF19DB4463009758EA /* SwipeAwayTableViewController.swift */; };
 		5F570AB519D1F2A70074EFB9 /* IndividualResponseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F570AB419D1F2A70074EFB9 /* IndividualResponseViewController.xib */; };
 		5F57578619C796D6009A4A59 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F57578419C796D6009A4A59 /* Helpers.swift */; };
 		5F57578719C796D6009A4A59 /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F57578519C796D6009A4A59 /* Set.swift */; };
@@ -97,6 +99,8 @@
 		5F3CA65B19CB565A006EC181 /* Logging.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Logging.mm; sourceTree = "<group>"; };
 		5F3CA65E19CBB5EC006EC181 /* ImageConcatenationFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageConcatenationFilter.h; sourceTree = "<group>"; };
 		5F3CA65F19CBB5EC006EC181 /* ImageConcatenationFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageConcatenationFilter.m; sourceTree = "<group>"; };
+		5F47F0D219DB25B600ACE416 /* IndividualResultTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualResultTableViewController.swift; sourceTree = "<group>"; };
+		5F4D0EDF19DB4463009758EA /* SwipeAwayTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeAwayTableViewController.swift; sourceTree = "<group>"; };
 		5F570AB419D1F2A70074EFB9 /* IndividualResponseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndividualResponseViewController.xib; sourceTree = "<group>"; };
 		5F57578419C796D6009A4A59 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5F57578519C796D6009A4A59 /* Set.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
@@ -203,7 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				5F07D1CF19C7844000B9E615 /* ScanViewController.swift */,
+				5F4D0EDF19DB4463009758EA /* SwipeAwayTableViewController.swift */,
 				5F07D1D119C7845900B9E615 /* ResultsTableViewController.swift */,
+				5F47F0D219DB25B600ACE416 /* IndividualResultTableViewController.swift */,
 				5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */,
 				5F07D1D319C78EBE00B9E615 /* CameraView.swift */,
 				5F66A11B19CA0343009B14AE /* LoginViewController.swift */,
@@ -506,12 +512,14 @@
 			files = (
 				5F3A5D6A19D0AE8E009552D5 /* IndividualResponseViewController.swift in Sources */,
 				5F03C511198EB8A5002DECCF /* Tracking.swift in Sources */,
+				5F4D0EE019DB4463009758EA /* SwipeAwayTableViewController.swift in Sources */,
 				5F92327F19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld in Sources */,
 				5F07D1D419C78EBE00B9E615 /* CameraView.swift in Sources */,
 				5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */,
 				5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */,
 				5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */,
 				5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */,
+				5F47F0D319DB25B600ACE416 /* IndividualResultTableViewController.swift in Sources */,
 				5F03C514198EB99F002DECCF /* ContourExtractor.mm in Sources */,
 				5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */,
 				5FC2F9D719D0D8EC00D81AFD /* UIViewExtensions.swift in Sources */,

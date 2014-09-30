@@ -8,11 +8,7 @@ from quiz_instance import QuizInstance
 
 class FormPage(webapp2.RequestHandler):
 	def get(self, secret):
-		query = Form.all().filter("secret =", secret)
-		user = login.current_user(self)
-		if user:
-			query = query.ancestor(user)
-		form = query.get()
+		form = Form.WithSecret(secret, self)
 		if form:
 			if not form.viewed_results_since_last_email_sent:
 				form.viewed_results_since_last_email_sent = True
@@ -23,3 +19,6 @@ class FormPage(webapp2.RequestHandler):
 				average_points = str(sum([i.points for i in instances]) * 1.0 / len(instances))
 			self.response.write(templ8("form_page.html", {"form": form, "secret": secret, "just_created": self.request.get('created', "") != "", "instances": instances, "average_points": average_points}))
 
+class FormInstanceDetailPage(webapp2.RequestHandler):
+	def get(self):
+		pass

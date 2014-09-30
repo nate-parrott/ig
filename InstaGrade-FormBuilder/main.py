@@ -28,8 +28,13 @@ import info
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+    	form_json = None
+    	existing_form_secret = self.request.get('f', None)
+    	if existing_form_secret:
+    		form_json = form.Form.WithSecret(existing_form_secret).json
+
         self.response.write(util.templ8('form.html', 
-				{"user": login.current_user(self), "logout_url": users.create_logout_url('/')}))
+				{"user": login.current_user(self), "logout_url": users.create_logout_url('/'), "form_json": form_json}))
 
 class DownloadScanner(webapp2.RequestHandler):
 	def get(self):

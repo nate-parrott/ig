@@ -35,7 +35,7 @@ html, body {
 	margin-top: 2em;
 	margin-bottom: 2em;
 	position: relative;
-	box-shadow: 5px 5px 0px rgba(0,0,0,0.4);
+	box-shadow: 4px 4px 4px rgba(0,0,0,0.1);
 	max-width: 600px;
 	min-height: 100%;
 	left: 200px;
@@ -44,6 +44,9 @@ html, body {
 
 #form .page.newItems {
 	min-height: 100%;
+}
+#form .page.newItems .item-content * {
+	cursor: copy;
 }
 
 .formEditor .items > div {
@@ -98,6 +101,14 @@ html, body {
 }
 .segmentedControl > div.selected {
 	background-color: #e2e2e2;
+}
+
+.newItems .segmentedControl > div.selected {
+	background-color: inherit;
+}
+
+.newItems .segmentedControl > div:hover {
+	background-color: #e2e2e2 !important;
 }
 
 .freeResponse {

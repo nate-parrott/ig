@@ -44,8 +44,8 @@ var FormEditor = React.createClass({
 								<p>Your quiz has {visibleIndex} questions with {totalPoints} total points.</p>
 								<form onSubmit={self.done}>
 									<p>
-										<input type='checkbox' onChange={this.updateSeparateAnswerSheetsFromQuestions} checked={this.state.separateAnswerSheetsFromQuestions}/>
-										Separate answer sheet from questions
+										<input type='checkbox' onChange={this.updateSeparateAnswerSheetsFromQuestions} checked={this.state.separateAnswerSheetsFromQuestions} id='separateAnswerSheetsFromQuestions'/>
+										<label htmlFor='separateAnswerSheetsFromQuestions'>Separate answer sheet from questions</label>
 									</p>
 									<input type='submit' value="Create Quiz" className='done'/>
 								</form>
@@ -101,6 +101,10 @@ var FormEditor = React.createClass({
 				{type: "free-response", height: 4, description: "A free-response question:", points: 3}*/
 			]
 		};
+		var existingJsonContainer = document.getElementById("form_json");
+		if (existingJsonContainer) {
+			initial.items = JSON.parse(existingJsonContainer.innerText).items;
+		}
 		initial.items.forEach(function(item) {
 			item.id = generateUniqueId();
 		})
@@ -303,4 +307,3 @@ var NewItemPicker = React.createClass({
 	}
 })
 
-React.renderComponent(<FormEditor/>, document.getElementById('form'));

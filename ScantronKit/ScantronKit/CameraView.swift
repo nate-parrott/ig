@@ -37,11 +37,13 @@ class CameraView: UIView {
     
     func startRunning() {
         AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
-            if let p = self.permissionDialog {
-                p.hidden = granted
-            }
-            if granted {
-                self.actuallyStartRunning()
+            AsyncOnMainQueue() {
+                if let p = self.permissionDialog {
+                    p.hidden = granted
+                }
+                if granted {
+                    self.actuallyStartRunning()
+                }
             }
         })
     }
@@ -61,6 +63,7 @@ class CameraView: UIView {
             let captureDeviceInput = AVCaptureDeviceInput(device: captureDevice!, error: nil)
             captureSession!.addInput(captureDeviceInput)
             layer.addSublayer(previewLayer!)
+            self.setNeedsLayout()
             
             if let metadataDelegate = metadataObjectsDelegate {
                 metadataOutput = AVCaptureMetadataOutput()
@@ -121,6 +124,6 @@ class CameraView: UIView {
     // MARK: Permissions dialog
     @IBOutlet var permissionDialog: UIView?
     @IBAction func openSettings() {
-        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString))
+        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
     }
 }
