@@ -91,8 +91,9 @@ class ScanViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if !SharedAPI().canScan() {
+        if !SharedAPI().canScan() || !NSUserDefaults.standardUserDefaults().boolForKey("ShownInitialPaymentsMenu") {
             performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ShownInitialPaymentsMenu")
         }
     }
     

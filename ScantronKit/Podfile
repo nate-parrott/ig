@@ -6,6 +6,7 @@ target "InstaGrade Scanner" do
 pod "OpenCV"
 pod "GPUImage"
 pod "msgpack"
+pod "CargoBay"
 
 end
 

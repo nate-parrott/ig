@@ -668,6 +668,7 @@
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
+				PROVISIONING_PROFILE = "5620ee1f-2c58-4f02-a6df-3434653c6a72";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScantronKit/ScantronKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -682,6 +683,7 @@
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
+				PROVISIONING_PROFILE = "5620ee1f-2c58-4f02-a6df-3434653c6a72";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScantronKit/ScantronKit-Bridging-Header.h";
 			};
 			name = Release;

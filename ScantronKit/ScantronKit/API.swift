@@ -32,7 +32,7 @@ class API: NSObject, NSURLSessionDelegate {
     }
     func logOut() {
         // clear defaults:
-        for key in ["Token", "Email", "ScansLeft", "SubscriptionEndDate"] {
+        for key in ["Token", "Email", "ScansLeft", "SubscriptionEndDate", "ShownInitialPaymentsMenu"] {
             NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
         }
         // clear cookies:

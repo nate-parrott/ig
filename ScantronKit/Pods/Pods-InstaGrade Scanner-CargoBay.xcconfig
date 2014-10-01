@@ -1,0 +1,1 @@
+PODS_INSTAGRADE_SCANNER_CARGOBAY_OTHER_LDFLAGS = -framework Security -framework StoreKit

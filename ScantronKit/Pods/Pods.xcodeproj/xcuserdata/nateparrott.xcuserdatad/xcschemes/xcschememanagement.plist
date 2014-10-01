@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-InstaGrade Scanner-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-InstaGrade Scanner-CargoBay.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-InstaGrade Scanner-GPUImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>12D67D11EA13461FB0ABBD63</key>
+		<key>71D776DB2CDD4EDFA685F609</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>31894631AB574E868B3D46D7</key>
+		<key>72449227230940FFBC23D46E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>488450EFCD2F443E9EC9A0B3</key>
+		<key>951BEC10A08A47B2AF702DE9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A192F76DFCE14D83AD0C7F08</key>
+		<key>C0347D761E25488E91D6C4B8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E91AA59AAEF84069A1FBD987</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDB72142C54B4CDE919C8B9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

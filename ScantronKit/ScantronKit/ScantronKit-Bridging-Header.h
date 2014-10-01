@@ -15,3 +15,4 @@
 #import "QuizInstance.h"
 #import "PageImage.h"
 #import <MessagePack.h>
+#import <CargoBay.h>

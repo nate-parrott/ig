@@ -403,7 +403,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Crosshair-off" translatesAutoresizingMaskIntoConstraints="NO" id="J40-zX-fAV">
                                 <rect key="frame" x="274" y="275" width="52" height="51"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVA-Uf-l9o">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVA-Uf-l9o">
                                 <rect key="frame" x="224" y="285" width="153" height="30"/>
                                 <state key="normal" title="Show payments menu">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -466,15 +466,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQR-Sv-8U4">
-                                <rect key="frame" x="176" y="352" width="248" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQR-Sv-8U4">
+                                <rect key="frame" x="190.5" y="352" width="219" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="UoL-OI-ve7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="15"/>
-                                <state key="normal" title="Add 1 month subscription for $0.99">
+                                <state key="normal" title="Add 1 month subscription">
                                     <color key="titleColor" red="0.26274509800000001" green="0.63137254899999995" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.58039215690000001" green="0.64705882349999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="subscribeForOneMonth" destination="guW-62-hYw" eventType="touchUpInside" id="r87-jm-J9o"/>
@@ -489,15 +492,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wtk-51-KvN">
-                                <rect key="frame" x="183" y="405" width="234" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wtk-51-KvN">
+                                <rect key="frame" x="197.5" y="405" width="205" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="0Fh-bo-Gox"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="15"/>
-                                <state key="normal" title="Add 1 year subscription for $4.99">
-                                    <color key="titleColor" red="0.26274509800000001" green="0.63137254899999995" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add 1 year subscription">
+                                    <color key="titleColor" red="0.2156862745" green="0.57254901960000004" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" red="0.58039215690000001" green="0.64705882349999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="subscribeForOneYear" destination="guW-62-hYw" eventType="touchUpInside" id="pOh-4V-p5Y"/>
@@ -519,11 +525,11 @@
                                     <action selector="backToApp" destination="guW-62-hYw" eventType="touchUpInside" id="K2Z-z6-wtd"/>
                                 </connections>
                             </button>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0x-CN-HqP" userLabel="Loading view">
+                            <view hidden="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t0x-CN-HqP" userLabel="Loading view">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QQ6-fW-IAW">
-                                        <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                        <rect key="frame" x="282" y="280.5" width="37" height="37"/>
                                         <color key="color" white="0.1019607857" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -533,21 +539,41 @@
                                     <constraint firstAttribute="centerX" secondItem="QQ6-fW-IAW" secondAttribute="centerX" constant="-0.5" id="zwy-rQ-SO9"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RWa-Ac-UGu">
+                                <rect key="frame" x="290" y="391" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPj-0Y-599">
+                                <rect key="frame" x="0.0" y="329" width="600" height="150"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="15"/>
+                                <state key="normal" title="Error loading. Retry?">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loadProducts" destination="guW-62-hYw" eventType="touchUpInside" id="Yf6-LE-guO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.21568627450980393" green="0.5725490196078431" blue="0.51764705882352946" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="RWa-Ac-UGu" firstAttribute="centerX" secondItem="PQR-Sv-8U4" secondAttribute="centerX" id="0HR-6r-wKk"/>
                             <constraint firstAttribute="centerX" secondItem="TSZ-U6-JzY" secondAttribute="centerX" id="70d-cH-EFy"/>
                             <constraint firstItem="TSZ-U6-JzY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h6r-Kw-POw" secondAttribute="leadingMargin" id="7f8-xa-2bJ"/>
                             <constraint firstItem="PQR-Sv-8U4" firstAttribute="top" secondItem="TSZ-U6-JzY" secondAttribute="bottom" constant="32" id="Av2-NX-6Si"/>
+                            <constraint firstItem="GPj-0Y-599" firstAttribute="top" secondItem="PQR-Sv-8U4" secondAttribute="top" constant="-23" id="DFi-U6-Oos"/>
                             <constraint firstItem="EWw-N9-zuh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Wtk-51-KvN" secondAttribute="bottom" constant="10" id="HiB-aa-8qN"/>
                             <constraint firstAttribute="centerY" secondItem="TSZ-U6-JzY" secondAttribute="centerY" priority="400" id="Hnj-fO-AXj"/>
                             <constraint firstItem="TSZ-U6-JzY" firstAttribute="centerX" secondItem="dZs-mE-ZNE" secondAttribute="centerX" constant="0.25" id="NPV-nE-lvx"/>
                             <constraint firstItem="Wtk-51-KvN" firstAttribute="top" secondItem="PQR-Sv-8U4" secondAttribute="bottom" constant="8" id="NWs-Nn-ItF"/>
                             <constraint firstItem="xOK-7r-cWJ" firstAttribute="top" secondItem="EWw-N9-zuh" secondAttribute="bottom" constant="20" id="O1d-tu-Pzh"/>
+                            <constraint firstItem="Wtk-51-KvN" firstAttribute="bottom" secondItem="GPj-0Y-599" secondAttribute="bottom" constant="-29" id="RDo-zE-dJP"/>
+                            <constraint firstItem="GPj-0Y-599" firstAttribute="leading" secondItem="h6r-Kw-POw" secondAttribute="leadingMargin" constant="-16" id="Uq8-oH-TeK"/>
                             <constraint firstItem="TSZ-U6-JzY" firstAttribute="top" secondItem="dZs-mE-ZNE" secondAttribute="bottom" constant="16.5" id="W0U-0I-Fwq"/>
                             <constraint firstAttribute="trailing" secondItem="t0x-CN-HqP" secondAttribute="trailing" id="b98-qM-HZY"/>
                             <constraint firstItem="t0x-CN-HqP" firstAttribute="top" secondItem="h6r-Kw-POw" secondAttribute="top" id="bHd-sB-i0l"/>
+                            <constraint firstItem="RWa-Ac-UGu" firstAttribute="top" secondItem="PQR-Sv-8U4" secondAttribute="bottom" constant="-6" id="j1B-28-h4d"/>
+                            <constraint firstAttribute="width" secondItem="GPj-0Y-599" secondAttribute="width" id="k4P-J2-91p"/>
                             <constraint firstItem="PQR-Sv-8U4" firstAttribute="centerX" secondItem="Wtk-51-KvN" secondAttribute="centerX" id="kTG-de-qoP"/>
                             <constraint firstItem="xOK-7r-cWJ" firstAttribute="top" secondItem="t0x-CN-HqP" secondAttribute="bottom" id="sPH-aY-QLo"/>
                             <constraint firstItem="t0x-CN-HqP" firstAttribute="leading" secondItem="h6r-Kw-POw" secondAttribute="leading" id="tn4-qV-hv5"/>
@@ -558,8 +584,12 @@
                     <connections>
                         <outlet property="backToAppButton" destination="EWw-N9-zuh" id="997-ro-EuK"/>
                         <outlet property="loadingView" destination="t0x-CN-HqP" id="GCY-us-ZZq"/>
+                        <outlet property="oneMonthSubscriptionButton" destination="PQR-Sv-8U4" id="Dkr-bA-oKm"/>
+                        <outlet property="oneYearSubscriptionButton" destination="Wtk-51-KvN" id="KHg-9g-jh6"/>
                         <outlet property="paragraph" destination="TSZ-U6-JzY" id="ENw-hd-TiK"/>
                         <outlet property="status" destination="dZs-mE-ZNE" id="Gtd-4G-fZw"/>
+                        <outlet property="subscriptionPricesLoadingFailureButton" destination="GPj-0Y-599" id="OlH-6q-wTX"/>
+                        <outlet property="subscriptionPricesLoadingIndicator" destination="RWa-Ac-UGu" id="hIE-1v-1AS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a4y-Y2-vUj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -574,6 +604,6 @@
         <image name="FlashOn" width="24" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iAb-gb-l5b"/>
+        <segue reference="vVK-x8-x9H"/>
     </inferredMetricsTieBreakers>
 </document>
