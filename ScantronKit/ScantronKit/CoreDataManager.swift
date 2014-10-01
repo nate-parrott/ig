@@ -24,20 +24,25 @@ class CoreDataManager: NSObject {
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("InstaGrade", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        return NSManagedObjectModel(contentsOfURL: modelURL)
         }()
+    
+    var storageURL: NSURL {
+        get {
+            let libraryUrl = NSFileManager.defaultManager().URLsForDirectory(.LibraryDirectory, inDomains: .UserDomainMask).first! as NSURL
+            let url = libraryUrl.URLByAppendingPathComponent("InstaGrade.sqlite")
+            return url
+        }
+    }
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         
-        let libraryUrl = NSFileManager.defaultManager().URLsForDirectory(.LibraryDirectory, inDomains: .UserDomainMask).first! as NSURL
-        let url = libraryUrl.URLByAppendingPathComponent("InstaGrade.sqlite")
-        
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.storageURL, options: nil, error: &error) == nil {
             coordinator = nil
             // Report any error we got.
             let dict = NSMutableDictionary()
@@ -92,6 +97,13 @@ class CoreDataManager: NSObject {
     func save() {
         if managedObjectContext!.hasChanges {
             managedObjectContext!.save(nil)
+        }
+    }
+    
+    func deleteEntities(name: String) {
+        let req = NSFetchRequest(entityName: name)
+        for obj in managedObjectContext!.executeFetchRequest(req, error: nil)! as [NSManagedObject] {
+            managedObjectContext!.deleteObject(obj)
         }
     }
 }

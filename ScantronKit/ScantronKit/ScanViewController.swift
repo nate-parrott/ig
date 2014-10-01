@@ -50,7 +50,7 @@ class ScanViewController: UIViewController {
             }
         }
         
-        UINib(nibName: "StatusView", bundle: nil)!.instantiateWithOwner(self, options: nil)
+        UINib(nibName: "StatusView", bundle: nil).instantiateWithOwner(self, options: nil)
         view.addSubview(statusView)
         
         animator = UIDynamicAnimator(referenceView: view)
@@ -118,7 +118,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "ab")!
+        let image = UIImage(named: "ab")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {

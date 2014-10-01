@@ -74,4 +74,16 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        /*
+        this is some DUMB SHIT that's necessary to work around a fucking
+        AUTO-LAYOUT CRASH that i DON'T UNDERSTAND
+        */
+        super.viewDidDisappear(animated)
+        for page in pages {
+            page.view.removeFromSuperview()
+        }
+        scrollView.removeFromSuperview()
+    }
 }

@@ -164,7 +164,7 @@ extension QuizInstance {
         var nameItemOpt = quizItems.filter({ ($0.get("type")! as String) == "name-field" }).first
         if let nameItem = nameItemOpt {
             let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
-            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)!
+            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
             return frame.extract(pageImage, aspectRatio: quiz.aspectRatio)
         }
         return nil

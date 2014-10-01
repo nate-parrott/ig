@@ -35,10 +35,22 @@ class API: NSObject, NSURLSessionDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName(APILoginStatusChangedNotification, object: nil)
     }
     func logOut() {
-        // TODO: clear core data
+        // clear defaults:
         for key in ["Token", "Email", "ScansLeft", "SubscriptionEndDate"] {
             NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
         }
+        // clear cookies:
+        if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies as? [NSHTTPCookie] {
+            for cookie in cookies {
+                NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
+            }
+        }
+        NSUserDefaults.standardUserDefaults().synchronize()
+        // clear core data:
+        SharedCoreDataManager().deleteEntities("Quiz")
+        SharedCoreDataManager().deleteEntities("QuizInstance")
+        SharedCoreDataManager().save()
+        // post the logout notification to update the UI:
         NSNotificationCenter.defaultCenter().postNotificationName("APILoginStatusChangedNotification", object: nil)
     }
     

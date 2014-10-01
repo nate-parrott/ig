@@ -138,6 +138,6 @@ class CameraView: UIView {
     // MARK: Permissions dialog
     @IBOutlet var permissionDialog: UIView?
     @IBAction func openSettings() {
-        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+        UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString))
     }
 }
