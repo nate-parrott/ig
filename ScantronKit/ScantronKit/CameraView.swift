@@ -62,7 +62,7 @@ class CameraView: UIView {
             captureSession!.addOutput(stillImageOutput!)
             let captureDeviceInput = AVCaptureDeviceInput(device: captureDevice!, error: nil)
             captureSession!.addInput(captureDeviceInput)
-            layer.insertSublayer(previewLayer!, atIndex: 0)
+            layer.addSublayer(previewLayer!)
             self.setNeedsLayout()
             
             if let metadataDelegate = metadataObjectsDelegate {
@@ -71,6 +71,8 @@ class CameraView: UIView {
                 metadataOutput!.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
                 metadataOutput!.setMetadataObjectsDelegate(metadataDelegate, queue: dispatch_get_main_queue())
             }
+            
+            updateVideoOrientation()
             
             captureSession!.startRunning()
         }
@@ -115,6 +117,18 @@ class CameraView: UIView {
         super.layoutSubviews()
         if let p = previewLayer {
             p.frame = bounds
+        }
+    }
+    
+    func updateVideoOrientation() {
+        if let c = previewLayer?.connection {
+            switch UIDevice.currentDevice().orientation {
+            case .Portrait: c.videoOrientation = AVCaptureVideoOrientation.Portrait
+            case .PortraitUpsideDown: c.videoOrientation = AVCaptureVideoOrientation.PortraitUpsideDown
+            case .LandscapeLeft: c.videoOrientation = AVCaptureVideoOrientation.LandscapeRight
+            case .LandscapeRight: c.videoOrientation = AVCaptureVideoOrientation.LandscapeLeft
+            default: 0
+            }
         }
     }
     

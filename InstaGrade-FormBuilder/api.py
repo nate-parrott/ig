@@ -10,6 +10,14 @@ import file_storage
 from util import templ8
 from send_mail import send_mail
 
+class SetSubscription(webapp2.RequestHandler):
+	def post(self):
+		user = login.current_user(self)
+		time = float(self.request.get('seconds'))
+		user.subscription_end_date = datetime.datetime.fromtimestamp(time)
+		user.put()
+		self.response.write("okay")
+
 class FormDetail(webapp2.RequestHandler):
 	def get(self, index):
 		if login.current_user(self):
@@ -27,7 +35,7 @@ class UploadQuizInstances(webapp2.RequestHandler):
 		user = login.current_user(self)
 		data = msgpack.unpackb(self.request.body)
 		
-		to_save = []
+		to_save = [user]
 		
 		added_quizzes_to_indices = set()
 		for instance in data['quizInstances']:
@@ -41,6 +49,7 @@ class UploadQuizInstances(webapp2.RequestHandler):
 				name_image_url = file_storage.upload_file_and_get_url(instance['nameImage'], mimetype='image/jpeg'))
 			to_save.append(rec)
 			added_quizzes_to_indices.add(rec.quiz_index)
+			if user.scans_left > 0: user.scans_left -= 1
 		
 		# send emails:
 		for index in added_quizzes_to_indices:

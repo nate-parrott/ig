@@ -32,7 +32,9 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         if request.URL.scheme! == "instagrade-login-token" {
             let token = request.URL.queryValueForKey("token")!
             let email = request.URL.queryValueForKey("email")!
-            SharedAPI().gotToken(token, email: email)
+            let scansLeft = request.URL.queryValueForKey("scans_left")!.toInt()!
+            let subscriptionEndDate = NSString(string: request.URL.queryValueForKey("subscription_end_date")!).doubleValue as NSTimeInterval
+            SharedAPI().gotToken(token, email: email, subscriptionEndDate: subscriptionEndDate, scansLeft: scansLeft)
             return false
         }
         return true

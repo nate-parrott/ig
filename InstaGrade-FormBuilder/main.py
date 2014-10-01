@@ -53,5 +53,6 @@ app = webapp2.WSGIApplication([
 		('/upload_quiz_instances', api.UploadQuizInstances),
 		('/add_to_email_list', email_list.Add),
 		('/how-it-works', info.HowItWorks),
+		('/set_subscription', api.SetSubscription),
 		('/(.+)', form_page.FormPage)
 ], debug=True)

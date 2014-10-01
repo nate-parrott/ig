@@ -27,14 +27,16 @@ class API: NSObject, NSURLSessionDelegate {
             return NSUserDefaults.standardUserDefaults().objectForKey("Token") as? String
         }
     }
-    func gotToken(token: String, email: String) {
+    func gotToken(token: String, email: String, subscriptionEndDate: NSTimeInterval, scansLeft: Int) {
         NSUserDefaults.standardUserDefaults().setObject(token, forKey: "Token")
         NSUserDefaults.standardUserDefaults().setObject(email, forKey: "Email")
+        self.scansLeft = scansLeft
+        self.subscriptionEndDate = subscriptionEndDate
         NSNotificationCenter.defaultCenter().postNotificationName(APILoginStatusChangedNotification, object: nil)
     }
     func logOut() {
         // TODO: clear core data
-        for key in ["Token", "Email"] {
+        for key in ["Token", "Email", "ScansLeft", "SubscriptionEndDate"] {
             NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
         }
         NSNotificationCenter.defaultCenter().postNotificationName("APILoginStatusChangedNotification", object: nil)
@@ -124,7 +126,33 @@ class API: NSObject, NSURLSessionDelegate {
     }
     var queriedQuizIds = Set<Int>()
     
+    func updateSubscriptionEndDate() {
+        let req = makeURLRequest("/set_subscription", args: ["seconds": "\(self.subscriptionEndDate)"])
+        req.HTTPMethod = "POST"
+        SharedBackgroundUploader().startUpload(req, data: NSData(), type: "Subscription", info: [String: AnyObject]())
+    }
     
+    var scansLeft: Int {
+        get {
+            return NSUserDefaults.standardUserDefaults().integerForKey("ScansLeft")
+        }
+        set(val) {
+            NSUserDefaults.standardUserDefaults().setInteger(val, forKey: "ScansLeft")
+        }
+    }
+    
+    var subscriptionEndDate: NSTimeInterval {
+        get {
+            return NSUserDefaults.standardUserDefaults().doubleForKey("SubscriptionEndDate")
+        }
+        set(val) {
+            NSUserDefaults.standardUserDefaults().setDouble(val, forKey: "SubscriptionEndDate")
+        }
+    }
+    
+    func canScan() -> Bool {
+        return self.scansLeft > 0 || self.subscriptionEndDate > NSDate().timeIntervalSince1970
+    }
     
 }
 

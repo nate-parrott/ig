@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vrG-1q-UXQ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -55,22 +56,34 @@
                                 </connections>
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="e6e-f5-2K8">
-                                <rect key="frame" x="273" y="491" width="55" height="37"/>
+                                <rect key="frame" x="273" y="498" width="55" height="37"/>
                                 <color key="pageIndicatorTintColor" red="0.68365609645843506" green="0.68360990285873413" blue="0.68363696336746216" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.99313521385192871" green="0.99310553073883057" blue="0.99312233924865723" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="e6e-f5-2K8" secondAttribute="bottom" constant="-7" id="9Ib-qW-fgQ"/>
                             <constraint firstItem="zIk-QD-We9" firstAttribute="top" secondItem="q1F-FS-pc6" secondAttribute="top" id="Oxr-1u-yaq"/>
                             <constraint firstItem="zIk-QD-We9" firstAttribute="leading" secondItem="q1F-FS-pc6" secondAttribute="leading" id="Qtl-cA-qJW"/>
                             <constraint firstAttribute="centerX" secondItem="bWT-Qq-436" secondAttribute="centerX" constant="-0.5" id="W6w-7w-m89"/>
-                            <constraint firstItem="bWT-Qq-436" firstAttribute="top" secondItem="e6e-f5-2K8" secondAttribute="bottom" constant="1" id="WCe-Rp-RXK"/>
+                            <constraint firstItem="bWT-Qq-436" firstAttribute="top" secondItem="e6e-f5-2K8" secondAttribute="bottom" constant="-6" id="WCe-Rp-RXK"/>
                             <constraint firstItem="bWT-Qq-436" firstAttribute="centerX" secondItem="e6e-f5-2K8" secondAttribute="centerX" id="bCL-Zc-9nQ"/>
                             <constraint firstItem="8Qj-tv-lVC" firstAttribute="top" secondItem="bWT-Qq-436" secondAttribute="bottom" constant="20" id="bQj-g2-p0t"/>
                             <constraint firstItem="8Qj-tv-lVC" firstAttribute="top" secondItem="zIk-QD-We9" secondAttribute="bottom" id="iTj-TC-rqU"/>
                             <constraint firstAttribute="trailing" secondItem="zIk-QD-We9" secondAttribute="trailing" id="rhM-1O-hsF"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9Ib-qW-fgQ"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="WCe-Rp-RXK"/>
+                                <include reference="9Ib-qW-fgQ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="LmX-Ks-yg0"/>
                     <connections>

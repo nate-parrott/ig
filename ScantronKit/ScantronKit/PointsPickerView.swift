@@ -140,7 +140,7 @@ class PointsPickerView: UIView {
                 marker.backgroundColor = UIColor.clearColor()
             }
             bringSubviewToFront(marker)
-            marker.frame = CGRectMake(xForValue, -14, 10, bounds.size.height - 10)
+            marker.frame = CGRectMake(xForValue, -24, 10, bounds.size.height - 20)
             marker.value = val
         } else {
             if let m = marker {

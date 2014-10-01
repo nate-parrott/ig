@@ -59,6 +59,7 @@
 		5FD4F96319D65AA500BFC553 /* QuizInstanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */; };
 		5FD690A919D8D6ED00E5D736 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */; };
 		5FD690AB19D8E04A00E5D736 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */; };
+		5FEA00B719DBBBA2009B1BA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */; };
 		5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC12D1996D737009736D5 /* Unprojection.swift */; };
 		5FFEC1331996DD7C009736D5 /* SKMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1321996DD7C009736D5 /* SKMath.mm */; };
 		5FFEC1351996DF72009736D5 /* PageExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1341996DF72009736D5 /* PageExtraction.swift */; };
@@ -145,6 +146,7 @@
 		5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizInstanceCell.swift; sourceTree = "<group>"; };
 		5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		5FFEC12D1996D737009736D5 /* Unprojection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unprojection.swift; sourceTree = "<group>"; };
 		5FFEC1311996DD7C009736D5 /* SKMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMath.h; sourceTree = "<group>"; };
 		5FFEC1321996DD7C009736D5 /* SKMath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKMath.mm; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				5F3A5D6719D0AE7A009552D5 /* ManualResponseViewController.swift */,
 				5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */,
 				5F3A5D6B19D0B013009552D5 /* PointsPickerView.swift */,
+				5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				5F07D1D419C78EBE00B9E615 /* CameraView.swift in Sources */,
 				5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */,
 				5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */,
+				5FEA00B719DBBBA2009B1BA2 /* PaymentViewController.swift in Sources */,
 				5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */,
 				5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */,
 				5F47F0D319DB25B600ACE416 /* IndividualResultTableViewController.swift in Sources */,

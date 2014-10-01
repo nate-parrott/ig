@@ -36,8 +36,9 @@ class BackgroundUploader: NSObject, NSURLSessionTaskDelegate {
         NSFileManager.defaultManager().removeItemAtURL(
             urlForUploadDataWithFilename(info.getOrDefault("filename", defaultVal: "") as String),
             error: nil)
-        let handler = handlersForTypes.get(type)! as CompletionHandler
-        handler(task, error, info.get("userInfo")! as [String: AnyObject])
+        if let handler = handlersForTypes.get(type) as CompletionHandler? {
+            handler(task, error, info.get("userInfo")! as [String: AnyObject])
+        }
     }
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {

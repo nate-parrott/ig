@@ -89,6 +89,13 @@ class ScanViewController: UIViewController {
         updateScanConstantly()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if !SharedAPI().canScan() {
+            performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
+        }
+    }
+    
     func appBecameActive() {
         appIsActive = true
         updateScanConstantly()
@@ -219,6 +226,10 @@ class ScanViewController: UIViewController {
     }
     
     @IBAction func acceptScannedQuiz() {
+        if !SharedAPI().canScan() {
+            performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
+        }
+        
         if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
             let manualResponseTemplates = infoController.quiz!.getManuallyGradedResponseTemplates()
             if countElements(manualResponseTemplates.filter( { $0 != nil} )) > 0 {
@@ -248,6 +259,9 @@ class ScanViewController: UIViewController {
     }
         
     func saveScannedQuiz() {
+        
+        SharedAPI().scansLeft = max(SharedAPI().scansLeft - 1, 0)
+        
         let instance = infoController.createGradedQuizInstance()
         SharedAPI().uploadQuizInstances()
         
@@ -337,5 +351,10 @@ class ScanViewController: UIViewController {
     
     // MARK: Edu
     @IBOutlet var edu: UIView!
+    
+    // MARK: Rotation support
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        cameraView!.updateVideoOrientation()
+    }
     
 }

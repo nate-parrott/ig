@@ -71,4 +71,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet var pageControl: UIPageControl!
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 }
