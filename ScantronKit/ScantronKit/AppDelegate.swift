@@ -21,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
         
         SharedAPI() // cause it to be instantiated and listening to background session notifications
+        if SharedAPI().userToken != nil {
+            SharedAPI().refreshData() {
+                (succesOpt) in
+            }
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRootUI", name: APILoginStatusChangedNotification, object: nil)
         

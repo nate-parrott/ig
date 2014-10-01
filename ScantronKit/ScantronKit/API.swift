@@ -21,18 +21,14 @@ class API: NSObject, NSURLSessionDelegate {
         get {
             return NSUserDefaults.standardUserDefaults().objectForKey("Email") as? String
         }
+        set(val) {
+            NSUserDefaults.standardUserDefaults().setObject(val, forKey: "Email")
+        }
     }
     var userToken: String? {
         get {
             return NSUserDefaults.standardUserDefaults().objectForKey("Token") as? String
         }
-    }
-    func gotToken(token: String, email: String, subscriptionEndDate: NSTimeInterval, scansLeft: Int) {
-        NSUserDefaults.standardUserDefaults().setObject(token, forKey: "Token")
-        NSUserDefaults.standardUserDefaults().setObject(email, forKey: "Email")
-        self.scansLeft = scansLeft
-        self.subscriptionEndDate = subscriptionEndDate
-        NSNotificationCenter.defaultCenter().postNotificationName(APILoginStatusChangedNotification, object: nil)
     }
     func logOut() {
         // clear defaults:
@@ -76,7 +72,21 @@ class API: NSObject, NSURLSessionDelegate {
     func call(endpoint: String, args: [String: String], callback: NSData? -> ()) -> NSURLSessionTask {
         let request = makeURLRequest(endpoint, args: args)
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
-            callback(data)
+            AsyncOnMainQueue() {
+                callback(data)
+            }
+        })
+        task.resume()
+        return task
+    }
+    
+    func post(endpoint: String, args: [String: String], callback: NSData? -> ()) -> NSURLSessionTask {
+        let request = makeURLRequest(endpoint, args: args)
+        request.HTTPMethod = "POST"
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            AsyncOnMainQueue() {
+                callback(data)
+            }
         })
         task.resume()
         return task
@@ -138,18 +148,22 @@ class API: NSObject, NSURLSessionDelegate {
     }
     var queriedQuizIds = Set<Int>()
     
-    func updateSubscriptionEndDate() {
-        let req = makeURLRequest("/set_subscription", args: ["seconds": "\(self.subscriptionEndDate)"])
-        req.HTTPMethod = "POST"
-        SharedBackgroundUploader().startUpload(req, data: NSData(), type: "Subscription", info: [String: AnyObject]())
-    }
-    
     var scansLeft: Int {
         get {
             return NSUserDefaults.standardUserDefaults().integerForKey("ScansLeft")
         }
         set(val) {
             NSUserDefaults.standardUserDefaults().setInteger(val, forKey: "ScansLeft")
+        }
+    }
+    
+    func usageLeftSummary() -> String {
+        let remainingSeconds = self.subscriptionEndDate - NSDate().timeIntervalSince1970
+        if remainingSeconds > 0 {
+            let days = Int(round(remainingSeconds / (24 * 60 * 60)))
+            return "\(days) Days Left"
+        } else {
+            return "\(self.scansLeft) Scans Left"
         }
     }
     
@@ -166,6 +180,31 @@ class API: NSObject, NSURLSessionDelegate {
         return self.scansLeft > 0 || self.subscriptionEndDate > NSDate().timeIntervalSince1970
     }
     
+    func refreshData(callback: ((success: Bool) -> ())) {
+        call("/user_data", args: [String: String]()) {
+            resultOpt in
+            callback(success: self.loadDataFromJsonPayload(resultOpt))
+        }
+    }
+    
+    func loadDataFromJsonPayload(data: NSData?) -> Bool {
+        if let d = data {
+            if let dict = NSJSONSerialization.JSONObjectWithData(d, options: nil, error: nil) as? [String: AnyObject] {
+                self.userEmail = (dict.get("email")! as? String)!
+                self.scansLeft = dict.get("scans_left")! as Int
+                self.subscriptionEndDate = dict.get("subscription_end_date") as Double
+                return true
+            }
+        }
+        return false
+    }
+    
+    func updateUserData(args: [String: String], callback: (success: Bool) -> ()) {
+        post("/user_data", args: args) {
+            (dataOpt) in
+            callback(success: self.loadDataFromJsonPayload(dataOpt))
+        }
+    }
 }
 
 var _sharedAPI: API? = nil

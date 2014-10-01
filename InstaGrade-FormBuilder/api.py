@@ -9,6 +9,7 @@ import datetime
 import file_storage
 from util import templ8
 from send_mail import send_mail
+import calendar
 
 class SetSubscription(webapp2.RequestHandler):
 	def post(self):
@@ -17,6 +18,36 @@ class SetSubscription(webapp2.RequestHandler):
 		user.subscription_end_date = datetime.datetime.fromtimestamp(time)
 		user.put()
 		self.response.write("okay")
+
+class UserData(webapp2.RequestHandler):
+	def get(self):
+		user = login.current_user(self)
+		email = user.email
+		subscription_end_date = calendar.timegm(user.subscription_end_date.utctimetuple()) if user.subscription_end_date else 0
+		scans_left = user.scans_left
+		self.response.write(json.dumps({
+			"email": email,
+			"subscription_end_date": subscription_end_date,
+			"scans_left": scans_left
+		}))
+	def post(self):
+		user = login.current_user(self)
+		for key in self.request.arguments():
+			val = self.request.get(key)
+			if key == 'email':
+				user.email = val
+			elif key == 'subscription_end_date':
+				time = float(val)
+				user.subscription_end_date = datetime.datetime.fromtimestamp(time)
+			elif key == 'add_subscription_seconds':
+				subscription_end_date = datetime.datetime.now()
+				if user.subscription_end_date != None and user.subscription_end_date > subscription_end_date:
+					subscription_end_date = user.subscription_end_date
+				user.subscription_end_date = subscription_end_date + datetime.timedelta(seconds=float(val))
+			elif key == 'scans_left':
+				user.scans_left = int(val)
+		user.put()
+		self.get() # to send back data
 
 class FormDetail(webapp2.RequestHandler):
 	def get(self, index):

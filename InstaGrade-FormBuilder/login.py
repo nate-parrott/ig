@@ -43,14 +43,8 @@ class GetToken(webapp2.RequestHandler):
 		if user:
 			# create and vend token:
 			token = create_token_for_current_user()
-			email = current_user().email
-			subscription_end_date = calendar.timegm(user.subscription_end_date.utctimetuple()) if user.subscription_end_date else 0
-			scans_left = user.scans_left
 			query_dict = {
 				"token": token,
-				"email": email,
-				"subscription_end_date": subscription_end_date,
-				"scans_left": scans_left
 			}
 			print "URL", 'instagrade-login-token://x?' + urllib.urlencode(query_dict)
 			self.redirect('instagrade-login-token://x?' + urllib.urlencode(query_dict))

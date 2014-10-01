@@ -14,6 +14,7 @@ class ResultsTableViewController: SwipeAwayTableViewController {
         super.viewWillAppear(animated)
         reloadData()
         logoutButton.setTitle(NSString(format: NSLocalizedString("Log out %@", comment: ""), SharedAPI().userEmail!), forState: UIControlState.Normal)
+        paymentsButton.setTitle(SharedAPI().usageLeftSummary(), forState: UIControlState.Normal)
         if let selectedIndexPath = tableView.indexPathForSelectedRow() {
             tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
         }
@@ -89,6 +90,7 @@ class ResultsTableViewController: SwipeAwayTableViewController {
     }
     
     @IBOutlet var logoutButton: UIButton!
+    @IBOutlet var paymentsButton: UIButton!
     
     // MARK: Detail
     

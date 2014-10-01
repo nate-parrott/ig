@@ -10,12 +10,23 @@ import UIKit
 
 class PaymentViewController: UIViewController {
     
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        updateButtons()
+        updateUI()
     }
     
     @IBOutlet var loadingView: UIView!
+    
+    var loading: Bool = false {
+        didSet {
+            loadingView.animateAlphaTo(loading ? 1 : 0, duration: 0.5)
+            loadingView.userInteractionEnabled = !loading
+        }
+    }
     
     @IBOutlet var status: UILabel!
     @IBOutlet var paragraph: UILabel!
@@ -29,16 +40,37 @@ class PaymentViewController: UIViewController {
         addSubscriptionTime(60 * 60 * 24 * 365)
     }
     func addSubscriptionTime(time: NSTimeInterval) {
-        SharedAPI().subscriptionEndDate = max(SharedAPI().subscriptionEndDate, NSDate().timeIntervalSince1970)
-        SharedAPI().subscriptionEndDate += time
-        SharedAPI().updateSubscriptionEndDate()
-        updateButtons()
+        loading = true
+        SharedAPI().updateUserData(["add_subscription_seconds": "\(time)"]) {
+            (success) in
+            if success {
+                self.updateUI()
+            } else {
+                self.showError()
+            }
+            self.loading = false
+        }
     }
+    func showError() {
+        let alertController = UIAlertController(title: nil, message: "Sorry, an error occurred.", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func backToApp() {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    func updateButtons() {
+    func updateUI() {
         backToAppButton.backgroundColor = SharedAPI().canScan() ? view.tintColor : UIColor.grayColor()
         backToAppButton.enabled = SharedAPI().canScan()
+        let remainingSeconds = SharedAPI().subscriptionEndDate - NSDate().timeIntervalSince1970
+        if remainingSeconds > 0 {
+            let days = Int(round(remainingSeconds / (24 * 60 * 60)))
+            status.text = "\(days) Days Left"
+            paragraph.text = "in your subscription. Thanks for supporting InstaGrade!"
+        } else {
+            status.text = "\(SharedAPI().scansLeft) Scans Left"
+            paragraph.text = "Running InstaGrade isn't free. After you've used 100 scans, we ask that you help support us by purchasing a subscription."
+        }
     }
 }

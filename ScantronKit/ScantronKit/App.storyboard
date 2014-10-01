@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KOu-qy-yat">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -48,11 +48,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="8R0-8a-29u">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="129.5" width="600" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku2-wX-0h9">
-                                    <rect key="frame" x="8" y="0.0" width="584" height="44"/>
+                                    <rect key="frame" x="8" y="60" width="584" height="50"/>
                                     <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="16"/>
                                     <state key="normal" title="Log out">
                                         <color key="titleColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -62,14 +62,35 @@
                                         <action selector="logout" destination="PAp-G0-K30" eventType="touchUpInside" id="SBr-Df-uig"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRi-A7-zre">
+                                    <rect key="frame" x="8" y="10" width="584" height="50"/>
+                                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="16"/>
+                                    <state key="normal" title="100 scans left">
+                                        <color key="titleColor" red="0.32866310589999997" green="0.32866310589999997" blue="0.32866310589999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="guW-62-hYw" kind="presentation" identifier="ShowPayments" modalPresentationStyle="formSheet" id="iAb-gb-l5b"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="uRi-A7-zre" firstAttribute="top" secondItem="8R0-8a-29u" secondAttribute="top" constant="10" id="3mc-gA-HCB"/>
+                                <constraint firstItem="ku2-wX-0h9" firstAttribute="top" secondItem="uRi-A7-zre" secondAttribute="bottom" id="4m2-bO-tFj"/>
+                                <constraint firstItem="uRi-A7-zre" firstAttribute="centerX" secondItem="ku2-wX-0h9" secondAttribute="centerX" id="5l2-6S-8Xj"/>
                                 <constraint firstItem="ku2-wX-0h9" firstAttribute="leading" secondItem="8R0-8a-29u" secondAttribute="leading" constant="8" id="MRU-CT-rdj"/>
                                 <constraint firstItem="ku2-wX-0h9" firstAttribute="top" secondItem="8R0-8a-29u" secondAttribute="top" id="VJB-FR-GTc"/>
                                 <constraint firstAttribute="trailing" secondItem="ku2-wX-0h9" secondAttribute="trailing" constant="8" id="c5j-tx-qop"/>
+                                <constraint firstItem="uRi-A7-zre" firstAttribute="width" secondItem="ku2-wX-0h9" secondAttribute="width" id="lEh-Ps-ntf"/>
+                                <constraint firstItem="uRi-A7-zre" firstAttribute="height" secondItem="ku2-wX-0h9" secondAttribute="height" id="mjP-PR-inE"/>
                                 <constraint firstAttribute="bottom" secondItem="ku2-wX-0h9" secondAttribute="bottom" id="wGc-j3-8ch"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="VJB-FR-GTc"/>
+                                </mask>
+                            </variation>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="QuizInstanceCell" rowHeight="70" id="Ycg-pf-VR4" customClass="QuizInstanceCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
@@ -111,6 +132,7 @@
                     </tableView>
                     <connections>
                         <outlet property="logoutButton" destination="ku2-wX-0h9" id="a5a-vj-aYJ"/>
+                        <outlet property="paymentsButton" destination="uRi-A7-zre" id="mqA-0m-0ML"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdM-YT-rkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -505,7 +527,7 @@
                                         <color key="color" white="0.1019607857" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="0.71999999999999997" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="QQ6-fW-IAW" secondAttribute="centerY" constant="0.5" id="Dj8-ya-KBr"/>
                                     <constraint firstAttribute="centerX" secondItem="QQ6-fW-IAW" secondAttribute="centerX" constant="-0.5" id="zwy-rQ-SO9"/>
@@ -551,4 +573,7 @@
         <image name="FlashOff" width="24" height="48"/>
         <image name="FlashOn" width="24" height="48"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="iAb-gb-l5b"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -13,11 +13,15 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        reload()
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        reload()
     }
     
     @IBAction func reload() {
@@ -31,10 +35,8 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if request.URL.scheme! == "instagrade-login-token" {
             let token = request.URL.queryValueForKey("token")!
-            let email = request.URL.queryValueForKey("email")!
-            let scansLeft = request.URL.queryValueForKey("scans_left")!.toInt()!
-            let subscriptionEndDate = NSString(string: request.URL.queryValueForKey("subscription_end_date")!).doubleValue as NSTimeInterval
-            SharedAPI().gotToken(token, email: email, subscriptionEndDate: subscriptionEndDate, scansLeft: scansLeft)
+            NSUserDefaults.standardUserDefaults().setObject(token, forKey: "Token")
+            performSegueWithIdentifier("ShowUserDataLoaderViewController", sender: nil)
             return false
         }
         return true
@@ -56,4 +58,20 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet var loader: UIActivityIndicatorView!
     
     @IBOutlet var error: UIView!
+}
+
+class UserDataLoaderViewController: UIViewController {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        SharedAPI().refreshData() {
+            (success) in
+            if success {
+                NSNotificationCenter.defaultCenter().postNotificationName(APILoginStatusChangedNotification, object: nil)
+            } else {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("Token")
+                self.navigationController!.popViewControllerAnimated(true)
+            }
+        }
+    }
 }

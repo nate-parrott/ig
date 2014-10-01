@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vrG-1q-UXQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vrG-1q-UXQ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -171,11 +171,40 @@
                         <outlet property="error" destination="uwC-oR-aNe" id="xCH-ss-l2t"/>
                         <outlet property="loader" destination="ovs-cU-qRw" id="kNc-hf-8Pc"/>
                         <outlet property="webView" destination="fwy-0U-QI3" id="ics-gr-DSR"/>
+                        <segue destination="z6y-nb-xdK" kind="show" identifier="ShowUserDataLoaderViewController" id="e1T-Rw-xGX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fS2-VK-KDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="329" y="320"/>
+            <point key="canvasLocation" x="398" y="320"/>
+        </scene>
+        <!--User Data Loader View Controller-->
+        <scene sceneID="uVE-Yo-RZe">
+            <objects>
+                <viewController id="z6y-nb-xdK" customClass="UserDataLoaderViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xmA-El-mkc"/>
+                        <viewControllerLayoutGuide type="bottom" id="6pV-1J-KL3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5jl-3y-NH7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wUw-ar-S7J">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <color key="color" red="0.32866310589999997" green="0.32866310589999997" blue="0.32866310589999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="wUw-ar-S7J" secondAttribute="centerY" constant="0.5" id="TkO-dw-BdJ"/>
+                            <constraint firstAttribute="centerX" secondItem="wUw-ar-S7J" secondAttribute="centerX" constant="-0.5" id="UIx-q4-lwl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fhl-aO-5kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1130" y="294"/>
         </scene>
     </scenes>
 </document>
