@@ -59,10 +59,7 @@ class ScanViewController: UIViewController {
         statusBackdrop = UIView()
         statusBackdrop.backgroundColor = UIColor(white: 0.1, alpha: 0.7)
         view.insertSubview(statusBackdrop, belowSubview: statusView)
-        
-        savedQuizzesButton.layer.borderWidth = 2
-        savedQuizzesButton.layer.cornerRadius = savedQuizzesButton.width / 2
-        savedQuizzesButton.layer.borderColor = UIColor.whiteColor().CGColor
+        statusView.center = CGPointMake(view.width/2, view.height + statusView.height/2)
         
         viewDidLayoutSubviews()
         
@@ -90,11 +87,6 @@ class ScanViewController: UIViewController {
         super.viewWillDisappear(animated)
         vcIsVisible = false
         updateScanConstantly()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        cameraView!.animateAlphaTo(1, duration: 0.2)
     }
     
     func appBecameActive() {
@@ -138,7 +130,7 @@ class ScanViewController: UIViewController {
     
     func statusChanged() {
         updateScanConstantly()
-        darknessViewAlpha = scanner!.status == Scanner.Status.PossibleScan ? 0.5 : 0.0
+        crosshair.image = scanner!.status == Scanner.Status.PossibleScan ? UIImage(named: "Crosshair-on") : UIImage(named: "Crosshair-off")
         view.setNeedsLayout()
         switch infoController.status {
         case .Done:
@@ -210,14 +202,7 @@ class ScanViewController: UIViewController {
             }
         }
     }
-    var darknessViewAlpha: CGFloat = 0.0 {
-        willSet(val) {
-            if val != darknessViewAlpha {
-                self.darkness.animateAlphaTo(val, duration: 0.6)
-            }
-        }
-    }
-    
+
     var animator: UIDynamicAnimator?
     
     // MARK: Status view
@@ -227,7 +212,7 @@ class ScanViewController: UIViewController {
     @IBOutlet var pageStatusLabel: UILabel!
     @IBOutlet var okayButton: UIButton!
     
-    @IBOutlet var darkness: UIImageView!
+    @IBOutlet var crosshair: UIImageView!
     
     @IBAction func clearScannedPages() {
         infoController.clear()

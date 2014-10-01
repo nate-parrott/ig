@@ -231,9 +231,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Crosshair-off" translatesAutoresizingMaskIntoConstraints="NO" id="J40-zX-fAV">
+                                        <rect key="frame" x="274" y="275" width="52" height="51"/>
+                                    </imageView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4X-hg-Z5Q" userLabel="No permissions view">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
@@ -247,7 +250,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KU7-em-wdg">
-                                                <rect key="frame" x="230.5" y="339" width="141" height="57"/>
+                                                <rect key="frame" x="230" y="339" width="141" height="57"/>
                                                 <color key="backgroundColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="57" id="355-A5-Jcb"/>
@@ -263,7 +266,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-5l-Slt">
-                                                <rect key="frame" x="169" y="241.5" width="262.5" height="19.5"/>
+                                                <rect key="frame" x="169" y="241" width="262.5" height="19.5"/>
                                                 <string key="text">Please Allow Access to the Camera
 
 </string>
@@ -284,10 +287,12 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.99313521390000004" green="0.99310553069999996" blue="0.99312233920000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.3068964481" green="0.30688726900000002" blue="0.3068924844" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="J4X-hg-Z5Q" secondAttribute="bottom" id="584-zU-wXD"/>
                                     <constraint firstAttribute="trailing" secondItem="J4X-hg-Z5Q" secondAttribute="trailing" id="Bxa-EO-0rA"/>
+                                    <constraint firstAttribute="centerX" secondItem="J40-zX-fAV" secondAttribute="centerX" id="DST-VJ-x2G"/>
+                                    <constraint firstAttribute="centerY" secondItem="J40-zX-fAV" secondAttribute="centerY" id="fiJ-86-9b1"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="top" id="ulK-4F-8tR"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="leading" secondItem="b6o-aP-nQb" secondAttribute="leading" id="ykd-dy-bLf"/>
                                 </constraints>
@@ -305,7 +310,7 @@
                                     <constraint firstAttribute="width" constant="50" id="Vaw-ib-D7F"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <state key="normal" title="0">
+                                <state key="normal" title="0" backgroundImage="Circle">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -405,7 +410,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="cameraView" destination="b6o-aP-nQb" id="XUG-rw-wY3"/>
-                        <outlet property="darkness" destination="QGc-8I-pAh" id="zWz-pZ-CGX"/>
+                        <outlet property="crosshair" destination="J40-zX-fAV" id="DhZ-eo-KC1"/>
                         <outlet property="edu" destination="BS2-qj-7MJ" id="ZQt-k1-vp1"/>
                         <outlet property="flashButton" destination="nWL-nJ-YNC" id="9KT-gh-UbT"/>
                         <outlet property="savedQuizzesButton" destination="P5G-tQ-dtq" id="zzB-WE-YXd"/>
@@ -418,6 +423,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Circle" width="52" height="52"/>
+        <image name="Crosshair-off" width="52" height="51"/>
         <image name="FlashOff" width="24" height="48"/>
         <image name="FlashOn" width="24" height="48"/>
         <image name="darkness" width="343" height="343"/>

@@ -62,7 +62,7 @@ class CameraView: UIView {
             captureSession!.addOutput(stillImageOutput!)
             let captureDeviceInput = AVCaptureDeviceInput(device: captureDevice!, error: nil)
             captureSession!.addInput(captureDeviceInput)
-            layer.addSublayer(previewLayer!)
+            layer.insertSublayer(previewLayer!, atIndex: 0)
             self.setNeedsLayout()
             
             if let metadataDelegate = metadataObjectsDelegate {

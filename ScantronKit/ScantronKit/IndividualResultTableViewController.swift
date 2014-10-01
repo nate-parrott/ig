@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class IndividualResultTableViewController: SwipeAwayTableViewController {
     
     var quizInstance: QuizInstance? {
@@ -70,6 +71,7 @@ class IndividualResultTableViewController: SwipeAwayTableViewController {
         case 1: return "We've emailed you a more detailed report."
         default: return nil
         }
+    }
 }
 
 class QuizItemCell : UITableViewCell {
@@ -91,3 +93,5 @@ class QuizItemCell : UITableViewCell {
         }
     }
 }
+
+
