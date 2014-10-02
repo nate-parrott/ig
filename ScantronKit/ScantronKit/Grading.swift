@@ -13,6 +13,7 @@ typealias QuizItem = [String: AnyObject]
 func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponses: [QuizItemManuallyGradedResponse?]) -> QuizInstance {
     let instance = SharedCoreDataManager().newEntity("QuizInstance") as QuizInstance
     instance.quiz = quiz
+    instance.uuid = NSUUID().UUIDString
     let createPageImage = {
         (page: ScannedPage) -> PageImage in
         let entity = SharedCoreDataManager().newEntity("PageImage") as PageImage

@@ -19,6 +19,7 @@
 		5F07D1D619C78EF000B9E615 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D519C78EF000B9E615 /* API.swift */; };
 		5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */; };
 		5F14D84219D527FF000A962E /* BackgroundUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14D84119D527FF000A962E /* BackgroundUploader.swift */; };
+		5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F17945D19DD090700443679 /* StoreKit.framework */; };
 		5F1CCE0919D090CC002B7C3E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0819D090CC002B7C3E /* StatusView.swift */; };
 		5F1CCE0D19D0918C002B7C3E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0C19D0918C002B7C3E /* StatusView.xib */; };
 		5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38339919CD16D900DE6C71 /* Scanner.swift */; };
@@ -38,6 +39,7 @@
 		5F66A11A19CA02E8009B14AE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F66A11919CA02E8009B14AE /* Login.storyboard */; };
 		5F66A11C19CA0343009B14AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F66A11B19CA0343009B14AE /* LoginViewController.swift */; };
 		5F6BF93D19CE2B4B00AB5582 /* QuizInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF93C19CE2B4B00AB5582 /* QuizInfoController.swift */; };
+		5F7DC16F19DCB11300651228 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7DC16E19DCB11300651228 /* ProductButton.swift */; };
 		5F92327F19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F92327D19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld */; };
 		5F92328A19C8C31700B2C5DA /* ScannedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328919C8C31700B2C5DA /* ScannedPage.swift */; };
 		5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328D19C8C9E600B2C5DA /* UIImage+PixelData.m */; };
@@ -60,6 +62,7 @@
 		5FD690A919D8D6ED00E5D736 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */; };
 		5FD690AB19D8E04A00E5D736 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */; };
 		5FEA00B719DBBBA2009B1BA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */; };
+		5FFA0AB019DDA8D9006EAA34 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5FFA0AAF19DDA8D9006EAA34 /* Settings.bundle */; };
 		5FFEC12E1996D737009736D5 /* Unprojection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC12D1996D737009736D5 /* Unprojection.swift */; };
 		5FFEC1331996DD7C009736D5 /* SKMath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1321996DD7C009736D5 /* SKMath.mm */; };
 		5FFEC1351996DF72009736D5 /* PageExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFEC1341996DF72009736D5 /* PageExtraction.swift */; };
@@ -90,6 +93,7 @@
 		5F07D1D519C78EF000B9E615 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		5F07D1D719C78F7100B9E615 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		5F14D84119D527FF000A962E /* BackgroundUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundUploader.swift; sourceTree = "<group>"; };
+		5F17945D19DD090700443679 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5F1CCE0819D090CC002B7C3E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		5F1CCE0C19D0918C002B7C3E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
 		5F38339919CD16D900DE6C71 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 		5F66A11919CA02E8009B14AE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5F66A11B19CA0343009B14AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F6BF93C19CE2B4B00AB5582 /* QuizInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizInfoController.swift; sourceTree = "<group>"; };
+		5F7DC16E19DCB11300651228 /* ProductButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductButton.swift; sourceTree = "<group>"; };
 		5F92327E19C8BB5500B2C5DA /* InstaGrade.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaGrade.xcdatamodel; sourceTree = "<group>"; };
 		5F92328619C8C10600B2C5DA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5F92328919C8C31700B2C5DA /* ScannedPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannedPage.swift; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 		5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		5FFA0AAF19DDA8D9006EAA34 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5FFEC12D1996D737009736D5 /* Unprojection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unprojection.swift; sourceTree = "<group>"; };
 		5FFEC1311996DD7C009736D5 /* SKMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMath.h; sourceTree = "<group>"; };
 		5FFEC1321996DD7C009736D5 /* SKMath.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKMath.mm; sourceTree = "<group>"; };
@@ -161,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2A592DBA2442059B0ABBD1 /* libPods-InstaGrade Scanner.a in Frameworks */,
+				5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +228,7 @@
 				5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */,
 				5F3A5D6B19D0B013009552D5 /* PointsPickerView.swift */,
 				5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */,
+				5F7DC16E19DCB11300651228 /* ProductButton.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -295,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				5F62324C1989E4E300706593 /* Info.plist */,
+				5FFA0AAF19DDA8D9006EAA34 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -346,6 +355,7 @@
 		954DB8B758814C998C2B787D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F17945D19DD090700443679 /* StoreKit.framework */,
 				5F92328619C8C10600B2C5DA /* CoreData.framework */,
 				FC6D1763962848569C39956F /* libPods-ScantronKit.a */,
 				0CBE958C0F704E6C9896748B /* libPods-InstaGrade Scanner.a */,
@@ -410,6 +420,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 						};
 					};
 					5F6232541989E4E300706593 = {
@@ -443,6 +456,7 @@
 			files = (
 				5F570AB519D1F2A70074EFB9 /* IndividualResponseViewController.xib in Resources */,
 				5F66A11A19CA02E8009B14AE /* Login.storyboard in Resources */,
+				5FFA0AB019DDA8D9006EAA34 /* Settings.bundle in Resources */,
 				5FC6F3A019D8F4A500B297A8 /* Launch Screen.xib in Resources */,
 				5FC2F9E319D1C11800D81AFD /* Scratch.storyboard in Resources */,
 				5F03C518198F0B04002DECCF /* TestViewController.xib in Resources */,
@@ -524,6 +538,7 @@
 				5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */,
 				5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */,
 				5F47F0D319DB25B600ACE416 /* IndividualResultTableViewController.swift in Sources */,
+				5F7DC16F19DCB11300651228 /* ProductButton.swift in Sources */,
 				5F03C514198EB99F002DECCF /* ContourExtractor.mm in Sources */,
 				5F3CA66019CBB5ED006EC181 /* ImageConcatenationFilter.m in Sources */,
 				5FC2F9D719D0D8EC00D81AFD /* UIViewExtensions.swift in Sources */,
@@ -665,10 +680,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
-				PROVISIONING_PROFILE = "5620ee1f-2c58-4f02-a6df-3434653c6a72";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScantronKit/ScantronKit-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -680,10 +697,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
-				PROVISIONING_PROFILE = "5620ee1f-2c58-4f02-a6df-3434653c6a72";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ScantronKit/ScantronKit-Bridging-Header.h";
 			};
 			name = Release;

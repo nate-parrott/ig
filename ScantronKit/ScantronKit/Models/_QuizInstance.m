@@ -10,6 +10,7 @@ const struct QuizInstanceAttributes QuizInstanceAttributes = {
 	.maximumScore = @"maximumScore",
 	.uploaded = @"uploaded",
 	.uploadedInBatch = @"uploadedInBatch",
+	.uuid = @"uuid",
 };
 
 const struct QuizInstanceRelationships QuizInstanceRelationships = {
@@ -127,6 +128,8 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 @dynamic uploadedInBatch;
+
+@dynamic uuid;
 
 @dynamic pageImages;
 

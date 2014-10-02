@@ -24,10 +24,6 @@ class ScanViewController: UIViewController {
             AsyncOnMainQueue {
                 self.infoController.addPage(page)
             }
-            /*let barcode = page.barcode
-            let alert = UIAlertController(title: "Scanned", message: "Barcode is index \(barcode.index) and page # \(barcode.pageNum)", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)*/
         }
         if IS_SIMULATOR() {
             self.testShutterButton!.hidden = false
@@ -66,6 +62,11 @@ class ScanViewController: UIViewController {
         if DEBUGMODE() {
             cameraView!.backgroundColor = UIColor(white: 0.5, alpha: 1)
         }
+        
+        if SharedReachability.initialized {
+            showUnreachableEdu = !SharedReachability.reachable
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged", name: kDefaultNetworkReachabilityChangedNotification, object: SharedReachability)
     }
     
     deinit {
@@ -94,6 +95,8 @@ class ScanViewController: UIViewController {
         if !SharedAPI().canScan() || !NSUserDefaults.standardUserDefaults().boolForKey("ShownInitialPaymentsMenu") {
             performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ShownInitialPaymentsMenu")
+        } else {
+            cameraView!.canRun = true
         }
     }
     
@@ -190,8 +193,7 @@ class ScanViewController: UIViewController {
         let y: CGFloat = statusVisible ? view.bounds.size.height - statusView!.bounds.size.height/2 : view.bounds.size.height + statusView!.bounds.size.height/2 + 20
         statusViewCenterPoint = CGPointMake(view.bounds.size.width/2, y)
         
-        let showEdu = !NSUserDefaults.standardUserDefaults().boolForKey(HasEverGradedQuizDefaultsKey).boolValue && !statusVisible
-        edu.animateAlphaTo(showEdu ? 1 : 0, duration: 0.5)
+        self.statusViewVisible = statusVisible
         
         statusBackdrop.frame = CGRectMake(0, view.bounds.size.height - statusView!.bounds.size.height, view.bounds.size.width, statusView!.bounds.size.height)
     }
@@ -318,8 +320,7 @@ class ScanViewController: UIViewController {
             
         }
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: HasEverGradedQuizDefaultsKey)
-        
+        hasEverGradedQuiz = true
         infoController.clear()
     }
     
@@ -352,6 +353,41 @@ class ScanViewController: UIViewController {
     
     // MARK: Edu
     @IBOutlet var edu: UIView!
+    @IBOutlet var eduLabel: UILabel!
+    var hasEverGradedQuiz: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(HasEverGradedQuizDefaultsKey)
+        }
+        set(val) {
+            NSUserDefaults.standardUserDefaults().setBool(val, forKey: HasEverGradedQuizDefaultsKey)
+            updateEdu()
+        }
+    }
+    var showUnreachableEdu: Bool = false {
+        didSet {updateEdu()}
+    }
+    var statusViewVisible: Bool = false {
+        didSet {updateEdu()}
+    }
+    func updateEdu() {
+        var eduText: String? = nil
+        if !statusViewVisible {
+            if showUnreachableEdu {
+                eduText = NSLocalizedString("Can't connect to the Internet.", comment: "")
+            } else if !hasEverGradedQuiz {
+                eduText = NSLocalizedString("Create quizzes on your computer at instagradeapp.com, then scan completed answer sheets here.", comment: "")
+            }
+        }
+        if let text = eduText {
+            eduLabel.text = text
+        }
+        edu.animateAlphaTo(eduText == nil ? 0 : 1, duration: 0.5)
+    }
+    
+    func reachabilityChanged() {
+        showUnreachableEdu = (SharedReachability.initialized && !SharedReachability.reachable)
+    }
+    
     
     // MARK: Rotation support
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

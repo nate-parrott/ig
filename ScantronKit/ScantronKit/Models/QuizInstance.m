@@ -21,6 +21,7 @@
         nameImageData = UIImageJPEGRepresentation(nameImage, 0.3);
     }
     return @{
+             @"uuid": self.uuid,
              @"earnedScore": self.earnedScore,
              @"maximumScore": self.maximumScore,
              @"responseItems": self.itemsWithResponses,

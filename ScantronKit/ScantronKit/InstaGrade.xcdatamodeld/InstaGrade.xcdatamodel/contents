@@ -23,6 +23,7 @@
         <attribute name="maximumScore" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="uploaded" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="uploadedInBatch" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uuid" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pageImages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PageImage" inverseName="quizInstance" inverseEntity="PageImage" syncable="YES"/>
         <relationship name="quiz" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Quiz" inverseName="instances" inverseEntity="Quiz" syncable="YES"/>
         <compoundIndexes>
@@ -37,6 +38,6 @@
     <elements>
         <element name="PageImage" positionX="81" positionY="-18" width="128" height="73"/>
         <element name="Quiz" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="QuizInstance" positionX="189" positionY="-135" width="128" height="165"/>
+        <element name="QuizInstance" positionX="189" positionY="-135" width="128" height="180"/>
     </elements>
 </model>

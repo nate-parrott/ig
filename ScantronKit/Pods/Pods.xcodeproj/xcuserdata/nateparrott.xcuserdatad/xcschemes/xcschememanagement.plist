@@ -19,7 +19,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-InstaGrade Scanner-KSReachability.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-InstaGrade Scanner-OpenCV.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-InstaGrade Scanner-PBWebViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,32 +47,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>71D776DB2CDD4EDFA685F609</key>
+		<key>18D7FD01FF274E199C780A57</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>72449227230940FFBC23D46E</key>
+		<key>1E09CC2DF75C490EA50EA5CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>951BEC10A08A47B2AF702DE9</key>
+		<key>3FFE331F90EF43738CC4D3B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C0347D761E25488E91D6C4B8</key>
+		<key>8E3B42D44AD04FD4A86BCE4B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E91AA59AAEF84069A1FBD987</key>
+		<key>A185F25F0E3D4A1D847533B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FDB72142C54B4CDE919C8B9C</key>
+		<key>B1B52DB65FAA4E3085348021</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C24CD6E3AB174105A77A74C4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CBB7727DDC414204958E8566</key>
 		<dict>
 			<key>primary</key>
 			<true/>

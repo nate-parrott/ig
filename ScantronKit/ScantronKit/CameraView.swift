@@ -12,7 +12,22 @@ class CameraView: UIView {
     
     override func willMoveToWindow(newWindow: UIWindow?) {
         super.willMoveToWindow(newWindow)
-        running = (newWindow != nil)
+        onscreen = (newWindow != nil)
+    }
+    
+    var onscreen: Bool = false {
+        didSet {
+            updateRunning()
+        }
+    }
+    var canRun: Bool = false {
+        didSet {
+            updateRunning()
+        }
+    }
+    
+    func updateRunning() {
+        running = onscreen && canRun
     }
     
     var running: Bool = false {

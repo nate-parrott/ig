@@ -20,12 +20,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()
         
-        SharedAPI() // cause it to be instantiated and listening to background session notifications
-        if SharedAPI().userToken != nil {
-            SharedAPI().refreshData() {
-                (succesOpt) in
-            }
+        SharedReachability = KSReachability(toHost: "instagradeapp.com")
+        SharedReachability.notificationName = kDefaultNetworkReachabilityChangedNotification
+        SharedReachability.onInitializationComplete = {
+            (_) in
+            NSNotificationCenter.defaultCenter().postNotificationName(kDefaultNetworkReachabilityChangedNotification, object: SharedReachability)
         }
+        
+        SharedAPI() // cause it to be instantiated and listening to background session notifications
+        
+        refreshNetworkThings()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRootUI", name: APILoginStatusChangedNotification, object: nil)
         
@@ -57,7 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        refreshNetworkThings()
+    }
+    
+    func refreshNetworkThings() {
+        if SharedAPI().userToken != nil {
+            SharedAPI().refreshData() {
+                (succesOpt) in
+            }
+        }
         SharedAPI().uploadQuizInstances()
+        SharedPostTransactionOperationPool().processCompletedTransactions()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -89,4 +103,6 @@ let ApplicationDidOpenURLNotification = "ApplicationDidOpenURLNotification"
 let ApplicationDidOpenURLNotificationURLKey = "URL"
 let ApplicationDidOpenURLNotificationSourceAppKey = "SourceApp"
 let ApplicationDidOpenURLNotificationAnnotationKey = "Annotation"
+
+var SharedReachability: KSReachability! = nil
 

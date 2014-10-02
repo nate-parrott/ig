@@ -16,7 +16,9 @@ class SwipeAwayTableViewController: UITableViewController, UIViewControllerTrans
         super.viewDidLoad()
         scrollViewDidScroll(tableView)
         
-        tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, 1, topMargin()))
+        if tableView.tableHeaderView == nil {
+            tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, 1, topMargin()))
+        }
         let tapRec = UITapGestureRecognizer(target: self, action: "dismiss")
         tableView.tableHeaderView!.addGestureRecognizer(tapRec)
         

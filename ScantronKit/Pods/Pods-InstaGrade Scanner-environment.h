@@ -60,11 +60,23 @@
 #define COCOAPODS_VERSION_MINOR_GPUImage 1
 #define COCOAPODS_VERSION_PATCH_GPUImage 4
 
+// KSReachability
+#define COCOAPODS_POD_AVAILABLE_KSReachability
+#define COCOAPODS_VERSION_MAJOR_KSReachability 1
+#define COCOAPODS_VERSION_MINOR_KSReachability 4
+#define COCOAPODS_VERSION_PATCH_KSReachability 0
+
 // OpenCV
 #define COCOAPODS_POD_AVAILABLE_OpenCV
 #define COCOAPODS_VERSION_MAJOR_OpenCV 2
 #define COCOAPODS_VERSION_MINOR_OpenCV 4
 #define COCOAPODS_VERSION_PATCH_OpenCV 8
+
+// PBWebViewController
+#define COCOAPODS_POD_AVAILABLE_PBWebViewController
+#define COCOAPODS_VERSION_MAJOR_PBWebViewController 0
+#define COCOAPODS_VERSION_MINOR_PBWebViewController 3
+#define COCOAPODS_VERSION_PATCH_PBWebViewController 0
 
 // msgpack
 #define COCOAPODS_POD_AVAILABLE_msgpack

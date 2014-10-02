@@ -10,6 +10,7 @@ extern const struct QuizInstanceAttributes {
 	__unsafe_unretained NSString *maximumScore;
 	__unsafe_unretained NSString *uploaded;
 	__unsafe_unretained NSString *uploadedInBatch;
+	__unsafe_unretained NSString *uuid;
 } QuizInstanceAttributes;
 
 extern const struct QuizInstanceRelationships {
@@ -67,6 +68,10 @@ extern const struct QuizInstanceRelationships {
 
 //- (BOOL)validateUploadedInBatch:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSString* uuid;
+
+//- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSOrderedSet *pageImages;
 
 - (NSMutableOrderedSet*)pageImagesSet;
@@ -120,6 +125,9 @@ extern const struct QuizInstanceRelationships {
 
 - (NSString*)primitiveUploadedInBatch;
 - (void)setPrimitiveUploadedInBatch:(NSString*)value;
+
+- (NSString*)primitiveUuid;
+- (void)setPrimitiveUuid:(NSString*)value;
 
 - (NSMutableOrderedSet*)primitivePageImages;
 - (void)setPrimitivePageImages:(NSMutableOrderedSet*)value;

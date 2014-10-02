@@ -7,3 +7,4 @@ class QuizInstance(db.Model):
 	quiz_index = db.IntegerProperty()
 	json = db.TextProperty()
 	date = db.DateTimeProperty()
+	uuid = db.StringProperty()

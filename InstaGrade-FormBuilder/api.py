@@ -70,7 +70,8 @@ class UploadQuizInstances(webapp2.RequestHandler):
 		
 		added_quizzes_to_indices = set()
 		for instance in data['quizInstances']:
-			rec = quiz_instance.QuizInstance(
+			rec = quiz_instance.QuizInstance.get_or_insert(
+				instance['uuid'],
 				parent = user, 
 				points = instance['earnedScore'], 
 				max_points = instance['maximumScore'], 

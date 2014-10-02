@@ -13,11 +13,23 @@ class ResultsTableViewController: SwipeAwayTableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         reloadData()
-        logoutButton.setTitle(NSString(format: NSLocalizedString("Log out %@", comment: ""), SharedAPI().userEmail!), forState: UIControlState.Normal)
+        emailLabel.text = SharedAPI().userEmail
         paymentsButton.setTitle(SharedAPI().usageLeftSummary(), forState: UIControlState.Normal)
         if let selectedIndexPath = tableView.indexPathForSelectedRow() {
             tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
         }
+    }
+    
+    @IBAction func showHelp() {
+        let browser = PBWebViewController()
+        browser.URL = NSURL(string: "http://instagradeapp.com/help")
+        let nav = UINavigationController(rootViewController: browser)
+        browser.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissBrowser")
+        presentViewController(nav, animated: true, completion: nil)
+    }
+    
+    func dismissBrowser() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     var sections: [[QuizInstance]] = [] {
@@ -27,7 +39,7 @@ class ResultsTableViewController: SwipeAwayTableViewController {
     }
     
     override func topMargin() -> CGFloat {
-        return 50
+        return 120
     }
     
     func groupInstancesByQuiz(instances: [QuizInstance]) -> [[QuizInstance]] {
@@ -89,7 +101,7 @@ class ResultsTableViewController: SwipeAwayTableViewController {
         return false
     }
     
-    @IBOutlet var logoutButton: UIButton!
+    @IBOutlet var emailLabel: UILabel!
     @IBOutlet var paymentsButton: UIButton!
     
     // MARK: Detail

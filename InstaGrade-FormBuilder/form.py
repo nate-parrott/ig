@@ -34,10 +34,10 @@ class Form(db.Model):
 		new_model.secret = base64.urlsafe_b64encode(os.urandom(64) + uuid.uuid4().bytes)
 		new_model.put()
 		
-		try:
+		"""try:
 			self.delete()
 		except db.NotSavedError:
-			pass
+			pass"""
 		
 		# send the email:
 		recipient = new_model.parent().email

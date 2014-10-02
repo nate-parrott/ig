@@ -7,6 +7,8 @@ pod "OpenCV"
 pod "GPUImage"
 pod "msgpack"
 pod "CargoBay"
+pod "KSReachability"
+pod "PBWebViewController"
 
 end
 
