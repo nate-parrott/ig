@@ -67,8 +67,9 @@ html, body {
 	position: absolute;
 	font-weight: bold;
 }
-.item-header [contentEditable] {
-	min-height: 1em;
+.item-header .description {
+	/*min-height: 1em;*/
+	min-height: 24px; /* hack for firefox, in which min-height: 1em doesn't work 100% */
 	padding-left: 40px;
 }
 .item-content {
@@ -168,6 +169,9 @@ html, body {
 .controls > div.point-value {
 	padding-top: 4px;
 	padding-bottom: 3px;
+}
+.controls > div.point-value [contentEditable] {
+	min-width: 3em;
 }
 .controls > div.icon-drag {
 	cursor: move;

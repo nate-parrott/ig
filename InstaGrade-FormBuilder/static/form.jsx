@@ -175,16 +175,23 @@ var FormItem = React.createClass({
 		}
 		var header = "";
 		if (this.shouldDisplayHeader()) {
+			var descriptionField = function() {
+				if (self.props.uneditableDescription) {
+					return <div className='description' value={self.props.item.description}/>
+				} else {
+					return <ContentEditable className='description' value={self.props.item.description} onChange={onDescriptionChange}/>
+				}
+			}
 			header = <div className='item-header'>
 									<div className='controls'>
 										<div className='point-value'>
-											Point value: <ContentEditable onChange={self.changePointValue} value={self.props.item.points} singleLine={true}/>
+											Point value: <ContentEditable onChange={self.changePointValue} value={self.props.item.points} singleLine={true} selectAllOnFocus={true}/>
 										</div>
 										<div className='icon-drag'></div>
 										<div className='icon-close' onClick={self.deleteThis}></div>
 									</div>
 									<div className='number'>{this.props.index != undefined ? this.props.index+1 : undefined}</div>
-									<ContentEditable value={this.props.item.description} onChange={onDescriptionChange}/>
+									{descriptionField() }
 							 </div>
 		}
 		return <div data-form-item-type={ this.props.item.type } onClick={this.props.onClick} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd} onDragOver={this.props.onDragOver} onDrop={this.props.onDrop} draggable data-id={this.props.item.id}>
@@ -266,7 +273,7 @@ var ContentEditable = React.createClass({
 		var changed = function(e) {
 			self.props.onChange(e.target.innerText);
 		}
-		return <div contentEditable='true' onBlur={changed} onInput={changed} onKeyDown={this.keyDown}>{this.props.value}</div>
+		return <div contentEditable={true} onFocus={this.focus} onBlur={changed} onInput={changed} onKeyDown={this.keyDown} className={this.props.className} onMouseEnter={this.turnOffParentContentEditable} onMouseLeave={this.turnOnParentContentEditable}>{this.props.value}</div>
 	},
 	shouldComponentUpdate: function(nextProps) {
 		return nextProps.value !== this.getDOMNode().innerText;
@@ -277,6 +284,34 @@ var ContentEditable = React.createClass({
 				e.preventDefault();
 				e.currentTarget.blur();
 			}
+		}
+	},
+	focus: function(e) {
+		if (this.props.selectAllOnFocus) {
+			setTimeout(function() {
+				document.execCommand('selectAll', false, null);
+			})
+		}
+	},
+	// HACK: these are workarounds for Safari, in which contentEditables inside [draggable]s can't focus.
+	turnOffParentContentEditable: function(e) {
+		var parent = e.currentTarget;
+		while (parent) {
+			if (parent.hasAttribute('draggable')) {
+				parent.setAttribute('draggable', 'suspended');
+				break;
+			}
+			parent = parent.parentNode;
+		}
+	},
+	turnOnParentContentEditable: function(e) {
+		var parent = e.currentTarget;
+		while (parent) {
+			if (parent.hasAttribute('draggable')) {
+				parent.setAttribute('draggable', 'true');
+				break;
+			}
+			parent = parent.parentNode;
 		}
 	}
 })
@@ -298,7 +333,7 @@ var NewItemPicker = React.createClass({
 			var onClick = function(e) {
 				self.props.onInsertItem(item);
 			}
-			return <FormItem item={item} onItemChange={onChange} onClick={onClick} key={item.id} data-id={item.id} />
+			return <FormItem item={item} onItemChange={onChange} onClick={onClick} key={item.id} data-id={item.id} uneditableDescription/>
 		});
 		return <div className='newItemPicker'>
 							<h6>{self.props.hasItems ? "Add more questions" : "Add some questions"}</h6>

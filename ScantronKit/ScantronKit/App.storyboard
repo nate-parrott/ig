@@ -85,7 +85,7 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <segue destination="guW-62-hYw" kind="presentation" modalPresentationStyle="formSheet" id="GQI-Ac-F95"/>
+                                        <segue destination="guW-62-hYw" kind="presentation" identifier="ShowPaymentsVC" modalPresentationStyle="formSheet" id="GQI-Ac-F95"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nateparro2t@gmail.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xh-PU-42b">

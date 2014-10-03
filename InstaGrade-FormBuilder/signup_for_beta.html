@@ -1,0 +1,32 @@
+{% extends "centered.html" %}
+
+{% block head %}
+<style>
+#thanks {
+	display: none;
+}
+#thanks:target {
+	display: block;
+	color: blue;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div id='thanks'>
+<h3>Gotcha!</h3>
+</div>
+
+<h1>Sign up for the InstaGrade iOS Beta</h1>
+<p>If you'd like to try out the InstaGrade iOS app and give feedback, enter your email below and I'll get back to you:</p>
+<form method='POST' action=''>
+Your email:
+<br/>
+<input name='email' type='email' placeholder='abc@gmail.com'/>
+<br/>
+<input type='submit'/>
+<p><em>The app works on iPhone, iPad and iPod touch—however, <strong>you need iOS 8.</strong></em></p>
+</form>
+
+{% endblock %}

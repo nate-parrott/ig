@@ -9,6 +9,7 @@
 import UIKit
 
 let HasEverGradedQuizDefaultsKey = "HasEverGradedQuizDefaultsKey"
+let PostScanDelay = 1.0
 
 class ScanViewController: UIViewController {
     
@@ -109,10 +110,19 @@ class ScanViewController: UIViewController {
         updateScanConstantly()
     }
     
+    var lastScannedPageClearTime: NSDate = NSDate.distantPast() as NSDate {
+        didSet {
+            updateScanConstantly()
+            delay(PostScanDelay) {
+                self.updateScanConstantly()
+            }
+        }
+    }
+    
     var appIsActive = true
     var vcIsVisible = false
     func updateScanConstantly() {
-        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible
+        let shouldScanConstantly = !IS_SIMULATOR() && appIsActive && vcIsVisible && (NSDate().timeIntervalSinceReferenceDate - lastScannedPageClearTime.timeIntervalSinceReferenceDate >= PostScanDelay)
         if shouldScanConstantly {
             scanner!.start()
         } else {
@@ -122,7 +132,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "ab")
+        let image = UIImage(named: "IMG_0025") // UIImage(named: "ab")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
@@ -225,6 +235,7 @@ class ScanViewController: UIViewController {
     @IBOutlet var crosshair: UIImageView!
     
     @IBAction func clearScannedPages() {
+        lastScannedPageClearTime = NSDate()
         infoController.clear()
     }
     
@@ -321,6 +332,7 @@ class ScanViewController: UIViewController {
         }
         
         hasEverGradedQuiz = true
+        lastScannedPageClearTime = NSDate()
         infoController.clear()
     }
     
