@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-    func subImage(rect: CGRect) -> UIImage {
+    func subImage(rect: CGRect) -> UIImage {        
         UIGraphicsBeginImageContext(rect.size)
         self.drawAtPoint(CGPointMake(-rect.origin.x, -rect.origin.y))
         let image = UIGraphicsGetImageFromCurrentImageContext()

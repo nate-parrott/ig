@@ -3,6 +3,7 @@ html, body {
 	background-color: #f7f7f7;
 	color: #111;
 	margin: 0px;
+	-webkit-font-smoothing: antialiased;
 }
 
 #form {

@@ -5,9 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	
 	<!-- react -->
-	<!--<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react-with-addons.min.js"></script>-->
+	{% if debug %}
 	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react-with-addons.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/JSXTransformer.js"></script>
+	{% else %}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react-with-addons.min.js"></script>
+	{% endif %}
 	
 	<link rel='stylesheet' href='/static/base.css'/>
 	

@@ -42,8 +42,16 @@
 		</div>
 	</div>
 	
-	<script type="text/jsx" src='/static/form.jsx'></script>
+	{% if debug %}
+	<script type="text/jsx" src='/static/jsx-src/form.jsx'></script>
 	<script type="text/jsx">/** @jsx React.DOM */
 	React.renderComponent(<FormEditor/>, document.getElementById('form'));
 	</script>
+	{% else %}
+	<script src='/static/jsx-build/form.js'></script>
+	<script>
+	/** @jsx React.DOM */
+	React.renderComponent(FormEditor(null), document.getElementById('form'));
+	</script>
+	{% endif %}
 {% endblock %}

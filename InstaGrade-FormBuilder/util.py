@@ -6,11 +6,14 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+DEBUG = False
+
 def templ8(filename, vals={}):
 	vals = dict(vals.items())
 	if users.get_current_user():
 		vals['global_logout_url'] = users.create_logout_url('/')
 		vals['global_email'] = users.get_current_user().email()
+	vals['debug'] = DEBUG
 	return JINJA_ENVIRONMENT.get_template(filename).render(vals)
 
 HOST = "instagradeformbuilder.appspot.com"

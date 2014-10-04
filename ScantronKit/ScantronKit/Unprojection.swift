@@ -34,7 +34,7 @@ class Unprojection: NSObject {
         }
         concatter.useNextFrameForImageCapture()
         picture.processImage()
-        return concatter.imageFromCurrentFramebuffer()
+        return concatter.imageFromCurrentFramebufferWithOrientation(UIImageOrientation.Up)
     }
     private func unprojectQuad(image: UIImage, corners: (topLeft: CGPoint, topRight: CGPoint, bottomLeft: CGPoint, bottomRight: CGPoint)) -> UIImage {
         let (topLeft, topRight, bottomLeft, bottomRight) = corners

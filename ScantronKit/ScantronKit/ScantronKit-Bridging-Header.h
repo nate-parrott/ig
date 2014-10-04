@@ -18,3 +18,4 @@
 #import <CargoBay.h>
 #import <KSReachability.h>
 #import <PBWebViewController.h>
+#import "UIImage+Crop.h"

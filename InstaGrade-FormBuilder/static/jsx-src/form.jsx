@@ -31,7 +31,7 @@ var FormEditor = React.createClass({
 			if (item.points) {
 				totalPoints += item.points;
 			}
-		});
+		}); 
 		var hasItems = totalPoints > 0;
 		var printEnabled = this.state.email && totalPoints > 0;
 		return <div className='formEditor'>
@@ -94,8 +94,8 @@ var FormEditor = React.createClass({
 	getInitialState: function() {
 		var initial = {
 			items: [
-				{type: "title", text: "Quiz Title"},
-				{type: "name-field", displayHeader: false},
+				{type: "title", text: "Quiz Title", notDraggable: true},
+				{type: "name-field", displayHeader: false, notDraggable: true},
 				/*{type: "multiple-choice", options: 4, correct: 0, description: "Example question prompt (optional)", points: 1},
 				{type: "true-false", correct: false, description: "A true or false question:", points: 2},
 				{type: "free-response", height: 4, description: "A free-response question:", points: 3}*/
@@ -194,7 +194,7 @@ var FormItem = React.createClass({
 									{descriptionField() }
 							 </div>
 		}
-		return <div data-form-item-type={ this.props.item.type } onClick={this.props.onClick} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd} onDragOver={this.props.onDragOver} onDrop={this.props.onDrop} draggable data-id={this.props.item.id}>
+		return <div data-form-item-type={ this.props.item.type } onClick={this.props.onClick} onDragStart={this.props.onDragStart} onDragEnd={this.props.onDragEnd} onDragOver={this.props.onDragOver} onDrop={this.props.onDrop} draggable={!this.props.item.notDraggable} data-id={this.props.item.id}>
 						{header}
 						<div className='label'>{ this.props.item.label }</div>
 						<div className='item-content'>{ this.renderInternals() }</div>

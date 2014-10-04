@@ -45,6 +45,7 @@
 		5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328D19C8C9E600B2C5DA /* UIImage+PixelData.m */; };
 		5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F92831B1989EC45006C693A /* SKTestbed.mm */; };
 		5F928323198D5857006C693A /* CGGeomoetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F928322198D5857006C693A /* CGGeomoetry.swift */; };
+		5FA0D87419E085560001117F /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA0D87319E085560001117F /* UIImage+Crop.m */; };
 		5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22C19CFD0B500F9AD90 /* _PageImage.m */; };
 		5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22E19CFD0B500F9AD90 /* PageImage.m */; };
 		5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED23419CFD12400F9AD90 /* Grading.swift */; };
@@ -129,6 +130,8 @@
 		5F92831A1989EC45006C693A /* SKTestbed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTestbed.h; sourceTree = "<group>"; };
 		5F92831B1989EC45006C693A /* SKTestbed.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTestbed.mm; sourceTree = "<group>"; };
 		5F928322198D5857006C693A /* CGGeomoetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGGeomoetry.swift; sourceTree = "<group>"; };
+		5FA0D87219E085560001117F /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
+		5FA0D87319E085560001117F /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
 		5FAED22B19CFD0B500F9AD90 /* _PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _PageImage.h; path = Models/_PageImage.h; sourceTree = "<group>"; };
 		5FAED22C19CFD0B500F9AD90 /* _PageImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _PageImage.m; path = Models/_PageImage.m; sourceTree = "<group>"; };
 		5FAED22D19CFD0B500F9AD90 /* PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageImage.h; path = Models/PageImage.h; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				5F3CA65A19CB565A006EC181 /* Logging.h */,
 				5F3CA65B19CB565A006EC181 /* Logging.mm */,
 				5FC2F9D619D0D8EC00D81AFD /* UIViewExtensions.swift */,
+				5FA0D87219E085560001117F /* UIImage+Crop.h */,
+				5FA0D87319E085560001117F /* UIImage+Crop.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 				5FC9E96719C8E03B0091EF1A /* UIImage+SubImage.swift in Sources */,
 				5FC1D1A419CBE51400377CF6 /* _Quiz.m in Sources */,
 				5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */,
+				5FA0D87419E085560001117F /* UIImage+Crop.m in Sources */,
 				5F07D1D019C7844000B9E615 /* ScanViewController.swift in Sources */,
 				5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */,
 			);

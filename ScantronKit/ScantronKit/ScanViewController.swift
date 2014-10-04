@@ -132,7 +132,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "IMG_0025") // UIImage(named: "ab")
+        let image = UIImage(named: "ab")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
