@@ -68,7 +68,22 @@ class ScanViewController: UIViewController {
             showUnreachableEdu = !SharedReachability.reachable
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reachabilityChanged", name: kDefaultNetworkReachabilityChangedNotification, object: SharedReachability)
+        
+        if let device = cameraView!.captureDevice {
+            flashButton.hidden = !device.torchAvailable
+            kvoController.observe(device.torchAvailable, keyPath: "torchAvailable", options: nil) {
+                [weak self]
+                (deviceChanged) in
+                self!.flashButton.hidden = !device.torchAvailable
+            }
+        } else {
+            flashButton.hidden = true
+        }
     }
+    
+    lazy var kvoController: FBKVOController = {
+        return FBKVOController(observer: self)
+    }()
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -242,6 +257,7 @@ class ScanViewController: UIViewController {
     @IBAction func acceptScannedQuiz() {
         if !SharedAPI().canScan() {
             performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
+            return
         }
         
         if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
@@ -271,7 +287,7 @@ class ScanViewController: UIViewController {
             savedQuizzesButton.setTitle("\(justSavedQuizCount)", forState: UIControlState.Normal)
         }
     }
-        
+    
     func saveScannedQuiz() {
         
         SharedAPI().scansLeft = max(SharedAPI().scansLeft - 1, 0)
@@ -339,10 +355,13 @@ class ScanViewController: UIViewController {
     // MARK: Transitions
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowResults" {
-            let resultsVC = (segue.destinationViewController as ResultsTableViewController)
-            resultsVC.transitioningDelegate = resultsVC
-            resultsVC.modalPresentationStyle = UIModalPresentationStyle.Custom
             justSavedQuizCount = 0
+        } else if segue.identifier == "ShowPaymentsMenu" {
+            let paymentsVC = (segue.destinationViewController as PaymentViewController)
+            paymentsVC.onDismiss = {
+                () in
+                self.cameraView!.canRun = true
+            }
         }
     }
     

@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRootUI", name: APILoginStatusChangedNotification, object: nil)
         
+        SetupAppearanceWithWindow(self.window)
+        
         updateRootUI()
         return true
     }
@@ -56,6 +58,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        // clean up old quizzes:
+        let req = NSFetchRequest(entityName: "QuizInstance")
+        req.predicate = NSPredicate(format: "uploaded = YES")
+        req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        req.fetchOffset = 100 // keep last 100
+        req.includesPropertyValues = false // we're gonna delete em, so
+        for obj in SharedCoreDataManager().managedObjectContext!.executeFetchRequest(req, error: nil)! as [QuizInstance] {
+            SharedCoreDataManager().managedObjectContext!.deleteObject(obj)
+        }
+        
         SharedCoreDataManager().save()
     }
 

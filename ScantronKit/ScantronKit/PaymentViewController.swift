@@ -52,12 +52,27 @@ class PaymentViewController: UIViewController {
         presentViewController(alertController, animated: true, completion: nil)
     }
     
+    var onDismiss: (() -> ())?
     @IBAction func backToApp() {
+        if !SharedAPI().canScan() {
+            // give 'em just one:
+            SharedAPI().scansLeft = 1
+        }
+        if let cb = onDismiss {
+            cb()
+            onDismiss = nil
+        }
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
     func updateUI() {
-        backToAppButton.backgroundColor = SharedAPI().canScan() ? view.tintColor : UIColor.grayColor()
-        backToAppButton.enabled = SharedAPI().canScan()
+        if SharedAPI().canScan() {
+            backToAppButton.backgroundColor = view.tintColor
+            backToAppButton.setTitle("Use InstaGrade", forState: UIControlState.Normal)
+        } else {
+            backToAppButton.backgroundColor = UIColor.grayColor()
+            backToAppButton.setTitle("Just one more scan", forState: UIControlState.Normal)
+        }
         let remainingSeconds = SharedAPI().subscriptionEndDate - NSDate().timeIntervalSince1970
         if remainingSeconds > 0 {
             let days = Int(round(remainingSeconds / (24 * 60 * 60)))

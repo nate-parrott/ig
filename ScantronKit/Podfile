@@ -9,6 +9,7 @@ pod "msgpack"
 pod "CargoBay"
 pod "KSReachability"
 pod "PBWebViewController"
+pod "KVOController"
 
 end
 

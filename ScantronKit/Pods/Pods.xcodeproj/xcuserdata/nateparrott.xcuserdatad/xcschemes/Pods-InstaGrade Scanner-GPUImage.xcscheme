@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "18D7FD01FF274E199C780A57"
+               BlueprintIdentifier = "43D440CC471E439A8C8A1939"
                BuildableName = "libPods-InstaGrade Scanner-GPUImage.a"
                BlueprintName = "Pods-InstaGrade Scanner-GPUImage"
                ReferencedContainer = "container:Pods.xcodeproj">

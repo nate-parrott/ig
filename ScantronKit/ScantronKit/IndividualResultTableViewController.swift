@@ -9,7 +9,7 @@
 import UIKit
 
 
-class IndividualResultTableViewController: SwipeAwayTableViewController {
+@objc class IndividualResultTableViewController: UITableViewController {
     
     var quizInstance: QuizInstance? {
         didSet {
@@ -24,10 +24,6 @@ class IndividualResultTableViewController: SwipeAwayTableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func topMargin() -> CGFloat {
-        return 80
     }
 
     // MARK: - Table view data source

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3FFE331F90EF43738CC4D3B2"
+               BlueprintIdentifier = "C456301446574EC19EEBA50B"
                BuildableName = "libPods-InstaGrade Scanner-OpenCV.a"
                BlueprintName = "Pods-InstaGrade Scanner-OpenCV"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8C46A6B865AF413CB0EFBC33"
-               BuildableName = "libPods-InstaGrade Scanner-AFNetworking.a"
-               BlueprintName = "Pods-InstaGrade Scanner-AFNetworking"
+               BlueprintIdentifier = "13DD39C3390842D984E7AA68"
+               BuildableName = "libPods-InstaGrade Scanner-KVOController.a"
+               BlueprintName = "Pods-InstaGrade Scanner-KVOController"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

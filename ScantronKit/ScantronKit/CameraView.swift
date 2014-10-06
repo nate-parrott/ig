@@ -42,7 +42,6 @@ class CameraView: UIView {
         }
     }
     
-    var captureDevice: AVCaptureDevice?
     var captureSession: AVCaptureSession?
     var previewLayer: AVCaptureVideoPreviewLayer?
     var stillImageOutput: AVCaptureStillImageOutput?
@@ -64,8 +63,7 @@ class CameraView: UIView {
     }
     
     func actuallyStartRunning() {
-        if let device = getDevice() {
-            captureDevice = device
+        if let device = captureDevice {
             self.configureCamera(captureDevice!)
             captureSession = AVCaptureSession()
             if captureSession!.canSetSessionPreset(AVCaptureSessionPresetPhoto) {
@@ -93,14 +91,14 @@ class CameraView: UIView {
         }
     }
     
-    func getDevice() -> AVCaptureDevice? {
+    lazy var captureDevice: AVCaptureDevice? = {
         for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as [AVCaptureDevice] {
             if device.position == AVCaptureDevicePosition.Back {
                 return device
             }
         }
         return nil
-    }
+    }()
     
     func configureCamera(camera: AVCaptureDevice) {
         if camera.lockForConfiguration(nil) {

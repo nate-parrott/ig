@@ -38,6 +38,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
     func setup() {
         SKPaymentQueue.defaultQueue().addTransactionObserver(self)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUIAfterDelay", name: PostTransactionOperationQueueStatusChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadProduct", name: UIApplicationWillEnterForegroundNotification, object: nil)
         addTarget(self, action: "buy", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
@@ -51,6 +52,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
         println("Identifier: \(productIdentifier)")
         CargoBay.sharedManager().productsWithIdentifiers(NSSet(array: [productIdentifier]), success: { (products, invalid) -> Void in
             if let p = products.first as? SKProduct {
+                self.productLoadError = nil
                 self.product = p
             } else {
                 self.productLoadError = NSError()
@@ -95,7 +97,11 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
                 enabled = true
                 title = titleTemplate!.stringByReplacingOccurrencesOfString("{{PRICE}}", withString: p.localizedPrice)
             } else {
-                title = titleWithoutPrice
+                if let e = self.productLoadError {
+                    title = "Couldn't connect to the Internet"
+                } else {
+                    title = titleWithoutPrice
+                }
             }
         }
         self.enabled = enabled

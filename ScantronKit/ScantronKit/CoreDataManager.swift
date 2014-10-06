@@ -102,6 +102,7 @@ class CoreDataManager: NSObject {
     
     func deleteEntities(name: String) {
         let req = NSFetchRequest(entityName: name)
+        req.includesPropertyValues = false
         for obj in managedObjectContext!.executeFetchRequest(req, error: nil)! as [NSManagedObject] {
             managedObjectContext!.deleteObject(obj)
         }

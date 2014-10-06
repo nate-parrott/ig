@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1E09CC2DF75C490EA50EA5CF"
+               BlueprintIdentifier = "99B160CDC4834565BFE734D0"
                BuildableName = "libPods-InstaGrade Scanner-msgpack.a"
                BlueprintName = "Pods-InstaGrade Scanner-msgpack"
                ReferencedContainer = "container:Pods.xcodeproj">

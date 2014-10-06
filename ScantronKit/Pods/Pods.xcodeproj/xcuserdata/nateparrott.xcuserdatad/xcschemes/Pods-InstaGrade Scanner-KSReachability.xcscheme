@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E3B42D44AD04FD4A86BCE4B"
+               BlueprintIdentifier = "FEC82DF74C444DA88155682A"
                BuildableName = "libPods-InstaGrade Scanner-KSReachability.a"
                BlueprintName = "Pods-InstaGrade Scanner-KSReachability"
                ReferencedContainer = "container:Pods.xcodeproj">

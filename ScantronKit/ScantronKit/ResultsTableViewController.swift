@@ -8,7 +8,11 @@
 
 import UIKit
 
-class ResultsTableViewController: SwipeAwayTableViewController {
+class ResultsTableViewController: UITableViewController {
+    
+    @IBAction func dismiss() {
+        navigationController!.parentViewController!.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -18,6 +22,7 @@ class ResultsTableViewController: SwipeAwayTableViewController {
         if let selectedIndexPath = tableView.indexPathForSelectedRow() {
             tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
         }
+        
     }
     
     @IBAction func showHelp() {
@@ -36,10 +41,6 @@ class ResultsTableViewController: SwipeAwayTableViewController {
         didSet {
             tableView.reloadData()
         }
-    }
-    
-    override func topMargin() -> CGFloat {
-        return 120
     }
     
     func groupInstancesByQuiz(instances: [QuizInstance]) -> [[QuizInstance]] {
@@ -92,6 +93,10 @@ class ResultsTableViewController: SwipeAwayTableViewController {
         return nil
     }
     
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
     @IBAction func logout() {
         SharedAPI().logOut()
     }
@@ -111,8 +116,6 @@ class ResultsTableViewController: SwipeAwayTableViewController {
             let detailVC = segue.destinationViewController as IndividualResultTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow()!
             detailVC.quizInstance = sections[selectedIndexPath.section][selectedIndexPath.row]
-            detailVC.transitioningDelegate = detailVC
-            detailVC.modalPresentationStyle = UIModalPresentationStyle.Custom
         }
     }
 }

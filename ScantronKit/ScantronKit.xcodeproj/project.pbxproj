@@ -60,6 +60,8 @@
 		5FC9E96719C8E03B0091EF1A /* UIImage+SubImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */; };
 		5FC9E96919C8E0F90091EF1A /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */; };
 		5FD4F96319D65AA500BFC553 /* QuizInstanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */; };
+		5FD5701C19E1C466009F8D3B /* AppDelegate+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5701B19E1C466009F8D3B /* AppDelegate+Appearance.m */; };
+		5FD5701F19E1F632009F8D3B /* ResultSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5701E19E1F632009F8D3B /* ResultSplitViewController.m */; };
 		5FD690A919D8D6ED00E5D736 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */; };
 		5FD690AB19D8E04A00E5D736 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */; };
 		5FEA00B719DBBBA2009B1BA2 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */; };
@@ -152,6 +154,10 @@
 		5FC9E96619C8E03B0091EF1A /* UIImage+SubImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+SubImage.swift"; sourceTree = "<group>"; };
 		5FC9E96819C8E0F90091EF1A /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizInstanceCell.swift; sourceTree = "<group>"; };
+		5FD5701A19E1C466009F8D3B /* AppDelegate+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Appearance.h"; sourceTree = "<group>"; };
+		5FD5701B19E1C466009F8D3B /* AppDelegate+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Appearance.m"; sourceTree = "<group>"; };
+		5FD5701D19E1F632009F8D3B /* ResultSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultSplitViewController.h; sourceTree = "<group>"; };
+		5FD5701E19E1F632009F8D3B /* ResultSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultSplitViewController.m; sourceTree = "<group>"; };
 		5FD690A819D8D6ED00E5D736 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		5FD690AA19D8E04A00E5D736 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5FEA00B619DBBBA2009B1BA2 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +226,8 @@
 			children = (
 				5F07D1CF19C7844000B9E615 /* ScanViewController.swift */,
 				5F4D0EDF19DB4463009758EA /* SwipeAwayTableViewController.swift */,
+				5FD5701D19E1F632009F8D3B /* ResultSplitViewController.h */,
+				5FD5701E19E1F632009F8D3B /* ResultSplitViewController.m */,
 				5F07D1D119C7845900B9E615 /* ResultsTableViewController.swift */,
 				5F47F0D219DB25B600ACE416 /* IndividualResultTableViewController.swift */,
 				5FD4F96219D65AA500BFC553 /* QuizInstanceCell.swift */,
@@ -280,6 +288,8 @@
 			isa = PBXGroup;
 			children = (
 				5F62324D1989E4E300706593 /* AppDelegate.swift */,
+				5FD5701A19E1C466009F8D3B /* AppDelegate+Appearance.h */,
+				5FD5701B19E1C466009F8D3B /* AppDelegate+Appearance.m */,
 				5F07D1DB19C78FEF00B9E615 /* Testing */,
 				5F07D1DC19C78FF900B9E615 /* Page extraction */,
 				5F07D1C919C77BF400B9E615 /* App.storyboard */,
@@ -557,6 +567,7 @@
 				5F62324E1989E4E300706593 /* AppDelegate.swift in Sources */,
 				5F07D1D219C7845900B9E615 /* ResultsTableViewController.swift in Sources */,
 				5FC1D1A519CBE51400377CF6 /* _QuizInstance.m in Sources */,
+				5FD5701F19E1F632009F8D3B /* ResultSplitViewController.m in Sources */,
 				5F66A11C19CA0343009B14AE /* LoginViewController.swift in Sources */,
 				5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */,
 				5FC1D1A619CBE51400377CF6 /* Quiz.m in Sources */,
@@ -574,6 +585,7 @@
 				5F3CA65C19CB565A006EC181 /* Logging.mm in Sources */,
 				5F928323198D5857006C693A /* CGGeomoetry.swift in Sources */,
 				5FC9E96719C8E03B0091EF1A /* UIImage+SubImage.swift in Sources */,
+				5FD5701C19E1C466009F8D3B /* AppDelegate+Appearance.m in Sources */,
 				5FC1D1A419CBE51400377CF6 /* _Quiz.m in Sources */,
 				5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */,
 				5FA0D87419E085560001117F /* UIImage+Crop.m in Sources */,

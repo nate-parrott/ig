@@ -46,6 +46,8 @@ class API: NSObject, NSURLSessionDelegate {
         SharedCoreDataManager().deleteEntities("Quiz")
         SharedCoreDataManager().deleteEntities("QuizInstance")
         SharedCoreDataManager().save()
+        // clear quiz id cache:
+        queriedQuizIds = Set()
         // post the logout notification to update the UI:
         NSNotificationCenter.defaultCenter().postNotificationName("APILoginStatusChangedNotification", object: nil)
     }
