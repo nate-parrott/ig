@@ -411,6 +411,14 @@ class NameField(Question):
 		v.margin = (0,0,0,4)
 		return v
 
+class Section(Question):
+	def get_item(self):
+		t = Text()
+		t.text = self.dict.get('text', '')
+		t.margin = (0,4,0,4)
+		t.font_size = 14
+		return t
+
 class Box(Layout):
 	size = (100, 100)
 	@respects_margin
@@ -453,6 +461,8 @@ def render(form_json, output_file):
 			i += 1
 		elif type == 'name-field':
 			item = NameField(dict)
+		elif type == 'section':
+			item = Section(dict)
 		else:
 			item = None
 		if item:

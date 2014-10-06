@@ -55,4 +55,4 @@ app = webapp2.WSGIApplication([
 		('/how-it-works', info.HowItWorks),
 		('/user_data', api.UserData),
 		('/(.+)', form_page.FormPage)
-], debug=True)
+], debug=util.DEBUG)
