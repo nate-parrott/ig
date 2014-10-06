@@ -51,6 +51,7 @@ app = webapp2.WSGIApplication([
 		('/(.+)/print/(.+)', print_form.PrintForm),
 		('/(.+)/details', api.FormDetail),
 		('/upload_quiz_instances', api.UploadQuizInstances),
+		('/delete_quiz_instances', api.DeleteQuizInstances),
 		('/add_to_email_list', email_list.Add),
 		('/how-it-works', info.HowItWorks),
 		('/user_data', api.UserData),

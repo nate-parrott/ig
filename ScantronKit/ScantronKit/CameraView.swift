@@ -117,7 +117,6 @@ class CameraView: UIView {
     func stopRunning() {
         if let session = captureSession {
             session.stopRunning()
-            captureDevice = nil
             captureSession = nil
             previewLayer = nil
             stillImageOutput = nil

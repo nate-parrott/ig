@@ -29,13 +29,14 @@ import UIKit
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
         case 1: return countElements(visibleQuizItems)
+        case 2: return 1
         default: return 0
         }
     }
@@ -49,6 +50,9 @@ import UIKit
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("QuizItemCell", forIndexPath: indexPath) as QuizItemCell
             cell.quizItem = visibleQuizItems[indexPath.row]
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCellWithIdentifier("Delete", forIndexPath: indexPath) as UITableViewCell
             return cell
         default:
             return tableView.dequeueReusableCellWithIdentifier("this will never fucking happen but i've gotta return something don't i?", forIndexPath: indexPath) as UITableViewCell
@@ -64,9 +68,24 @@ import UIKit
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
-        case 1: return "We've emailed you a more detailed report."
+        case 2: return "We've emailed you a more detailed report."
         default: return nil
         }
+    }
+    
+    @IBAction func delete() {
+        let confirm = UIAlertController(title: "Delete?", message: nil, preferredStyle: .ActionSheet)
+        confirm.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (_) -> Void in
+            if let item = self.quizInstance {
+                SharedAPI().deleteQuizInstance(item)
+                SharedCoreDataManager().managedObjectContext!.deleteObject(item)
+                self.navigationController!.popViewControllerAnimated(true)
+            }
+        }))
+        confirm.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (_) -> Void in
+            // do nothing
+        }))
+        presentViewController(confirm, animated: true, completion: nil)
     }
 }
 

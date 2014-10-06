@@ -188,7 +188,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="QuizInstanceCell" rowHeight="70" id="myc-Pb-NgD" customClass="QuizInstanceCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="QuizInstanceCell" rowHeight="70" id="myc-Pb-NgD" customClass="QuizInstanceCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="myc-Pb-NgD" id="Qq5-Lq-wtq">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -217,7 +217,7 @@
                                     <outlet property="scoreLabel" destination="Gr1-sl-YqM" id="wyS-pw-DNW"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="QuizItemCell" rowHeight="61" id="qFs-qj-4cl" customClass="QuizItemCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="QuizItemCell" rowHeight="61" id="qFs-qj-4cl" customClass="QuizItemCell" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qFs-qj-4cl" id="lgs-1a-Hmk">
@@ -270,6 +270,35 @@
                                     <outlet property="points" destination="dOl-9b-Iwg" id="XED-Z6-UpY"/>
                                     <outlet property="question" destination="7zd-oI-LuL" id="fdr-Zy-i2v"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Delete" id="jZt-gZ-fUG">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jZt-gZ-fUG" id="ZdZ-tv-hLm">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzc-pC-AwN">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="pcV-CG-NOE"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="15"/>
+                                            <state key="normal" title="Delete">
+                                                <color key="titleColor" red="0.94117653369999998" green="0.22745099660000001" blue="0.27843138579999999" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="delete" destination="apl-sM-KCp" eventType="touchUpInside" id="rTk-Cp-fIz"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nzc-pC-AwN" firstAttribute="leading" secondItem="ZdZ-tv-hLm" secondAttribute="leading" id="1ZA-xg-gGw"/>
+                                        <constraint firstAttribute="trailing" secondItem="nzc-pC-AwN" secondAttribute="trailing" id="42C-LY-lku"/>
+                                        <constraint firstItem="nzc-pC-AwN" firstAttribute="top" secondItem="ZdZ-tv-hLm" secondAttribute="top" id="IVf-p4-fgZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="nzc-pC-AwN" secondAttribute="bottom" id="Zxh-Uu-13x"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

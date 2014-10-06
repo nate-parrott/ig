@@ -165,6 +165,17 @@ class ScanViewController: UIViewController {
     var infoController = QuizInfoController()
     
     func statusChanged() {
+        if (NSDate().timeIntervalSinceReferenceDate - self.lastScannedPageClearTime.timeIntervalSinceReferenceDate < PostScanDelay) {
+            switch infoController.status {
+            case .None:
+                0
+            default:
+                // clear the status and return:
+                infoController.clear()
+                return;
+            }
+        }
+        
         updateScanConstantly()
         crosshair.image = scanner!.status == Scanner.Status.PossibleScan ? UIImage(named: "Crosshair-on") : UIImage(named: "Crosshair-off")
         view.setNeedsLayout()

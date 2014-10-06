@@ -119,6 +119,12 @@ class API: NSObject, NSURLSessionDelegate {
         }
     }
     
+    func deleteQuizInstance(instance: QuizInstance) {
+        let req = makeURLRequest("/delete_quiz_instances", args: ["uuids": instance.uuid!])
+        req.HTTPMethod = "POST"
+        SharedBackgroundUploader().startUpload(req, data: NSData(), type: "DeleteQuizInstance", info: [String: AnyObject]())
+    }
+    
     func uploadQuizInstances() {
         let maxQuizzesToUpload = 20
         

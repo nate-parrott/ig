@@ -8,7 +8,19 @@ var generateUniqueId = function() {
 }
 
 var shouldDisplayHeaderForItem = function(item) {
-	return ['title', 'name-field'].indexOf(item.type) == -1;
+	return ['multiple-choice', 'true-false', 'free-response', 'section'].indexOf(item.type) != -1;
+}
+
+var shouldCountItemAsQuestion = function(item) {
+	return ['multiple-choice', 'true-false', 'free-response'].indexOf(item.type) != -1;
+}
+
+var shouldDisplayDescriptionForItem = function(item) {
+	return ['multiple-choice', 'true-false', 'free-response'].indexOf(item.type) != -1;
+}
+
+var itemCanHavePointValue = function(item) {
+	return ['multiple-choice', 'true-false', 'free-response'].indexOf(item.type) != -1;
 }
 
 var FormEditor = React.createClass({displayName: 'FormEditor',
@@ -16,7 +28,7 @@ var FormEditor = React.createClass({displayName: 'FormEditor',
 		var self = this;
 		var visibleIndex = 0; // doesn't count items that don't display a header, like 'title'
 		var renderedItems = this.state.items.map(function(item, index) {
-			if (shouldDisplayHeaderForItem(item)) {
+			if (shouldCountItemAsQuestion(item)) {
 				visibleIndex++;
 			}
 			var onChange = function(changes) {
@@ -176,21 +188,39 @@ var FormItem = React.createClass({displayName: 'FormItem',
 		var header = "";
 		if (this.shouldDisplayHeader()) {
 			var descriptionField = function() {
-				if (self.props.uneditableDescription) {
-					return React.DOM.div({className: "description", value: self.props.item.description})
+				if (shouldDisplayDescriptionForItem(self.props.item)) {
+					if (self.props.uneditableDescription) {
+						return React.DOM.div({className: "description", value: self.props.item.description})
+					} else {
+						return ContentEditable({className: "description", value: self.props.item.description, onChange: onDescriptionChange})
+					}
 				} else {
-					return ContentEditable({className: "description", value: self.props.item.description, onChange: onDescriptionChange})
+					return React.DOM.div({className: "description"})
+				}
+			}
+			var pointValueField = function() {
+				if (itemCanHavePointValue(self.props.item)) {
+					return React.DOM.div({className: "point-value"}, 
+								"Point value: ", ContentEditable({onChange: self.changePointValue, value: self.props.item.points, singleLine: true, selectAllOnFocus: true})
+							)
+				} else {
+					return React.DOM.span(null)
+				}
+			}
+			var questionNumber = function() {
+				if (shouldCountItemAsQuestion(self.props.item)) {
+					return React.DOM.div({className: "number"}, self.props.index != undefined ? self.props.index+1 : undefined)
+				} else {
+					return React.DOM.div(null)
 				}
 			}
 			header = React.DOM.div({className: "item-header"}, 
 									React.DOM.div({className: "controls"}, 
-										React.DOM.div({className: "point-value"}, 
-											"Point value: ", ContentEditable({onChange: self.changePointValue, value: self.props.item.points, singleLine: true, selectAllOnFocus: true})
-										), 
+										pointValueField(), 
 										React.DOM.div({className: "icon-drag"}), 
 										React.DOM.div({className: "icon-close", onClick: self.deleteThis})
 									), 
-									React.DOM.div({className: "number"}, this.props.index != undefined ? this.props.index+1 : undefined), 
+									questionNumber(), 
 									descriptionField() 
 							 )
 		}
@@ -215,10 +245,10 @@ var FormItem = React.createClass({displayName: 'FormItem',
 		var self = this;
 		var type = this.props.item.type;
 		if (type == 'title') {
-			var onTextChange = function(e) {
-				self.props.onItemChange({ text: e.target.value });
+			var onTextChange = function(text) {
+				self.props.onItemChange({ text: text });
 			}
-			return React.DOM.input({value: this.props.item.text, onChange: onTextChange})
+			return ContentEditable({value: this.props.item.text, onChange: onTextChange})
 		} else if (type == 'true-false') {
 			var selectedIndexChanged = function(index) {
 				self.props.onItemChange({ correct: index==0 });
@@ -247,6 +277,13 @@ var FormItem = React.createClass({displayName: 'FormItem',
 								"Student Name:", 
 								React.DOM.div({className: "freeResponse", style: style})
 							)
+		} else if (type == 'section') {
+			var onTextChange = function(text) {
+				self.props.onItemChange({ text: text });
+			}
+			return React.DOM.div(null, 
+						ContentEditable({value: this.props.item.text, onChange: onTextChange})
+					)
 		}
 		return "Nothing here!?!?"
 	}
@@ -271,7 +308,9 @@ var ContentEditable = React.createClass({displayName: 'ContentEditable',
 	render: function() {
 		var self = this;
 		var changed = function(e) {
-			self.props.onChange(e.target.innerText);
+			if (e.currentTarget.innerText != self.props.value) {
+				self.props.onChange(e.currentTarget.innerText);
+			}
 		}
 		return React.DOM.div({contentEditable: true, onFocus: this.focus, onBlur: changed, onInput: changed, onKeyDown: this.keyDown, className: this.props.className, onMouseEnter: this.turnOffParentContentEditable, onMouseLeave: this.turnOnParentContentEditable}, this.props.value)
 	},
@@ -323,6 +362,7 @@ var NewItemPicker = React.createClass({displayName: 'NewItemPicker',
 			{type: "multiple-choice", options: 4, correct: 2, id: 'abcd', label: "Multiple choice question", points: 1},
 			{type: "multiple-choice", options: 5, correct: 1, id: 'abcde', label: "Multiple choice (5 options)", points: 1},
 			{type: "true-false", correct: true, id: 'tf', label: "True or false question", points: 1},
+			{type: "section", label: "Section header", text: ""},
 			{type: "free-response", height: 4, id: 'fr', label: "Free response", points: 1}
 		];
 		var renderedItems = templates.map(function(item) {

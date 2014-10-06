@@ -32,7 +32,11 @@ class Form(db.Model):
 		self.index = (models_for_user.count() + hash(user.email)) % max_index # mandate unique ids per email, try to avoid global id collision as much as possible
 		form_json = json.loads(self.json)
 		form_json['index'] = self.index
+		pdf_data = StringIO.StringIO()
+		render_form.render(form_json, pdf_data)
+		self.pdf_url = file_storage.upload_file_and_get_url(pdf_data.getvalue(), mimetype='application/pdf')
 		self.json = json.dumps(form_json)
+
 		all_keys = ALL_KEYS.split(' ')
 		key_dict = dict([(key, getattr(self, key)) for key in all_keys])
 		new_model = Form(parent=user, **key_dict)
@@ -72,12 +76,7 @@ class Submit(webapp2.RequestHandler):
 				title = item['text']
 				break
 		
-		form_json['index'] = 0 # will actually be populated in form.new_model_attached_to_user()
-		pdf_data = StringIO.StringIO()
-		render_form.render(form_json, pdf_data)
-		pdf_url = file_storage.upload_file_and_get_url(pdf_data.getvalue(), mimetype='application/pdf')
-		
-		model = Form(title=title, json=json.dumps(form_json), pdf_url=pdf_url)
+		model = Form(title=title, json=json.dumps(form_json))
 		if login.current_user(self):
 			model = model.new_model_attached_to_user(login.current_user(self))
 			self.redirect('/{0}?created=1'.format(model.secret))

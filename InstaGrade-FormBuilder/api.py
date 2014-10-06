@@ -61,6 +61,16 @@ class FormDetail(webapp2.RequestHandler):
 		else:
 			print "No user for token {0}".format(self.request.get('token'))
 
+class DeleteQuizInstances(webapp2.RequestHandler):
+	def post(self):
+		uuids = self.request.get('uuids').split(',')
+		models = []
+		for uuid in uuids:
+			model = quiz_instance.QuizInstance.all().ancestor(login.current_user(self)).filter('uuid =', uuid).run(limit=1)
+			if model:
+				models.append(model)
+		db.delete(models)
+
 class UploadQuizInstances(webapp2.RequestHandler):
 	def post(self):
 		user = login.current_user(self)
@@ -77,6 +87,7 @@ class UploadQuizInstances(webapp2.RequestHandler):
 				max_points = instance['maximumScore'], 
 				json=json.dumps(instance['responseItems']), 
 				quiz_index = instance['quizIndex'], 
+				uuid = instance['uuid'],
 				date = datetime.datetime.fromtimestamp(instance['timestamp']), 
 				name_image_url = file_storage.upload_file_and_get_url(instance['nameImage'], mimetype='image/jpeg'))
 			to_save.append(rec)

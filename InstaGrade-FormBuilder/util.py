@@ -6,7 +6,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-DEBUG = True
+DEBUG = False
 
 def templ8(filename, vals={}):
 	vals = dict(vals.items())
