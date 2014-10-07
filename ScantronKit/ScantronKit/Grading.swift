@@ -60,17 +60,26 @@ func AddResponseInfoForItem(var item: QuizItem, manuallyGraded: QuizItemManually
     switch type {
     case "multiple-choice":
         let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
-        let response = indexOfDarkestFrame(frames, pages)
         let correctResponse = item.getOrDefault("correct", defaultVal: 0) as Int
-        println("response: \(response), correct: \(correctResponse)")
-        item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
-        item["response"] = response
+        if let response = indexOfFilledInFrame(frames, pages) {
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
+            item["response"] = response
+        } else {
+            item["pointsEarned"] = 0
+            item["response"] = NSNull()
+        }
     case "true-false":
         let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
-        let response = indexOfDarkestFrame(frames, pages) == 0
         let correctResponse = item.getOrDefault("correct", defaultVal: true) as Bool
-        item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
-        item["response"] = response
+        let filledIn = indexOfFilledInFrame(frames, pages)
+        if filledIn != nil && filledIn! != 2 {
+            let response = filledIn! == 0
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
+            item["response"] = response
+        } else {
+            item["pointsEarned"] = 0
+            item["response"] = NSNull()
+        }
     case "free-response":
         item["pointsEarned"] = manuallyGraded!.earnedPoints!
     default: 0
@@ -150,13 +159,21 @@ struct QuizItemFrame {
     }
 }
 
-func indexOfDarkestFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int {
+/*func indexOfDarkestFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int {
     // TODO: support lists of frames spanning multiple pages
     let image = pages[frames.first!.page].image
     let pixels = image.pixelData()
     let brightnesses = frames.map({ pixels.averageBrightnessInRect($0.toRect(image.size)) })
     let darkestIndex = sorted(Array(0..<countElements(frames)), { brightnesses[$0] < brightnesses[$1] }).first!
     return darkestIndex
+}*/
+
+func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int? {
+    // TODO: support lists of frames spanning multiple pages
+    let image = pages[frames.first!.page].image
+    let pixels = image.pixelData()
+    let brightnesses = frames.map({ pixels.averageBrightnessInRect($0.toRect(image.size)) })
+    return indexOfOutlier(brightnesses)
 }
 
 extension QuizInstance {
@@ -180,23 +197,29 @@ func ResponseDescriptionStringForGradedQuizItem(item: QuizItem) -> String? {
     switch type {
         case "true-false":
             let correct = item.getOrDefault("correct", defaultVal: false) as Bool
-            let response = item.getOrDefault("response", defaultVal: false) as Bool
-            if correct == response {
-                s = response ? "Correctly answered 'true'" : "Correctly answered 'false'"
+            if let response = item.getOrDefault("response", defaultVal: false) as? Bool {
+                if correct == response {
+                    s = response ? "Correctly answered 'true'" : "Correctly answered 'false'"
+                } else {
+                    s = response ? "Answered 'true', the correct answer was 'false'" : "Answered 'false', the correct answer was 'true'"
+                }
             } else {
-                s = response ? "Answered 'true', the correct answer was 'false'" : "Answered 'false', the correct answer was 'true'"
-            }
+                s = "Answer was blank"
+        }
         case "multiple-choice":
             let letters = "ABCDEFGHIJKLMNOPQRSTUVWYZ"
             let correctIndex = item.getOrDefault("correct", defaultVal: 0) as Int
-            let responseIndex = item.getOrDefault("response", defaultVal: 0) as Int
-            let correct = letters.substring(correctIndex, length: 1)
-            let response = letters.substring(responseIndex, length: 1)
-            if correctIndex == responseIndex {
-                s = "Correctly answered '\(correct)'"
+            if let responseIndex = item.getOrDefault("response", defaultVal: 0) as? Int {
+                let correct = letters.substring(correctIndex, length: 1)
+                let response = letters.substring(responseIndex, length: 1)
+                if correctIndex == responseIndex {
+                    s = "Correctly answered '\(correct)'"
+                } else {
+                    s = "Answered '\(response)'; the correct answer was '\(correct)'"
+                }
             } else {
-                s = "Answered '\(response)'; the correct answer was '\(correct)'"
-            }
+                s = "Answer was blank"
+        }
         case "free-response":
             s = "You gave this \(earned)/\(maxPoints) points"
     default: 0

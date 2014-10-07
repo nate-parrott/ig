@@ -5,6 +5,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 import re
 from reportlab.lib.colors import yellow, red, black, white, gray
+from reportlab.lib.colors import HexColor
 import math
 
 NO_LAYOUT_BOUNDS = 9999999
@@ -154,13 +155,14 @@ class Horizontal(Container):
 
 class Columns(Container):
 	count = 2
+	col_gap = 0.1 * inch
 	@respects_margin
 	def layout(self, canvas, frame, draw):
 		items = self.items
 		left, top, right, bottom = frame
-		col_width = (right - left) * 1.0 / self.count
+		col_width = (right - left) * 1.0 / self.count - self.col_gap * (self.count - 1)
 		for col in xrange(self.count):
-			col_left = left + col_width * col
+			col_left = left + (col_width + self.col_gap) * col
 			stack_layout = Vertical()
 			stack_layout.items = items
 			stack_layout.layout(canvas, (col_left, top, col_left + col_width, bottom), draw)
@@ -172,6 +174,7 @@ class Text(Layout):
 	font_size = 11
 	font_name = "Helvetica"
 	text = ""
+	color = black
 	valign = "center"
 	halign = "left"
 	horizontal_expansion = 1
@@ -202,6 +205,7 @@ class Text(Layout):
 			max_width = max(max_width, canvas.stringWidth(line, fontName=self.font_name, fontSize=self.font_size))
 			t.textLine(line)
 		if draw:
+			canvas.setFillColor(self.color)
 			canvas.drawText(t)
 		height = t.getY() - top - self.font_size
 		return (max_width, height)
@@ -258,6 +262,13 @@ class AnswerSheetPageLayouter(PageLayouter):
 			subtitle = Text()
 			subtitle.text = "Page {0} of {1}{2}".format(page_num+1, self.total_pages, " "*(self.page_padding_chars - len(str(self.total_pages))))
 			v.items.append(subtitle)
+
+		info = Text()
+		info.text = "Keep completely flat.\ninstagradeapp.com"
+		info.font_size = 9
+		info.color = gray
+		v.items.append(info)
+
 		v.margin = (0,0,0,4)
 		return [v]
 
@@ -360,7 +371,7 @@ class MultipleChoice(Question):
 		horiz.border = (gray, 1)
 		horiz.items = []
 		
-		options = ['True', 'False'] if self.dict['type'] == 'true-false' else 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:int(self.dict['options'])]
+		options = ['True', 'False', '?'] if self.dict['type'] == 'true-false' else 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:int(self.dict['options'])]
 		
 		def on_render(frame):
 			self.dict['frames'] = []
@@ -368,6 +379,7 @@ class MultipleChoice(Question):
 		
 		for op, i in zip(options, xrange(len(options))):
 			item = Text()
+			item.color = HexColor('#BBBBBB')
 			item.text = op
 			item.border = (gray, 1)
 			item.padding = 6
@@ -441,7 +453,7 @@ def render(form_json, output_file):
 	PAGE_LAYOUTER.container_class = Columns
 	PAGE_LAYOUTER.width, PAGE_LAYOUTER.height = letter
 	PAGE_LAYOUTER.border_image = "comb.png"
-	PAGE_LAYOUTER.border_content_proportional_insets = (PROPORTIONAL_COMB_MARGIN, 0, PROPORTIONAL_COMB_MARGIN, PROPORTIONAL_BARCODE_HEIGHT)
+	PAGE_LAYOUTER.border_content_proportional_insets = (PROPORTIONAL_COMB_MARGIN, 0, PROPORTIONAL_COMB_MARGIN, PROPORTIONAL_BARCODE_HEIGHT + 0.03)
 	PAGE_LAYOUTER.page_decorators.append(BarcodeDecorator(form_json['index']))
 	
 	separate_questions = form_json.get('separateAnswerSheetsFromQuestions', False)

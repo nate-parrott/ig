@@ -21,6 +21,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        Mixpanel.sharedInstance().track("ReachedLoginScreen")
         reload()
     }
     
@@ -66,9 +67,11 @@ class UserDataLoaderViewController: UIViewController {
         
         SharedAPI().refreshData() {
             (success) in
+            Mixpanel.sharedInstance().track("LoggedInSuccessfully")
             if success {
                 NSNotificationCenter.defaultCenter().postNotificationName(APILoginStatusChangedNotification, object: nil)
             } else {
+                Mixpanel.sharedInstance().track("FailedToRefreshData")
                 NSUserDefaults.standardUserDefaults().removeObjectForKey("Token")
                 self.navigationController!.popViewControllerAnimated(true)
             }

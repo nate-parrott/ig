@@ -42,6 +42,8 @@ for name-field, free-response:
 	frame: <a frame>
 }
 
+* Unanswered questions have response: null *
+
 ## frames
 arrays of 5 floats.
 first is the page # that this item appears on

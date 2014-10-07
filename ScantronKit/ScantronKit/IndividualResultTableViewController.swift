@@ -11,6 +11,11 @@ import UIKit
 
 @objc class IndividualResultTableViewController: UITableViewController {
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Mixpanel.sharedInstance().track("ShowIndividualResult")
+    }
+    
     var quizInstance: QuizInstance? {
         didSet {
             let quizItems = quizInstance!.itemsWithResponses as [QuizItem]

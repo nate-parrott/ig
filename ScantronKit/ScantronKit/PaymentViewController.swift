@@ -21,6 +21,7 @@ class PaymentViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        Mixpanel.sharedInstance().track("ShownPaymentsViewController")
         updateUI()
         SharedAPI().refreshData() {
             (success: Bool) in

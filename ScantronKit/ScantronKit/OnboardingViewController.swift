@@ -36,6 +36,11 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         scrollViewDidScroll(scrollView)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        Mixpanel.sharedInstance().track("ShownOnboarding")
+    }
+    
     var pages: [UIViewController] = []
     var paperView: UIView!
     
@@ -52,6 +57,10 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / view.bounds.size.width
+        if page >= CGFloat(countElements(pages)) && !loggedFinishOnboardingSwiping {
+            loggedFinishOnboardingSwiping = true
+            Mixpanel.sharedInstance().track("FinishSwipingOnboarding")
+        }
         let viewFadeInDuration: CGFloat = 0.6
         for (transientView, doneWithFade) in viewsAndPagesTheyAppearOn {
             let startFade = doneWithFade - viewFadeInDuration
@@ -65,6 +74,15 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         }
         paperView.center = scrollView.convertPoint(CGPointMake(view.bounds.size.width/2, view.bounds.size.height/2), fromView: view)
         pageControl.currentPage = Int(round(Float(page)))
+    }
+    
+    var loggedStartOnboardingSwiping = false
+    var loggedFinishOnboardingSwiping = false
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if !loggedStartOnboardingSwiping {
+            loggedStartOnboardingSwiping = true
+            Mixpanel.sharedInstance().track("StartSwipingOnboarding")
+        }
     }
     
     @IBOutlet var scrollView: UIScrollView!

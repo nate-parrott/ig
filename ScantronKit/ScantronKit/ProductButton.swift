@@ -74,6 +74,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
         }
     }
     @IBAction func buy() {
+        Mixpanel.sharedInstance().track("BuyIAP", properties: ["Identifier": product!.productIdentifier])
         let transaction = SKPayment(product: product!)
         SKPaymentQueue.defaultQueue().addPayment(transaction)
     }

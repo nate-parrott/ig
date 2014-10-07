@@ -48,19 +48,19 @@ extension Dictionary {
 }
 
 extension Dictionary {
-	func mergedWith(otherDict: [Key: Value]) -> [Key: Value] {
-		var merged = self
-		for (k, v) in otherDict {
-			merged[k] = v
-		}
-		return merged
-	}
+    func mergedWith(otherDict: [Key: Value]) -> [Key: Value] {
+        var merged = self
+        for (k, v) in otherDict {
+            merged[k] = v
+        }
+        return merged
+    }
 }
 
 extension Array {
-	func mapFilter<T2>(fn: T -> T2?) -> [T2] {
-		return self.map(fn).filter({ $0 != nil }).map({ $0! })
-	}
+    func mapFilter<T2>(fn: T -> T2?) -> [T2] {
+        return self.map(fn).filter({ $0 != nil }).map({ $0! })
+    }
 }
 
 extension NSURL {
@@ -94,4 +94,44 @@ func delay(delay:Double, closure:()->()) {
             Int64(delay * Double(NSEC_PER_SEC))
         ),
         dispatch_get_main_queue(), closure)
+}
+
+func normpdf(x: Double, mean: Double, stddev: Double) -> Double {
+    let variance = pow(stddev, 2.0)
+    let denom = sqrt(2 * M_PI * variance)
+    let numerator = exp(-pow(x-mean, 2) / (2 * variance))
+    return numerator / denom
+}
+
+func sum(data: [Double]) -> Double {
+    return data.reduce(0, combine: {$0.0 + $0.1})
+}
+
+func mean(data: [Double]) -> Double {
+    return sum(data) / Double(countElements(data))
+}
+
+func stddev(data: [Double]) -> Double {
+    let m = mean(data)
+    return sqrt(sum(data.map({ pow($0 - m, 2) })))
+}
+
+func probabilityOfInlier(data: [Double], index: Int) -> Double {
+    let dataWithoutIndex = Array(data[0..<index]) + Array(data[index+1..<countElements(data)])
+    return normpdf(data[index], mean(dataWithoutIndex), stddev(dataWithoutIndex))
+}
+
+func minItem(data: [Double]) -> Double {
+    return data.reduce(data[0], combine: {min($0.0, $0.1)})
+}
+
+func indexOfOutlier(data: [Double]) -> Int? {
+    let inlierProbs = map(0..<countElements(data), { probabilityOfInlier(data, $0) })
+    let cutoff = 1.0
+    let lowest = minItem(inlierProbs)
+    if lowest < cutoff {
+        return Int(find(inlierProbs, lowest)!)
+    } else {
+        return nil
+    }
 }

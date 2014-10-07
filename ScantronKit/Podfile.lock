@@ -25,6 +25,7 @@ PODS:
   - GPUImage (0.1.4)
   - KSReachability (1.4)
   - KVOController (1.0.1)
+  - Mixpanel (2.5.3)
   - msgpack (0.1.3)
   - OpenCV (2.4.8)
   - PBWebViewController (0.3)
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - GPUImage
   - KSReachability
   - KVOController
+  - Mixpanel
   - msgpack
   - OpenCV
   - PBWebViewController
@@ -44,6 +46,7 @@ SPEC CHECKSUMS:
   GPUImage: ac2bde5f4dbea02a81ced6313964cec1f2043ca9
   KSReachability: 29c0ec738e487c750a0e46b6554cc50df73f60b1
   KVOController: e6ad4a058ab0ceed546802361adb89d322a22cf2
+  Mixpanel: 708ec9a6ee6e741f7db107831e18b2fc2e7531f1
   msgpack: 417e3765eba6706e43e103a211a607a75a15d470
   OpenCV: 7d5de7dc31a8f3925eb643b62d16c2cafa373527
   PBWebViewController: 0a36bbd0f82741d9457177c9c37f5ff747cba312

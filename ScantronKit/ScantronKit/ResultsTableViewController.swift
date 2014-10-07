@@ -16,6 +16,7 @@ class ResultsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        Mixpanel.sharedInstance().track("ShownResultsViewController")
         reloadData()
         emailLabel.text = SharedAPI().userEmail
         paymentsButton.setTitle(SharedAPI().usageLeftSummary(), forState: UIControlState.Normal)
@@ -27,6 +28,7 @@ class ResultsTableViewController: UITableViewController {
     
     @IBAction func showHelp() {
         let browser = PBWebViewController()
+        Mixpanel.sharedInstance().track("ClickedHelp")
         browser.URL = NSURL(string: "http://instagradeapp.com/help")
         let nav = UINavigationController(rootViewController: browser)
         browser.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissBrowser")
@@ -78,6 +80,10 @@ class ResultsTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countElements(sections[section])
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -22,6 +22,7 @@
 		5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F17945D19DD090700443679 /* StoreKit.framework */; };
 		5F1CCE0919D090CC002B7C3E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0819D090CC002B7C3E /* StatusView.swift */; };
 		5F1CCE0D19D0918C002B7C3E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0C19D0918C002B7C3E /* StatusView.xib */; };
+		5F2AB96D19E3A9FB004F41E7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */; };
 		5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38339919CD16D900DE6C71 /* Scanner.swift */; };
 		5F3A5D6819D0AE7A009552D5 /* ManualResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6719D0AE7A009552D5 /* ManualResponseViewController.swift */; };
 		5F3A5D6A19D0AE8E009552D5 /* IndividualResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */; };
@@ -45,7 +46,6 @@
 		5F92328E19C8C9E600B2C5DA /* UIImage+PixelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328D19C8C9E600B2C5DA /* UIImage+PixelData.m */; };
 		5F92831C1989EC45006C693A /* SKTestbed.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5F92831B1989EC45006C693A /* SKTestbed.mm */; };
 		5F928323198D5857006C693A /* CGGeomoetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F928322198D5857006C693A /* CGGeomoetry.swift */; };
-		5FA0D87419E085560001117F /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA0D87319E085560001117F /* UIImage+Crop.m */; };
 		5FAED22F19CFD0B500F9AD90 /* _PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22C19CFD0B500F9AD90 /* _PageImage.m */; };
 		5FAED23019CFD0B500F9AD90 /* PageImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED22E19CFD0B500F9AD90 /* PageImage.m */; };
 		5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FAED23419CFD12400F9AD90 /* Grading.swift */; };
@@ -99,6 +99,7 @@
 		5F17945D19DD090700443679 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5F1CCE0819D090CC002B7C3E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		5F1CCE0C19D0918C002B7C3E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
+		5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		5F38339919CD16D900DE6C71 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		5F3A5D6719D0AE7A009552D5 /* ManualResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualResponseViewController.swift; sourceTree = "<group>"; };
 		5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualResponseViewController.swift; sourceTree = "<group>"; };
@@ -132,8 +133,6 @@
 		5F92831A1989EC45006C693A /* SKTestbed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTestbed.h; sourceTree = "<group>"; };
 		5F92831B1989EC45006C693A /* SKTestbed.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTestbed.mm; sourceTree = "<group>"; };
 		5F928322198D5857006C693A /* CGGeomoetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGGeomoetry.swift; sourceTree = "<group>"; };
-		5FA0D87219E085560001117F /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Crop.h"; sourceTree = "<group>"; };
-		5FA0D87319E085560001117F /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Crop.m"; sourceTree = "<group>"; };
 		5FAED22B19CFD0B500F9AD90 /* _PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _PageImage.h; path = Models/_PageImage.h; sourceTree = "<group>"; };
 		5FAED22C19CFD0B500F9AD90 /* _PageImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = _PageImage.m; path = Models/_PageImage.m; sourceTree = "<group>"; };
 		5FAED22D19CFD0B500F9AD90 /* PageImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageImage.h; path = Models/PageImage.h; sourceTree = "<group>"; };
@@ -176,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2A592DBA2442059B0ABBD1 /* libPods-InstaGrade Scanner.a in Frameworks */,
+				5F2AB96D19E3A9FB004F41E7 /* Crashlytics.framework in Frameworks */,
 				5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,8 +256,6 @@
 				5F3CA65A19CB565A006EC181 /* Logging.h */,
 				5F3CA65B19CB565A006EC181 /* Logging.mm */,
 				5FC2F9D619D0D8EC00D81AFD /* UIViewExtensions.swift */,
-				5FA0D87219E085560001117F /* UIImage+Crop.h */,
-				5FA0D87319E085560001117F /* UIImage+Crop.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -317,6 +315,7 @@
 		5F62324B1989E4E300706593 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */,
 				5F62324C1989E4E300706593 /* Info.plist */,
 				5FFA0AAF19DDA8D9006EAA34 /* Settings.bundle */,
 			);
@@ -391,6 +390,7 @@
 				5F6232451989E4E300706593 /* Frameworks */,
 				5F6232461989E4E300706593 /* Resources */,
 				D55553A1BC4F4CEEA61EA9BE /* Copy Pods Resources */,
+				5F2AB96B19E3A998004F41E7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -492,6 +492,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5F2AB96B19E3A998004F41E7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
+		};
 		5F3CA66119CBE2D5006EC181 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -588,7 +601,6 @@
 				5FD5701C19E1C466009F8D3B /* AppDelegate+Appearance.m in Sources */,
 				5FC1D1A419CBE51400377CF6 /* _Quiz.m in Sources */,
 				5F07D1D819C78F7100B9E615 /* CoreDataManager.swift in Sources */,
-				5FA0D87419E085560001117F /* UIImage+Crop.m in Sources */,
 				5F07D1D019C7844000B9E615 /* ScanViewController.swift in Sources */,
 				5FAED23519CFD12400F9AD90 /* Grading.swift in Sources */,
 			);
@@ -700,6 +712,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ScantronKit",
+				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
@@ -717,6 +733,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ScantronKit",
+				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";

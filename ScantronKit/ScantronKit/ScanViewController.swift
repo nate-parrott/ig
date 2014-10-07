@@ -147,7 +147,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "ab")
+        let image = UIImage(named: "blanks")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
@@ -261,6 +261,7 @@ class ScanViewController: UIViewController {
     @IBOutlet var crosshair: UIImageView!
     
     @IBAction func clearScannedPages() {
+        Mixpanel.sharedInstance().track("ClearScannedPages")
         lastScannedPageClearTime = NSDate()
         infoController.clear()
     }
@@ -270,6 +271,8 @@ class ScanViewController: UIViewController {
             performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
             return
         }
+        
+        Mixpanel.sharedInstance().track("AcceptScannedQuiz")
         
         if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
             let manualResponseTemplates = infoController.quiz!.getManuallyGradedResponseTemplates()

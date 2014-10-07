@@ -312,10 +312,17 @@ var ContentEditable = React.createClass({displayName: 'ContentEditable',
 				self.props.onChange(e.currentTarget.innerText);
 			}
 		}
-		return React.DOM.div({contentEditable: true, onFocus: this.focus, onBlur: changed, onInput: changed, onKeyDown: this.keyDown, className: this.props.className, onMouseEnter: this.turnOffParentContentEditable, onMouseLeave: this.turnOnParentContentEditable}, this.props.value)
+		var node = React.DOM.div({contentEditable: true, onFocus: this.focus, onBlur: changed, onInput: changed, onKeyDown: this.keyDown, className: this.props.className, onMouseEnter: this.turnOffParentContentEditable, onMouseLeave: this.turnOnParentContentEditable})
+		return node;
 	},
 	shouldComponentUpdate: function(nextProps) {
 		return nextProps.value !== this.getDOMNode().innerText;
+	},
+	componentDidMount: function() {
+		this.getDOMNode().innerText = this.props.value;
+	},
+	componentDidUpdate: function() {
+		this.getDOMNode().innerText = this.props.value;
 	},
 	keyDown: function(e) {
 		if (this.props.singleLine) {
@@ -362,7 +369,7 @@ var NewItemPicker = React.createClass({displayName: 'NewItemPicker',
 			{type: "multiple-choice", options: 4, correct: 2, id: 'abcd', label: "Multiple choice question", points: 1},
 			{type: "multiple-choice", options: 5, correct: 1, id: 'abcde', label: "Multiple choice (5 options)", points: 1},
 			{type: "true-false", correct: true, id: 'tf', label: "True or false question", points: 1},
-			{type: "section", label: "Section header", text: ""},
+			{type: "section", label: "Section header", text: "", id: 'hd'},
 			{type: "free-response", height: 4, id: 'fr', label: "Free response", points: 1}
 		];
 		var renderedItems = templates.map(function(item) {

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window!.backgroundColor = UIColor.whiteColor()
-        self.window!.makeKeyAndVisible()
+        
+        Crashlytics.startWithAPIKey("c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8")
+        
+        _ = Mixpanel.sharedInstanceWithToken("cee8d97ba5c75c42b841e4ee716e0d0b")
         
         SharedReachability = KSReachability(toHost: "instagradeapp.com")
         SharedReachability.notificationName = kDefaultNetworkReachabilityChangedNotification
@@ -36,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SetupAppearanceWithWindow(self.window)
         
         updateRootUI()
+        
+        self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.makeKeyAndVisible()
+        
         return true
     }
     
@@ -75,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         refreshNetworkThings()
+        Mixpanel.sharedInstance().track("Foreground")
     }
     
     func refreshNetworkThings() {
