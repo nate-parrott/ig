@@ -10,6 +10,8 @@ import math
 
 NO_LAYOUT_BOUNDS = 9999999
 
+BENCHMARK_GRAY = HexColor("#cccccc")
+
 # decorator for layout functions that automatically adds things like margins
 def respects_margin(func):
 	def func_respecting_margin(self, canvas, frame, draw):
@@ -32,9 +34,11 @@ def respects_margin(func):
 		if hasattr(self, 'border'):
 			color, thickness = self.border
 			if draw:
+				if self.background_color:
+					canvas.setFillColor(self.background_color)
 				canvas.setStrokeColor(color)
 				canvas.setLineWidth(thickness)
-				canvas.rect(left-thickness/2.0, top-thickness/2.0, right-left+thickness/2.0, bottom-top+thickness/2.0, stroke=1)
+				canvas.rect(left-thickness/2.0, top-thickness/2.0, right-left+thickness/2.0, bottom-top+thickness/2.0, stroke=1, fill=(self.background_color!=None))
 		
 		pl, pt, pr, pb = (0,)*4
 		if hasattr(self, 'padding'):
@@ -78,6 +82,7 @@ class Layout(object):
 	horizontal_expansion = 1
 	vertical_expansion = 1
 	on_render = None
+	background_color = None
 	def layout(self, canvas, frame, draw):
 		"""
 		Should draw on the canvas only if draw=True,
@@ -335,7 +340,7 @@ class Question(Layout):
 		if visible_index != None:
 			self.dict['visibleIndex'] = visible_index
 		self.show_description = show_description
-	
+
 	@respects_margin
 	def layout(self, canvas, frame, draw):
 		left, top, right, bottom = frame
@@ -356,11 +361,15 @@ class Question(Layout):
 			t = Text()
 			t.horizontal_expansion = 0
 			t.text = str(self.visible_index) + ". "
+			t.padding = self.single_number_padding()
 			horiz.items = [t, self.get_item()]
 			return horiz.layout(canvas, frame, draw)
 		else:
 			item = self.get_item()
 			return item.layout(canvas, frame, draw)
+
+	def single_number_padding(self):
+		return (0,0,0,0)
 	
 	def get_item(self):
 		return Box()
@@ -371,7 +380,7 @@ class MultipleChoice(Question):
 		horiz.border = (gray, 1)
 		horiz.items = []
 		
-		options = ['True', 'False', '?'] if self.dict['type'] == 'true-false' else 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:int(self.dict['options'])]
+		options = ['True', 'False', '?'] if self.dict['type'] == 'true-false' else 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:int(self.dict['options'])] + '?'
 		
 		def on_render(frame):
 			self.dict['frames'] = []
@@ -381,6 +390,8 @@ class MultipleChoice(Question):
 			item = Text()
 			item.color = HexColor('#BBBBBB')
 			item.text = op
+			if item.text == "?":
+				item.background_color = BENCHMARK_GRAY
 			item.border = (gray, 1)
 			item.padding = 6
 			item.horizontal_expansion = 0
@@ -391,6 +402,9 @@ class MultipleChoice(Question):
 			
 		horiz.horizontal_expansion = 0
 		return horiz
+
+	def single_number_padding(self):
+		return (0, 6, 0, 0)
 
 class FreeResponse(Question):
 	def get_item(self):

@@ -8,6 +8,23 @@
 
 import Foundation
 
+func indexOfOutlier(data: [Double], tolerableDeviance: Double) -> Int? {
+    let inlierProbs = map(0..<countElements(data), { probabilityOfInlier(data + [mean(data) + tolerableDeviance], $0) })
+    // println("\(inlierProbs)")
+    let cutoff = 1.0
+    let lowest = minItem(inlierProbs)
+    if lowest < cutoff {
+        let index = Int(find(inlierProbs, lowest)!)
+        if index == countElements(data) {
+            return nil
+        } else {
+            return index
+        }
+    } else {
+        return nil
+    }
+}
+
 func arrayContains<T:Equatable>(item: T, array: [T]) -> Bool {
     for x in array {
         if x == item {
@@ -125,13 +142,3 @@ func minItem(data: [Double]) -> Double {
     return data.reduce(data[0], combine: {min($0.0, $0.1)})
 }
 
-func indexOfOutlier(data: [Double]) -> Int? {
-    let inlierProbs = map(0..<countElements(data), { probabilityOfInlier(data, $0) })
-    let cutoff = 1.0
-    let lowest = minItem(inlierProbs)
-    if lowest < cutoff {
-        return Int(find(inlierProbs, lowest)!)
-    } else {
-        return nil
-    }
-}

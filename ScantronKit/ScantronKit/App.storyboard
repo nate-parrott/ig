@@ -39,7 +39,7 @@
             </objects>
             <point key="canvasLocation" x="1254" y="-314"/>
         </scene>
-        <!--Results Table View Controller-->
+        <!--Results-->
         <scene sceneID="nPV-UY-x3f">
             <objects>
                 <tableViewController id="PAp-G0-K30" customClass="ResultsTableViewController" customModule="InstaGrade_Scanner" customModuleProvider="target" sceneMemberID="viewController">
@@ -134,8 +134,8 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gep-za-PvR">
                                             <rect key="frame" x="8" y="6" width="510" height="46"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11/20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMS-fF-NeX">
-                                            <rect key="frame" x="526" y="15.5" width="61.5" height="28.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="11/20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMS-fF-NeX">
+                                            <rect key="frame" x="526" y="15" width="61.5" height="28.5"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -163,7 +163,7 @@
                             <outlet property="delegate" destination="PAp-G0-K30" id="Bzj-gn-Bgb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="jvH-Tg-Nwi">
+                    <navigationItem key="navigationItem" title="Results" id="jvH-Tg-Nwi">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="1KK-X9-yk1">
                             <connections>
                                 <action selector="dismiss" destination="PAp-G0-K30" id="8Vp-a3-IP3"/>
@@ -288,7 +288,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="delete" destination="apl-sM-KCp" eventType="touchUpInside" id="rTk-Cp-fIz"/>
+                                                <action selector="deleteItem:" destination="apl-sM-KCp" eventType="touchUpInside" id="cFe-ak-a5r"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -390,6 +390,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vocab-review" translatesAutoresizingMaskIntoConstraints="NO" id="P3A-Ti-9Ct">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4X-hg-Z5Q" userLabel="No permissions view">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
@@ -442,8 +445,12 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.3068964481" green="0.30688726900000002" blue="0.3068924844" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="P3A-Ti-9Ct" secondAttribute="bottom" id="2Gk-E7-5AD"/>
                                     <constraint firstAttribute="bottom" secondItem="J4X-hg-Z5Q" secondAttribute="bottom" id="584-zU-wXD"/>
+                                    <constraint firstAttribute="trailing" secondItem="P3A-Ti-9Ct" secondAttribute="trailing" id="Ats-zm-ovp"/>
                                     <constraint firstAttribute="trailing" secondItem="J4X-hg-Z5Q" secondAttribute="trailing" id="Bxa-EO-0rA"/>
+                                    <constraint firstItem="P3A-Ti-9Ct" firstAttribute="leading" secondItem="b6o-aP-nQb" secondAttribute="leading" id="UnB-xn-9gh"/>
+                                    <constraint firstItem="P3A-Ti-9Ct" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="top" id="aIg-r4-CZC"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="top" id="ulK-4F-8tR"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="leading" secondItem="b6o-aP-nQb" secondAttribute="leading" id="ykd-dy-bLf"/>
                                 </constraints>
@@ -481,7 +488,7 @@
                                     <action selector="toggleFlash" destination="KOu-qy-yat" eventType="touchUpInside" id="x2N-4F-1nw"/>
                                 </connections>
                             </button>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BS2-qj-7MJ" userLabel="Edu">
+                            <view userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BS2-qj-7MJ" userLabel="Edu">
                                 <rect key="frame" x="0.0" y="514" width="600" height="86"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Create quizzes on your computer at instagradeapp.com, then scan completed answer sheets here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yf-ix-54f">
@@ -505,7 +512,7 @@
                                     <constraint firstAttribute="height" constant="56" id="QLO-Xi-qjN"/>
                                     <constraint firstAttribute="width" constant="103" id="ie7-wz-J5m"/>
                                 </constraints>
-                                <state key="normal" title="Snap">
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -515,17 +522,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Crosshair-off" translatesAutoresizingMaskIntoConstraints="NO" id="J40-zX-fAV">
                                 <rect key="frame" x="274" y="275" width="52" height="51"/>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVA-Uf-l9o">
-                                <rect key="frame" x="224" y="285" width="153" height="30"/>
-                                <state key="normal" title="Show payments menu">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="guW-62-hYw" kind="presentation" identifier="ShowPaymentsMenu" modalPresentationStyle="formSheet" id="vVK-x8-x9H"/>
-                                </connections>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="J40-zX-fAV" secondAttribute="centerY" id="9pB-V2-607"/>
                             <constraint firstItem="NBM-A5-ufg" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="bottom" id="CA3-Aj-yXh"/>
@@ -535,8 +533,6 @@
                             <constraint firstAttribute="centerX" secondItem="AGJ-r0-M2v" secondAttribute="centerX" constant="-0.5" id="OTt-bV-Kxy"/>
                             <constraint firstItem="NBM-A5-ufg" firstAttribute="top" secondItem="AGJ-r0-M2v" secondAttribute="bottom" constant="20" id="Ucc-CS-1xL"/>
                             <constraint firstAttribute="centerX" secondItem="J40-zX-fAV" secondAttribute="centerX" id="Wea-Vh-Gec"/>
-                            <constraint firstAttribute="centerX" secondItem="AVA-Uf-l9o" secondAttribute="centerX" constant="-0.5" id="akm-6F-s7a"/>
-                            <constraint firstAttribute="centerY" secondItem="AVA-Uf-l9o" secondAttribute="centerY" id="avI-U8-6Ec"/>
                             <constraint firstAttribute="trailing" secondItem="b6o-aP-nQb" secondAttribute="trailing" id="ebY-HY-A7V"/>
                             <constraint firstAttribute="trailing" secondItem="BS2-qj-7MJ" secondAttribute="trailing" id="l1s-lP-oVj"/>
                             <constraint firstItem="BS2-qj-7MJ" firstAttribute="leading" secondItem="u7c-KZ-fFg" secondAttribute="leading" id="lUl-qj-dbh"/>
@@ -555,11 +551,12 @@
                         <outlet property="flashButton" destination="nWL-nJ-YNC" id="9KT-gh-UbT"/>
                         <outlet property="savedQuizzesButton" destination="P5G-tQ-dtq" id="zzB-WE-YXd"/>
                         <outlet property="testShutterButton" destination="AGJ-r0-M2v" id="laT-Av-YBP"/>
+                        <segue destination="guW-62-hYw" kind="presentation" identifier="ShowPaymentsMenu" modalPresentationStyle="formSheet" id="2b8-qz-FC7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HdK-NI-llm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532.5" y="385"/>
+            <point key="canvasLocation" x="532" y="385"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="JHq-fJ-cAy">
@@ -701,6 +698,7 @@
         <image name="Crosshair-off" width="52" height="51"/>
         <image name="FlashOff" width="24" height="48"/>
         <image name="FlashOn" width="24" height="48"/>
+        <image name="Vocab-review" width="1644" height="1873"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vIA-O4-QYO"/>

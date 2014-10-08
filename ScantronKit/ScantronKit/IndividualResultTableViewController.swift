@@ -78,20 +78,36 @@ import UIKit
         }
     }
     
-    @IBAction func delete() {
+    @IBAction func deleteItem(sender: UIView) {
         let confirm = UIAlertController(title: "Delete?", message: nil, preferredStyle: .ActionSheet)
         confirm.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive, handler: { (_) -> Void in
             if let item = self.quizInstance {
                 SharedAPI().deleteQuizInstance(item)
                 SharedCoreDataManager().managedObjectContext!.deleteObject(item)
-                self.navigationController!.popViewControllerAnimated(true)
+                if let cb = self.didDeleteItem {
+                    cb()
+                }
+                if countElements(self.navigationController!.viewControllers) == 1 {
+                    let vc = UIViewController()
+                    vc.view = UIView()
+                    vc.view.backgroundColor = UIColor.groupTableViewBackgroundColor()
+                    self.navigationController!.viewControllers = [vc]
+                } else {
+                    self.navigationController!.popViewControllerAnimated(true)
+                }
             }
         }))
         confirm.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (_) -> Void in
             // do nothing
         }))
+        if let p = confirm.popoverPresentationController {
+            p.sourceView = sender
+            p.sourceRect = sender.bounds
+        }
         presentViewController(confirm, animated: true, completion: nil)
     }
+    
+    var didDeleteItem: (() -> ())?
 }
 
 class QuizItemCell : UITableViewCell {

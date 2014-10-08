@@ -12,5 +12,6 @@ void SetupAppearanceWithWindow(UIWindow *window) {
     window.tintColor = [UIColor colorWithRed:0.216 green:0.573 blue:0.518 alpha:1.000];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"GillSans" size:18.0]} forState:UIControlStateNormal];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"GillSans" size:18.0]}];
 }
 

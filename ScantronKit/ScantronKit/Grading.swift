@@ -30,6 +30,10 @@ func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponse
     instance.maximumScore = grade.total
     instance.date = NSDate()
     
+    AsyncOnMainQueue {
+        SharedCoreDataManager().save()
+    }
+    
     return instance
 }
 
@@ -159,6 +163,11 @@ struct QuizItemFrame {
     }
 }
 
+func shrinkRect(rect: CGRect) -> CGRect {
+    let shrink: CGFloat = 0.1
+    return CGRectMake(rect.origin.x + rect.size.width * shrink, rect.origin.y + rect.size.height * shrink, rect.size.width * (1 - shrink * 2), rect.size.height * (1 - shrink * 2))
+}
+
 /*func indexOfDarkestFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int {
     // TODO: support lists of frames spanning multiple pages
     let image = pages[frames.first!.page].image
@@ -168,12 +177,25 @@ struct QuizItemFrame {
     return darkestIndex
 }*/
 
-func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int? {
+/*func indexOfFilledInFrameWithoutBlankFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int? {
     // TODO: support lists of frames spanning multiple pages
     let image = pages[frames.first!.page].image
     let pixels = image.pixelData()
-    let brightnesses = frames.map({ pixels.averageBrightnessInRect($0.toRect(image.size)) })
-    return indexOfOutlier(brightnesses)
+    let brightnesses = frames.map({ pixels.averageBrightnessInRect(shrinkRect($0.toRect(image.size))) })
+    return indexOfOutlier(brightnesses, 0.1)
+}*/
+
+
+func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int? {
+    let image = pages[frames.first!.page].image
+    let pixels = image.pixelData()
+    let brightnesses = frames.map({ pixels.averageBrightnessInRect(shrinkRect($0.toRect(image.size))) })
+    let darkestIndex = sorted(Array(0..<countElements(frames)), { brightnesses[$0] < brightnesses[$1] }).first!
+    if darkestIndex == countElements(frames) - 1 {
+        return nil
+    } else {
+        return darkestIndex
+    }
 }
 
 extension QuizInstance {

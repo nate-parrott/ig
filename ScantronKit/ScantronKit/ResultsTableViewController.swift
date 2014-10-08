@@ -122,6 +122,13 @@ class ResultsTableViewController: UITableViewController {
             let detailVC = segue.destinationViewController as IndividualResultTableViewController
             let selectedIndexPath = tableView.indexPathForSelectedRow()!
             detailVC.quizInstance = sections[selectedIndexPath.section][selectedIndexPath.row]
+            detailVC.didDeleteItem = {
+                [weak self]
+                () in
+                if let s = self {
+                    s.reloadData()
+                }
+            }
         }
     }
 }

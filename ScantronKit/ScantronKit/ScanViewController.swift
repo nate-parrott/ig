@@ -147,7 +147,7 @@ class ScanViewController: UIViewController {
     var scanner: Scanner?
     
     @IBAction func testShutter() {
-        let image = UIImage(named: "blanks")
+        let image = UIImage(named: "vr")
         PageExtraction().extract(image) {
             imageOpt in
             if let image = imageOpt {
@@ -267,6 +267,8 @@ class ScanViewController: UIViewController {
     }
     
     @IBAction func acceptScannedQuiz() {
+        // transparentScreenshot() // 
+        
         if !SharedAPI().canScan() {
             performSegueWithIdentifier("ShowPaymentsMenu", sender: nil)
             return
@@ -294,6 +296,17 @@ class ScanViewController: UIViewController {
                 saveScannedQuiz()
             }
         }
+    }
+    
+    func transparentScreenshot() {
+        testShutterButton!.hidden = true
+        cameraView!.backgroundColor = UIColor.clearColor()
+        okayButton.adjustsImageWhenHighlighted = false
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
+        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIImagePNGRepresentation(image).writeToFile("/Users/nateparrott/Desktop/screen.png", atomically: true)
+        UIGraphicsEndImageContext()
     }
     
     var justSavedQuizCount: Int = 0 {

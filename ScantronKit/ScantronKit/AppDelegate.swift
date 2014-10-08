@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Crashlytics.startWithAPIKey("c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8")
         
-        _ = Mixpanel.sharedInstanceWithToken("cee8d97ba5c75c42b841e4ee716e0d0b")
+        _ = Mixpanel.sharedInstanceWithToken("d49cfebb673bdf3d240758901998dc9d")
         
         SharedReachability = KSReachability(toHost: "instagradeapp.com")
         SharedReachability.notificationName = kDefaultNetworkReachabilityChangedNotification
@@ -67,9 +67,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
         // clean up old quizzes:
+        SharedCoreDataManager().save() // for some reason unsaved changes break .fetchOffset, so save first
         let req = NSFetchRequest(entityName: "QuizInstance")
         req.predicate = NSPredicate(format: "uploaded = YES")
-        req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         req.fetchOffset = 100 // keep last 100
         req.includesPropertyValues = false // we're gonna delete em, so
         for obj in SharedCoreDataManager().managedObjectContext!.executeFetchRequest(req, error: nil)! as [QuizInstance] {
