@@ -319,10 +319,12 @@ var ContentEditable = React.createClass({displayName: 'ContentEditable',
 		return nextProps.value !== this.getDOMNode().innerText;
 	},
 	componentDidMount: function() {
-		this.getDOMNode().innerText = this.props.value;
+		if (this.props.value != undefined)
+			this.getDOMNode().innerText = this.props.value;
 	},
 	componentDidUpdate: function() {
-		this.getDOMNode().innerText = this.props.value;
+		if (this.props.value != undefined)
+			this.getDOMNode().innerText = this.props.value;
 	},
 	keyDown: function(e) {
 		if (this.props.singleLine) {

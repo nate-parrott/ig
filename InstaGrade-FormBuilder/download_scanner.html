@@ -4,10 +4,15 @@
 
 <h3>Download InstaGrade Scanner</h3>
 
-<p style='opacity: 0.3'><a href='http://example.com'><img src='/static/appstore.svg' alt='Download on the iOS App Store'/></a></p>
+<p><a href='http://itunes.apple.com/genre/mobile-software-applications/id923914934?mt=8'><img src='/static/appstore.svg' alt='Download on the iOS App Store'/></a></p>
 
-<h2>InstaGrade Scanner is in beta</h2>
-<p>If you'd like to scan quizzes, please <a href='/add_to_email_list'>sign up here.</a></p>
+<script>
+
+if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+	window.location = "itms-apps://itunes.apple.com/genre/mobile-software-applications/id923914934?mt=8";
+}
+
+</script>
 
 {% if token %}
 <p>

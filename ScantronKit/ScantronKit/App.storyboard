@@ -390,7 +390,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vocab-review" translatesAutoresizingMaskIntoConstraints="NO" id="P3A-Ti-9Ct">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vocab-review" translatesAutoresizingMaskIntoConstraints="NO" id="P3A-Ti-9Ct">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     </imageView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4X-hg-Z5Q" userLabel="No permissions view">
@@ -701,6 +701,6 @@
         <image name="Vocab-review" width="1663" height="1872"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vIA-O4-QYO"/>
+        <segue reference="2b8-qz-FC7"/>
     </inferredMetricsTieBreakers>
 </document>
