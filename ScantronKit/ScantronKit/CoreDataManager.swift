@@ -21,6 +21,10 @@ class CoreDataManager: NSObject {
     override init() {
         super.init()
     }
+    @objc func getShared() -> CoreDataManager { // because fuck swift
+        return SharedCoreDataManager()
+    }
+    
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("InstaGrade", withExtension: "momd")!
@@ -84,7 +88,7 @@ class CoreDataManager: NSObject {
         }
     }
     
-    func newEntity(name: String) -> NSManagedObject {
+    @objc func newEntity(name: String) -> NSManagedObject {
         return NSEntityDescription.insertNewObjectForEntityForName(name, inManagedObjectContext: managedObjectContext!) as NSManagedObject
     }
     

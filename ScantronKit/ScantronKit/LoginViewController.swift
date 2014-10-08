@@ -10,13 +10,29 @@ import UIKit
 
 class LoginViewController: UIViewController, UIWebViewDelegate {
     
+    var statusBarBG: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        statusBarBG = UIView()
+        statusBarBG.backgroundColor = UIColor.blackColor()
+        view.addSubview(statusBarBG)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload", name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let statusBarHeight = topLayoutGuide.length
+        statusBarBG.frame = CGRectMake(0, 0, view.width, statusBarHeight)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -14,10 +14,12 @@ extern const struct QuizInstanceAttributes {
 } QuizInstanceAttributes;
 
 extern const struct QuizInstanceRelationships {
+	__unsafe_unretained NSString *nameImageData;
 	__unsafe_unretained NSString *pageImages;
 	__unsafe_unretained NSString *quiz;
 } QuizInstanceRelationships;
 
+@class NameImageData;
 @class PageImage;
 @class Quiz;
 
@@ -71,6 +73,10 @@ extern const struct QuizInstanceRelationships {
 @property (nonatomic, strong) NSString* uuid;
 
 //- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
+
+@property (nonatomic, strong) NameImageData *nameImageData;
+
+//- (BOOL)validateNameImageData:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSOrderedSet *pageImages;
 
@@ -128,6 +134,9 @@ extern const struct QuizInstanceRelationships {
 
 - (NSString*)primitiveUuid;
 - (void)setPrimitiveUuid:(NSString*)value;
+
+- (NameImageData*)primitiveNameImageData;
+- (void)setPrimitiveNameImageData:(NameImageData*)value;
 
 - (NSMutableOrderedSet*)primitivePageImages;
 - (void)setPrimitivePageImages:(NSMutableOrderedSet*)value;

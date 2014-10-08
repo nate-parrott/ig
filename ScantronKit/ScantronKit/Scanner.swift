@@ -12,6 +12,9 @@ class Scanner: NSObject {
     init(cameraView: CameraView) {
         self.cameraView = cameraView
         super.init()
+        if let c = cameraView.captureDevice {
+            kvoController.observe(c, keyPath: "adjustingFocus", options: nil, action: "autofocusStatusChanged")
+        }
     }
     // MARK: Status
     enum Status : Printable {
@@ -37,6 +40,9 @@ class Scanner: NSObject {
     }
     var onStatusChanged: (() -> ())?
     var onScannedPage: (ScannedPage -> ())?
+    lazy var kvoController: FBKVOController = {
+        return FBKVOController(observer: self)
+    }()
     
     func start() {
         stopping = false
@@ -54,7 +60,13 @@ class Scanner: NSObject {
     var cameraView: CameraView
     
     private func scanNow() {
+        waitingOnAutofocus = false
         if let output = cameraView.stillImageOutput {
+            let camera = cameraView.captureDevice!
+            if camera.adjustingFocus {
+                waitingOnAutofocus = true
+                return
+            }
             let connection = cameraView.stillImageOutput!.connections.first! as AVCaptureConnection
             cameraView.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sample: CMSampleBuffer!, error: NSError?) -> Void in
                 if sample == nil {
@@ -79,6 +91,15 @@ class Scanner: NSObject {
                 self.status = .Off
             } else {
                 self.scanNow()
+            }
+        }
+    }
+    
+    private var waitingOnAutofocus = false
+    @objc func autofocusStatusChanged() {
+        if let c = cameraView.captureDevice {
+            if !c.adjustingFocus && waitingOnAutofocus {
+                scanNow()
             }
         }
     }

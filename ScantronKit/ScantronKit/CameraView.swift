@@ -108,6 +108,12 @@ class CameraView: UIView {
             if camera.lowLightBoostSupported {
                 camera.automaticallyEnablesLowLightBoostWhenAvailable = true
             }
+            if camera.focusPointOfInterestSupported {
+                camera.focusPointOfInterest = CGPointMake(0.5, 0.5)
+            }
+            if camera.exposurePointOfInterestSupported {
+                camera.exposurePointOfInterest = CGPointMake(0.5, 0.5)
+            }
             camera.unlockForConfiguration()
         }
     }

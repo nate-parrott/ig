@@ -10,7 +10,8 @@ import math
 
 NO_LAYOUT_BOUNDS = 9999999
 
-BENCHMARK_GRAY = HexColor("#f2f2f2")
+BENCHMARK_GRAY = HexColor("#eeeeee")
+BORDERS_GRAY = HexColor("#eeeeee")
 
 # decorator for layout functions that automatically adds things like margins
 def respects_margin(func):
@@ -377,7 +378,7 @@ class Question(Layout):
 class MultipleChoice(Question):
 	def get_item(self):
 		horiz = Horizontal()
-		horiz.border = (gray, 1)
+		# horiz.border = (BORDERS_GRAY, 1)
 		horiz.items = []
 		
 		options = ['True', 'False', '?'] if self.dict['type'] == 'true-false' else 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[:int(self.dict['options'])] + '?'
@@ -392,8 +393,9 @@ class MultipleChoice(Question):
 			item.text = op
 			if item.text == "?":
 				item.background_color = BENCHMARK_GRAY
-			item.border = (gray, 1)
-			item.padding = 6
+			item.border = (BORDERS_GRAY, 1)
+			item.padding = 3
+			item.margin = (3,3,3,3)
 			item.horizontal_expansion = 0
 			horiz.items.append(item)
 			def on_item_render(frame):
@@ -410,7 +412,7 @@ class FreeResponse(Question):
 	def get_item(self):
 		b = Box()
 		b.size = (1, float(self.dict['height'])*50)
-		b.border = (gray, 1)
+		b.border = (BORDERS_GRAY, 1)
 		b.horizontal_expansion = 1
 		def on_render(frame):
 			self.dict['frame'] = frame_json(frame)
@@ -426,7 +428,7 @@ class NameField(Question):
 		b = Box()
 		b.size = (1, 40)
 		b.horizontal_expansion = 1
-		b.border = (gray, 1)
+		b.border = (BORDERS_GRAY, 1)
 		def on_render(frame):
 			self.dict['frame'] = frame_json(frame)
 		b.on_render = on_render

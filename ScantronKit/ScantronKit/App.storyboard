@@ -390,9 +390,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6o-aP-nQb" customClass="CameraView" customModule="InstaGrade_Scanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vocab-review" translatesAutoresizingMaskIntoConstraints="NO" id="P3A-Ti-9Ct">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    </imageView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4X-hg-Z5Q" userLabel="No permissions view">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
@@ -445,12 +442,8 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.3068964481" green="0.30688726900000002" blue="0.3068924844" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="P3A-Ti-9Ct" secondAttribute="bottom" id="2Gk-E7-5AD"/>
                                     <constraint firstAttribute="bottom" secondItem="J4X-hg-Z5Q" secondAttribute="bottom" id="584-zU-wXD"/>
-                                    <constraint firstAttribute="trailing" secondItem="P3A-Ti-9Ct" secondAttribute="trailing" id="Ats-zm-ovp"/>
                                     <constraint firstAttribute="trailing" secondItem="J4X-hg-Z5Q" secondAttribute="trailing" id="Bxa-EO-0rA"/>
-                                    <constraint firstItem="P3A-Ti-9Ct" firstAttribute="leading" secondItem="b6o-aP-nQb" secondAttribute="leading" id="UnB-xn-9gh"/>
-                                    <constraint firstItem="P3A-Ti-9Ct" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="top" id="aIg-r4-CZC"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="top" secondItem="b6o-aP-nQb" secondAttribute="top" id="ulK-4F-8tR"/>
                                     <constraint firstItem="J4X-hg-Z5Q" firstAttribute="leading" secondItem="b6o-aP-nQb" secondAttribute="leading" id="ykd-dy-bLf"/>
                                 </constraints>
@@ -698,7 +691,6 @@
         <image name="Crosshair-off" width="52" height="51"/>
         <image name="FlashOff" width="24" height="48"/>
         <image name="FlashOn" width="24" height="48"/>
-        <image name="Vocab-review" width="1663" height="1872"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="2b8-qz-FC7"/>

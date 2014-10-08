@@ -7,6 +7,7 @@ import os
 import calendar
 from gaesessions import get_current_session
 import send_mail
+import hashlib
 
 def make_url(endpoint, **kwargs):
 	return endpoint + '?' + urllib.urlencode(kwargs)
@@ -25,26 +26,26 @@ class LoginDialog(webapp2.RequestHandler):
 		if action == 'login':
 			if len(email) == 0:
 				return self.redirect(make_url('/login', callback=callback))
-			user = User.get_by_id(self.request.get('email', ''))
+			user = User.get_by_key_name(self.request.get('email', ''))
 			if user and user.pwd_hash == hash_password(self.request.get('password', '')):
-				get_current_session().set('email', email)
+				get_current_session()['email'] = email
 				return self.redirect(callback)
 			else:
 				error = "No user with that email address was found." if user==None else "Incorrect password."
 				return self.redirect(make_url('/login', callback=callback, login_error=error))
 		elif action == 'sign_up':
-			existing = User.get(email)
+			existing = User.get_by_key_name(email)
 			if len(self.request.get("email", "")) == 0 or len(self.request.get("password", "")) == 0:
 				return self.redirect(make_url('/login', callback=callback, signup_error="Please enter a password and email address."))
 			if existing:
 				return self.redirect(make_url('/login', callback=callback, signup_error="A user with that email already exists."))
 			#if self.request.get("password") != self.request.get("password2"):
 			#	return self.redirect(make_url('/login', callback=callback, signup_error="Passwords don't match."))
-			user = User.get_or_insert(name=email)
+			user = User.get_or_insert(email, name=email)
 			user.email = email
 			user.pwd_hash = hash_password(self.request.get('password'))
 			user.put()
-			get_current_session().set('email', email)
+			get_current_session()['email'] = email
 			return self.redirect(callback)
 		elif action == 'password_reset':
 			send_mail.send_mail(email, "Reset your InstaGrade password", util.templ8("password_reset_email.html"))
@@ -55,7 +56,7 @@ def logout_url(callback):
 
 class Logout(webapp2.RequestHandler):
 	def get(self):
-		get_current_session().regenerate_id()
+		get_current_session().clear()
 		return self.redirect(self.request.get('callback'))
 
 def hash_password(pwd):
@@ -63,7 +64,7 @@ def hash_password(pwd):
 	SALT = 'rgieh89gh3489gy379gx8340fh3'
 	h.update(SALT)
 	h.update(pwd)
-	return h.hexdigest
+	return h.hexdigest()
 
 class User(db.Model):
 	email = db.StringProperty()
@@ -108,5 +109,5 @@ class GetToken(webapp2.RequestHandler):
 			print "URL", 'instagrade-login-token://x?' + urllib.urlencode(query_dict)
 			self.redirect('instagrade-login-token://x?' + urllib.urlencode(query_dict))
 		else:
-			self.redirect(users.create_login_url('/get_token'))
+			self.redirect(create_login_url('/get_token'))
 

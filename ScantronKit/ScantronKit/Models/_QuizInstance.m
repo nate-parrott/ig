@@ -14,6 +14,7 @@ const struct QuizInstanceAttributes QuizInstanceAttributes = {
 };
 
 const struct QuizInstanceRelationships QuizInstanceRelationships = {
+	.nameImageData = @"nameImageData",
 	.pageImages = @"pageImages",
 	.quiz = @"quiz",
 };
@@ -130,6 +131,8 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 @dynamic uploadedInBatch;
 
 @dynamic uuid;
+
+@dynamic nameImageData;
 
 @dynamic pageImages;
 

@@ -1,6 +1,52 @@
 {% extends "centered.html" %}
 
+{% block viewport_info %}
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false"/>
+{% endblock %}
+
 {% block content %}
+
+<style>
+
+input {
+	font-size: large;
+	font-family: "Gill Sans", sans-serif;
+}
+input[type=email], input[type=password] {
+	-webkit-appearance: none;
+	appearance: none;
+	border: 1px solid gray;
+	display: block;
+	width: 100%;
+	max-width: 250px;
+	border-radius: 0px;
+	margin: auto;
+	margin-top: 0px;
+	margin-bottom: -1px;
+}
+input[type=email]:first-child, input[type='password']:first-child {
+	border-radius: 5px 5px 0px 0px;
+}
+
+input[type=email]:last-child, input[type='password']:last-child {
+	border-radius: 0px 0px 5px 5px;
+}
+h2 {
+	margin-bottom: 0.2em;
+}
+input[type=submit] {
+	color: #0CA5B0;
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 0px;
+	padding: 6px 20px;
+	margin-top: 4px;
+	border: none;
+	background-color: transparent;
+	border-bottom: 2px solid #0CA5B0;
+}
+
+</style>
 
 <h2>Log in</h2>
 <form method='POST'>
@@ -9,8 +55,10 @@
 	{% endif %}
 	<input type='hidden' name='action' value='login'/>
 	<input type='hidden' name='callback' value='{{ callback }}'/>
-	<input type='email' name='email' placeholder='name@school.com'/>
-	<input type='password' name='password' placeholder='*********'/>
+	<div>
+		<input type='email' name='email' placeholder='name@school.com'/>
+		<input type='password' name='password' placeholder='*********'/>
+	</div>
 	<input type='submit' value='Log in'/>
 </form>
 
@@ -21,9 +69,15 @@
 	{% endif %}
 	<input type='hidden' name='action' value='sign_up'/>
 	<input type='hidden' name='callback' value='{{ callback }}'/>
-	<input type='email' name='email' placeholder='name@school.com'/>
-	<input type='password' name='password' placeholder='Choose a password'/>
+	<div>
+		<input type='email' name='email' placeholder='name@school.com'/>
+		<input type='password' name='password' placeholder='Choose a password'/>
+	</div>
 	<input type='submit' value='Sign up'/>
 </form>
+
+{% block controls %}
+{# don't show controls #}
+{% endblock %}
 
 {% endblock %}

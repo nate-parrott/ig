@@ -60,10 +60,12 @@ html, body {
 		<div>
 			<img id='logo' src='/static/logo-black.png'/>
 			<h3>Instagrade</h3>
-			<a href='/'>New quiz</a>
-			{% if global_logout_url %}
-			<a id='logout' href='{{ global_logout_url }}'>Log out {{ global_email }}</a>
-			{% endif %}
+			{% block controls %}
+				<a href='/'>New quiz</a>
+				{% if global_logout_url %}
+				<a id='logout' href='{{ global_logout_url }}'>Log out {{ global_email }}</a>
+				{% endif %}
+			{% endblock %}
 		</div>
 	</div>
 	<div>

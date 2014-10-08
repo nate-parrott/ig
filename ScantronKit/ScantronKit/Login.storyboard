@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="height" constant="51" id="zOF-Xk-4wp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="18"/>
-                                <state key="normal" title="Log in with Google">
+                                <state key="normal" title="Get Started">
                                     <color key="titleColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -119,16 +119,16 @@
                                 <rect key="frame" x="20" y="560" width="20" height="20"/>
                             </activityIndicatorView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwC-oR-aNe" userLabel="Error view">
-                                <rect key="frame" x="156" y="249" width="288" height="101"/>
+                                <rect key="frame" x="156" y="249" width="287.5" height="101"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Couldn't connect to the Internet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jqr-Cx-PMz">
-                                        <rect key="frame" x="14" y="8" width="260" height="20.5"/>
+                                        <rect key="frame" x="14" y="8" width="259.5" height="20.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mlc-ga-xsC">
-                                        <rect key="frame" x="101" y="37" width="86" height="44"/>
+                                        <rect key="frame" x="100" y="37" width="86" height="44"/>
                                         <color key="backgroundColor" red="0.039215686270000001" green="0.58431372550000005" blue="0.63529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="NaS-ZS-x7g"/>

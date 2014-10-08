@@ -21,6 +21,8 @@ func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponse
         entity.data = data
         return entity
     }
+    // SaveDebugImage(quiz, pages) //
+    
     instance.pageImages = NSOrderedSet(array: pages.map({ createPageImage($0) }))
     
     let itemsWithResponses = quiz.generateResponseItemsWithScannedPages(pages, manuallyGradedResponses: manuallyGradedResponses)
@@ -35,6 +37,27 @@ func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponse
     }
     
     return instance
+}
+
+func SaveDebugImage(quiz: Quiz, pages: [ScannedPage]) {
+    let img = pages.first!.image
+    UIGraphicsBeginImageContext(img.size)
+    img.drawInRect(CGRectMake(0, 0, img.size.width, img.size.height))
+    UIColor.redColor().setStroke()
+    let json = quiz.json as [String: AnyObject]
+    let items = json.getOrDefault("items", defaultVal: []) as [QuizItem]
+    for item in items {
+        if item["type"]! as String == "multiple-choice" {
+            for frame in item["frames"]! as [[Double]] {
+                let f = QuizItemFrame(array: frame)
+                let rect = f.toRect(img.size)
+                UIBezierPath(rect: rect).stroke()
+            }
+        }
+    }
+    let result = UIGraphicsGetImageFromCurrentImageContext()
+    UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
+    UIGraphicsEndImageContext()
 }
 
 func GenerateGradeForItemsWithResponses(items: [QuizItem]) -> (points: Double, total: Double) {
@@ -164,7 +187,7 @@ struct QuizItemFrame {
 }
 
 func shrinkRect(rect: CGRect) -> CGRect {
-    let shrink: CGFloat = 0.1
+    let shrink: CGFloat = 0.0
     return CGRectMake(rect.origin.x + rect.size.width * shrink, rect.origin.y + rect.size.height * shrink, rect.size.width * (1 - shrink * 2), rect.size.height * (1 - shrink * 2))
 }
 
@@ -199,13 +222,13 @@ func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int?
 }
 
 extension QuizInstance {
-    @objc func nameImage() -> UIImage? {
+    @objc func extractNameImage() -> UIImage? {
         let quizItems = (quiz.json as [String: AnyObject]).get("items")! as [QuizItem]
         var nameItemOpt = quizItems.filter({ ($0.get("type")! as String) == "name-field" }).first
         if let nameItem = nameItemOpt {
             let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
             let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
-            return frame.extract(pageImage, aspectRatio: quiz.aspectRatio)
+            return frame.extract(pageImage, aspectRatio: quiz.aspectRatio).resizedWithMaxDimension(250)
         }
         return nil
     }
