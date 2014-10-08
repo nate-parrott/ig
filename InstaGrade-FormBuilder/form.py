@@ -3,7 +3,6 @@ import webapp2
 import json
 import render_form
 import StringIO
-from google.appengine.api import users
 from send_mail import send_mail
 import util
 from util import templ8
@@ -82,7 +81,7 @@ class Submit(webapp2.RequestHandler):
 			self.redirect('/{0}?created=1'.format(model.secret))
 		else:
 			model.put()
-			self.redirect(users.create_login_url('/auth_and_save?id={0}'.format(model.key().id())))
+			self.redirect(login.create_login_url('/auth_and_save?id={0}'.format(model.key().id())))
 
 class AuthAndSave(webapp2.RequestHandler):
 	def get(self):

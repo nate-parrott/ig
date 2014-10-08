@@ -1,0 +1,29 @@
+{% extends "centered.html" %}
+
+{% block content %}
+
+<h2>Log in</h2>
+<form method='POST'>
+	{% if login_error %}
+	<div class='error'>{{ login_error }}</div>
+	{% endif %}
+	<input type='hidden' name='action' value='login'/>
+	<input type='hidden' name='callback' value='{{ callback }}'/>
+	<input type='email' name='email' placeholder='name@school.com'/>
+	<input type='password' name='password' placeholder='*********'/>
+	<input type='submit' value='Log in'/>
+</form>
+
+<h2>Sign up</h2>
+<form method='POST'>
+	{% if signup_error %}
+	<div class='error'>{{ signup_error }}</div>
+	{% endif %}
+	<input type='hidden' name='action' value='sign_up'/>
+	<input type='hidden' name='callback' value='{{ callback }}'/>
+	<input type='email' name='email' placeholder='name@school.com'/>
+	<input type='password' name='password' placeholder='Choose a password'/>
+	<input type='submit' value='Sign up'/>
+</form>
+
+{% endblock %}

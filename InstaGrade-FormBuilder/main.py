@@ -20,7 +20,6 @@ import json
 import form
 import form_page
 import print_form
-from google.appengine.api import users
 import login
 import api
 import email_list
@@ -34,7 +33,7 @@ class MainHandler(webapp2.RequestHandler):
     		form_json = form.Form.WithSecret(existing_form_secret).json
 
         self.response.write(util.templ8('form.html', 
-				{"user": login.current_user(self), "logout_url": users.create_logout_url('/'), "form_json": form_json}))
+				{"user": login.current_user(self), "logout_url": login.logout_url('/'), "form_json": form_json}))
 
 class DownloadScanner(webapp2.RequestHandler):
 	def get(self):
@@ -55,5 +54,7 @@ app = webapp2.WSGIApplication([
 		('/add_to_email_list', email_list.Add),
 		('/how-it-works', info.HowItWorks),
 		('/user_data', api.UserData),
+		('/login', login.LoginDialog),
+		('/logout', login.Logout),
 		('/(.+)', form_page.FormPage)
 ], debug=util.DEBUG)
