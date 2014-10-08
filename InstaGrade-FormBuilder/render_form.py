@@ -10,7 +10,7 @@ import math
 
 NO_LAYOUT_BOUNDS = 9999999
 
-BENCHMARK_GRAY = HexColor("#cccccc")
+BENCHMARK_GRAY = HexColor("#f2f2f2")
 
 # decorator for layout functions that automatically adds things like margins
 def respects_margin(func):
@@ -269,7 +269,7 @@ class AnswerSheetPageLayouter(PageLayouter):
 			v.items.append(subtitle)
 
 		info = Text()
-		info.text = "Keep completely flat.\ninstagradeapp.com"
+		info.text = "instagradeapp.com\nKeep flat. Scan in bright, even light."
 		info.font_size = 9
 		info.color = gray
 		v.items.append(info)

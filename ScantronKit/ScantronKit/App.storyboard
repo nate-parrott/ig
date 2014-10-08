@@ -698,7 +698,7 @@
         <image name="Crosshair-off" width="52" height="51"/>
         <image name="FlashOff" width="24" height="48"/>
         <image name="FlashOn" width="24" height="48"/>
-        <image name="Vocab-review" width="1644" height="1873"/>
+        <image name="Vocab-review" width="1663" height="1872"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="vIA-O4-QYO"/>

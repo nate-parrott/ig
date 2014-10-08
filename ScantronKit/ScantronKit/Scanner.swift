@@ -110,7 +110,7 @@ class Scanner: NSObject {
     private func doneWithSingleScan() {
         // called on background queue:
         let elapsed = NSDate.timeIntervalSinceReferenceDate() - startTime
-        println("\(elapsed) elapsed")
+        // println("\(elapsed) elapsed")
         
         dispatch_async(dispatch_get_main_queue()) {
             if self.stopping {
