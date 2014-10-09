@@ -18,7 +18,7 @@ def create_login_url(callback='/'):
 class LoginDialog(webapp2.RequestHandler):
 	def get(self):
 		callback = self.request.get('callback')
-		self.response.write(util.templ8('login_dialog.html', {"callback": callback, "login_error": self.request.get('login_error'), "signup_error": self.request.get('signup_error')}))
+		self.response.write(util.templ8('login_dialog.html', {"callback": callback, "login_error": self.request.get('login_error'), "signup_error": self.request.get('signup_error'), "message": self.request.get('message')}))
 	def post(self):
 		action = self.request.get('action')
 		callback = self.request.get('callback')
@@ -48,8 +48,31 @@ class LoginDialog(webapp2.RequestHandler):
 			get_current_session()['email'] = email
 			return self.redirect(callback)
 		elif action == 'password_reset':
-			send_mail.send_mail(email, "Reset your InstaGrade password", util.templ8("password_reset_email.html"))
-			# TODO: token
+			user = User.get_by_key_name(email)
+			if user:
+				user.password_reset_token = base64.urlsafe_b64encode(os.urandom(64))
+				user.put()
+				send_mail.send_mail(email, "Reset your InstaGrade password", util.templ8("password_reset_email.html", {"token": user.password_reset_token}))
+			return self.redirect(make_url('/login', callback=callback, message="We sent a password-reset email."))
+
+class ChangePassword(webapp2.RequestHandler):
+	def get(self):
+		token = self.request.get('reset')
+		users = list(User.all().filter('password_reset_token =', token).run())
+		if len(users):
+			user = users[-1]
+			get_current_session()['email'] = user.email
+			self.response.write(util.templ8('reset_password.html', {'token': token}))
+		else:
+			return self.redirect('/')
+	def post(self):
+		print "CURRENT_USER", current_user()
+		u = current_user()
+		if u:
+			u.pwd_hash = hash_password(self.request.get("password"))
+			u.password_reset_token = None
+			u.put()
+		return self.redirect('/')
 
 def logout_url(callback):
 	return make_url('/logout', callback=callback)
@@ -71,6 +94,7 @@ class User(db.Model):
 	pwd_hash = db.StringProperty()
 	subscription_end_date = db.DateTimeProperty()
 	scans_left = db.IntegerProperty(default=100)
+	password_reset_token = db.StringProperty()
 
 class LoginToken(db.Model):
 	secret = db.StringProperty()

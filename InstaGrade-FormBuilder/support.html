@@ -1,0 +1,51 @@
+{% extends "centered.html" %}
+
+{% block viewport_info %}
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=false"/>
+{% endblock %}
+
+{% block content %}
+
+<style>
+h5 {
+	margin: 10px;
+}
+form {
+	line-height: 1.1;
+}
+input[type=email], textarea {
+	width: 90%;
+	max-width: 500px;
+	font-size: large;
+	font-family: "Gill Sans", sans-serif;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+textarea {
+	min-height: 4em;
+}
+input[type=submit] {
+	font-family: "Gill Sans", sans-serif;
+	font-size: large;
+	background-color: transparent;
+	border: transparent;
+	-webkit-appearance: none;
+	appearance: none;
+	color: #0CA5B0;
+	border-bottom: 2px solid #0CA5B0;
+	padding: 10px 20px;
+	border-radius: 0px;
+}
+</style>
+
+<h2>Support &amp; Feedback</h2>
+<form method='POST'>
+<h5>Which email address can we reach you at?</h5>
+<input type='email' name='email' placeholder='you@domain.edu'/>
+<h5>What can we help you with?</h5>
+<p><em style='font-size: small'>Love our product? Hate it? Think it's missing just one little thing? Want your money back? Please let us know.</em></p>
+<textarea name='text'></textarea>
+<p><input type='submit' value="Send"/></p>
+
+
+{% endblock %}

@@ -16,3 +16,12 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
 
+.cta {
+	display: inline-block;
+	text-align: center;
+	margin: 1em auto;
+	background-color: #0CA5B0;
+	color: white;
+	padding: 7px 17px;
+	text-decoration: none;
+}

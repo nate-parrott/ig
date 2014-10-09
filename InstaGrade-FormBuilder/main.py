@@ -24,6 +24,8 @@ import login
 import api
 import email_list
 import info
+import old
+import support
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -56,5 +58,8 @@ app = webapp2.WSGIApplication([
 		('/user_data', api.UserData),
 		('/login', login.LoginDialog),
 		('/logout', login.Logout),
-		('/(.+)', form_page.FormPage)
+		('/change_password', login.ChangePassword),
+		('/client/iphone_3_3', old.iphone_3_3),
+		('/support', support.Support),
+		('/(.+)', form_page.FormPage),
 ], debug=util.DEBUG)
