@@ -9,8 +9,9 @@
 <style>
 
 input {
-	font-size: large;
 	font-family: "Gill Sans", sans-serif;
+	font-size: 1em;
+	padding: 5px;
 }
 input[type=email], input[type=password] {
 	-webkit-appearance: none;
@@ -44,6 +45,7 @@ input[type=submit] {
 	border: none;
 	background-color: transparent;
 	border-bottom: 2px solid #0CA5B0;
+	font-size: large;
 }
 .message {
 	font-size: large;
@@ -54,8 +56,18 @@ input[type=submit] {
 #password_reset:target {
 	display: block;
 }
+#interstitial {
+	background-color: #eee;
+	border-radius: 5px;
+	padding: 7px;
+}
 
 </style>
+
+
+{% if interstitial %}
+<h4 id='interstitial'>We're generating a PDF of your quiz — meanwhile, sign up or log in so you can scan it with your iPhone.</h4>
+{% endif %}
 
 {% if message %}
 <p class='message'>{{ message }}</p>

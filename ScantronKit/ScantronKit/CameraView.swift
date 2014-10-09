@@ -102,9 +102,9 @@ class CameraView: UIView {
     
     func configureCamera(camera: AVCaptureDevice) {
         if camera.lockForConfiguration(nil) {
-            if camera.autoFocusRangeRestrictionSupported {
+            /*if camera.autoFocusRangeRestrictionSupported {
                 camera.autoFocusRangeRestriction = AVCaptureAutoFocusRangeRestriction.Near
-            }
+            }*/
             if camera.lowLightBoostSupported {
                 camera.automaticallyEnablesLowLightBoostWhenAvailable = true
             }

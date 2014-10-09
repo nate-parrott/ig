@@ -27,6 +27,7 @@ html, body {
 #form .sidebar h1 {
 	font-family: "Helvetica Neue", "Helvetica", sans-serif;
 	font-weight: 300;
+	margin-bottom: -5px;
 }
 
 #form .page {
@@ -73,6 +74,11 @@ html, body {
 	min-height: 24px; /* hack for firefox, in which min-height: 1em doesn't work 100% */
 	padding-left: 40px;
 }
+.items .description:empty:not(:focus):before{
+  content:"Question (optional)";
+  color:rgba(0,0,0,0.3);
+  cursor: text;
+}
 .item-content {
 	padding-top: 0.5em;
 }
@@ -112,8 +118,8 @@ html, body {
 	background-color: inherit;
 }
 
-.newItems .segmentedControl > div:hover {
-	background-color: #e2e2e2 !important;
+.segmentedControl > div:hover {
+	background-color: #efefef !important;
 }
 
 .freeResponse {

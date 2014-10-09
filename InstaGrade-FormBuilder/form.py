@@ -81,7 +81,7 @@ class Submit(webapp2.RequestHandler):
 			self.redirect('/{0}?created=1'.format(model.secret))
 		else:
 			model.put()
-			self.redirect(login.create_login_url('/auth_and_save?id={0}'.format(model.key().id())))
+			self.redirect(login.create_login_url('/auth_and_save?id={0}'.format(model.key().id())) + "&interstitial=1")
 
 class AuthAndSave(webapp2.RequestHandler):
 	def get(self):

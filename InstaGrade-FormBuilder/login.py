@@ -18,7 +18,7 @@ def create_login_url(callback='/'):
 class LoginDialog(webapp2.RequestHandler):
 	def get(self):
 		callback = self.request.get('callback')
-		self.response.write(util.templ8('login_dialog.html', {"callback": callback, "login_error": self.request.get('login_error'), "signup_error": self.request.get('signup_error'), "message": self.request.get('message')}))
+		self.response.write(util.templ8('login_dialog.html', {"callback": callback, "login_error": self.request.get('login_error'), "signup_error": self.request.get('signup_error'), "message": self.request.get('message'), "interstitial": self.request.get("interstitial")}))
 	def post(self):
 		action = self.request.get('action')
 		callback = self.request.get('callback')
