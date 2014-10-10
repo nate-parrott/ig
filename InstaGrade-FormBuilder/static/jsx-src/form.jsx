@@ -49,7 +49,7 @@ var FormEditor = React.createClass({
 		return <div className='formEditor'>
 							<div className='sidebar'>
 								<h1>InstaGrade</h1>
-								<p>lets you create quizzes and tests on your computer, print them, then grade them automatically by taking a picture with your iPhone. We’ll email you the results.</p>
+								<p>lets you create quizzes and tests on your computer, print them, then grade them automatically by taking a picture with our <a href='/download_scanner'>iPhone app</a>. We’ll email you the results.</p>
 								<p>
 									<a href='/how-it-works'>How it works</a>
 								</p>

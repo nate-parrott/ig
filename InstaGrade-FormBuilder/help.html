@@ -1,0 +1,47 @@
+{% extends "centered.html" %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+
+<style>
+
+dl {
+	text-align: left;
+}
+dt {
+	text-decoration: underline;
+}
+#main-content {
+	text-align: left;
+}
+
+</style>
+
+<a href='/support' class='cta'>Contact Support</a>
+
+<h2>Frequently Asked Questions</h2>
+
+<dl>
+	<dt>My scans are innacurate, or images of them are blurry. What can I do?</dt>
+	<dd>A couple things:
+		<ul>
+			<li>Scan in bright, even light, without shadows. If you see a lightning bolt in the top-left corner of your screen during scanning, use that to turn on the flashlight.</li>
+			<li>Make sure quizzes aren't creased, folded or curved.</li>
+			<li>Make sure there aren't any stray marks on the page.</li>
+			<li>Hold the scanner in front of the page for a little longer. InstaGrade tries to capture the least-blurry image it can, so the longer you let it scan a page, the more likely you are to get a non-blurry image.
+		</ul>
+	</dd>
+	<dt>What can I do with the results of a quiz?</dt>
+	<dd>
+		Right now, you can view individual quiz results in the app, or visit our website for more in-depth analysis, including downloading an Excel file containing results. If you have a specific format you'd like to export to, or a web service you'd like us to upload to automatically, please <a href='/support'>leave feedback.</a>
+	</dd>
+	<dt>Can I create quizzes that are multiple pages?</dt>
+	<dd>Sure. We'll just ask you to scan pages in order.</dd>
+	<dt>I have an issue or question not mentioned here.</dt>
+	<dd>Please email us at <a href='mailto:team@instagradeapp.com'>team@instagradeapp.com</a>, or <a href='/support'>leave feedback.</a></dd>
+</dl>
+
+<a href='/support' class='cta'>Contact Support</a>
+
+{% endblock %}

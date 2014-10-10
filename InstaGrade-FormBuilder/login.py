@@ -34,9 +34,9 @@ class LoginDialog(webapp2.RequestHandler):
 				error = "No user with that email address was found." if user==None else "Incorrect password."
 				return self.redirect(make_url('/login', callback=callback, login_error=error))
 		elif action == 'sign_up':
-			existing = User.get_by_key_name(email)
 			if len(self.request.get("email", "")) == 0 or len(self.request.get("password", "")) == 0:
 				return self.redirect(make_url('/login', callback=callback, signup_error="Please enter a password and email address."))
+			existing = User.get_by_key_name(email)
 			if existing:
 				return self.redirect(make_url('/login', callback=callback, signup_error="A user with that email already exists."))
 			#if self.request.get("password") != self.request.get("password2"):

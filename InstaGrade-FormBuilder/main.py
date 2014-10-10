@@ -26,6 +26,7 @@ import email_list
 import info
 import old
 import support
+import help
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -61,5 +62,6 @@ app = webapp2.WSGIApplication([
 		('/change_password', login.ChangePassword),
 		('/client/iphone_3_3', old.iphone_3_3),
 		('/support', support.Support),
+		('/help', help.HelpHandler),
 		('/(.+)', form_page.FormPage),
 ], debug=util.DEBUG)
