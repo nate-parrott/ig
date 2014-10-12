@@ -42,7 +42,7 @@ class Form(db.Model):
 		new_model.secret = base64.urlsafe_b64encode(os.urandom(64) + uuid.uuid4().bytes)
 		new_model.put()
 		
-		# TODO: delete these eventually
+		# TODO: delete these records eventually
 		"""try:
 			self.delete()
 		except db.NotSavedError:

@@ -1,24 +1,67 @@
-#results {
-	margin: auto;
-}
 
-#results th {
-	background-color: #eee;
-	padding: 6px;
-	text-align: center;
-	font-weight: normal;
+#results-table table {
+	width: 100%;
+	border-collapse: collapse;
 }
-
-#results img {
-	height: 30px;
+#results-table td {
+	padding: 10px;
 }
-
-#results td {
-	vertical-align: middle;
+#results-table tr:nth-child(2n) {
+	background-color: rgba(0,0,0,0.05);
 }
-
-.score {
-	display: inline-block;
-	font-size: 20px;
+#results-table .tabControl {
+	text-align: left;
+}
+.tabControl {
+	padding: 0px;
 	padding-left: 10px;
+	border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.tabControl li {
+	display: inline-block;
+	list-style-type: none;
+	padding: 10px;
+	cursor: default;
+}
+.tabControl li:hover {
+	background-color: rgba(0,0,0,0.02);
+}
+.tabControl li.selected {
+	background-color: rgba(0,0,0,0.05);
+}
+.instances .nameImage {
+	max-height: 40px;
+	width: auto;
+}
+.summary {
+	float: right;
+	padding: 10px;
+}
+.printButton {
+	float: right;
+	padding: 10px;
+}
+body.hasResults .centered > div > div {
+	vertical-align: top;
+}
+@media print {
+	#header-row {
+		display: none;
+	}
+	.actions {
+		display: none;
+	}
+}
+.questionText {
+	font-size: small;
+}
+
+.sparkline {
+	margin: 10px;
+	height: 1em;
+}
+.sparkline div {
+	display: inline-block;
+	border-left: 1px solid gray;
+	margin-right: 2px;
 }

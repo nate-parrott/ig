@@ -82,6 +82,7 @@ var FormEditor = React.createClass({
 		this.updateState({email: e.currentTarget.value});
 	},
 	done: function(e) {
+		mixpanel.track("Create quiz");
 		e.preventDefault();
 		var form = document.createElement('form');
 		var field = document.createElement('input');

@@ -30,10 +30,12 @@
 	}
 	
 	.cta-line {
-		display: inline-block;
+		display: block;
+		text-align: center;
 	}
 	
 	.cta-line > * {
+		display: inline-block;
 		margin: 1em;
 		background-color: #0CA5B0;
 		color: white;
@@ -52,7 +54,7 @@
 </head>
 <body>
 	<div id='message'>
-		<img id='logo' src='http://instagradeformbuilder.appspot.com/static/logo-blue.png' alt='Instagrade'/>
+		<img id='logo' src='http://instagradeapp.com/static/logo-blue.png' alt='Instagrade'/>
 		{% block content %}{% endblock %}
 	</div>
 </body>

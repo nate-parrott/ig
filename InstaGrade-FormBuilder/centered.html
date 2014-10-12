@@ -48,10 +48,17 @@ html, body {
 }
 #header-row a {
 	text-decoration: none;
-	padding: 0 20px;
+	padding: 20px;
+	position: relative;
+	top: 2px;
 }
 #header-row a:hover {
 	text-decoration: underline;
+}
+#header-row a.title {
+	color: black;
+	padding: 0px;
+	top: 0px;
 }
 </style>
 
@@ -59,8 +66,11 @@ html, body {
 	{% block header %}
 	<div id='header-row'>
 		<div>
-			<img id='logo' src='/static/logo-black.png'/>
-			<h3>Instagrade</h3>
+			<a class='title' href='/'>
+				<img id='logo' src='/static/logo-black.png'/>
+				<h3>Instagrade</h3>
+			</a>
+
 			{% block controls %}
 				<a href='/'>New quiz</a>
 				{% if global_logout_url %}

@@ -5,6 +5,8 @@
 {{ super() }}
 <link rel='stylesheet' href='/static/form_page.css'/>
 
+<div id='instances-json' style='display: none'>{{ instances_json }}</div>
+
 {% endblock %}
 
 {% block content %}
@@ -20,31 +22,10 @@ If want to change the quiz, you can <a href='/?f={{secret}}' target='_blank'>mak
 {% else %}
 
 <h1>{{ form.title }}</h1>
-<p><a href='/{{secret}}/print'>Print answer sheets</a> | <a href='/download_scanner'>Download the Instagrade Scanner app</a> | <a href='/?f={{secret}}'>New quiz based off this</a></p>
+<p class='actions'><a href='/{{secret}}/print' target='_blank'>Print answer sheets</a> | <a href='/download_scanner' target='_blank'>Download the Instagrade Scanner app</a> | <a href='/?f={{secret}}' target='_blank'>New quiz based off this</a></p>
 
-{% endif %}
-
-{% if instances|length > 0 %}
-
-<table id='results'>
-	<tr>
-		<th colspan='2'>
-			{{ instances|length }} copies graded, with an average score of {{ average_points }} / {{ instances[0].max_points }}.
-		</th>
-	</tr>
-	
-	{% for instance in instances %}
-	<tr>
-		<td>
-			<img src='{{ instance.name_image_url }}'/>
-		</td>
-		<td class='score'>
-			{{ instance.points }} / {{ instance.max_points }}
-		</td>
-		<!--<div class='date'>{{ instance.date }}</div>-->
-	</tr>
-	{% endfor %}
-</div>
+<div id='results-table'></div>
+<script src='/static/results-table.jsx' type='text/jsx'></script>
 
 {% endif %}
 
