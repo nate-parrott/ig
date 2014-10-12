@@ -90,9 +90,9 @@ var TabView = React.createClass({
 var Instances = React.createClass({
 	render: function() {
 		var listItems = this.props.instances.map(function(instance) {
-			var hidden = {display: 'none'};
+			var exampleImage = 'https://storage.googleapis.com/instagradeformbuilder.appspot.com/0c9850cf436441b6adab6444d26e0bd2';
 			return <tr key={instance.id}>
-						<td><img className='nameImage' src='https://storage.googleapis.com/instagradeformbuilder.appspot.com/0c9850cf436441b6adab6444d26e0bd2'/></td>
+						<td><img className='nameImage' src={nameImageUrl}/></td>
 						<td>{instance.points} / {instance.maxPoints}</td>
 						<td>{Math.round(instance.points/instance.maxPoints*100)}%</td>
 				   </tr>
