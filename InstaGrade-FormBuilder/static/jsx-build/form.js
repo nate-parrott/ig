@@ -308,23 +308,23 @@ var ContentEditable = React.createClass({displayName: 'ContentEditable',
 	render: function() {
 		var self = this;
 		var changed = function(e) {
-			if (e.currentTarget.innerText != self.props.value) {
-				self.props.onChange(e.currentTarget.innerText);
+			if (e.currentTarget.textContent != self.props.value) {
+				self.props.onChange(e.currentTarget.textContent);
 			}
 		}
 		var node = React.DOM.div({contentEditable: true, onFocus: this.focus, onBlur: changed, onInput: changed, onKeyDown: this.keyDown, className: this.props.className, onMouseEnter: this.turnOffParentContentEditable, onMouseLeave: this.turnOnParentContentEditable})
 		return node;
 	},
 	shouldComponentUpdate: function(nextProps) {
-		return nextProps.value !== this.getDOMNode().innerText;
+		return nextProps.value !== this.getDOMNode().textContent;
 	},
 	componentDidMount: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().innerText = this.props.value;
+			this.getDOMNode().textContent = this.props.value;
 	},
 	componentDidUpdate: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().innerText = this.props.value;
+			this.getDOMNode().textContent = this.props.value;
 	},
 	keyDown: function(e) {
 		if (this.props.singleLine) {

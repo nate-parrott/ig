@@ -19,3 +19,10 @@ class QuizInstance(db.Model):
 			"items": json.loads(self.json),
 			"nameImageUrl": self.name_image_url
 		}
+
+	def count_blanks(self):
+		blanks = 0
+		for item in json.loads(self.json):
+			if 'visibleIndex' in item and item['response'] == None:
+				blanks += 1
+		return blanks

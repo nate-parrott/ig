@@ -116,7 +116,7 @@ var FormEditor = React.createClass({
 		};
 		var existingJsonContainer = document.getElementById("form_json");
 		if (existingJsonContainer) {
-			initial.items = JSON.parse(existingJsonContainer.innerText).items;
+			initial.items = JSON.parse(existingJsonContainer.textContent).items;
 		}
 		initial.items.forEach(function(item) {
 			item.id = generateUniqueId();
@@ -309,23 +309,23 @@ var ContentEditable = React.createClass({
 	render: function() {
 		var self = this;
 		var changed = function(e) {
-			if (e.currentTarget.innerText != self.props.value) {
-				self.props.onChange(e.currentTarget.innerText);
+			if (e.currentTarget.textContent != self.props.value) {
+				self.props.onChange(e.currentTarget.textContent);
 			}
 		}
 		var node = <div contentEditable={true} onFocus={this.focus} onBlur={changed} onInput={changed} onKeyDown={this.keyDown} className={this.props.className} onMouseEnter={this.turnOffParentContentEditable} onMouseLeave={this.turnOnParentContentEditable}></div>
 		return node;
 	},
 	shouldComponentUpdate: function(nextProps) {
-		return nextProps.value !== this.getDOMNode().innerText;
+		return nextProps.value !== this.getDOMNode().textContent;
 	},
 	componentDidMount: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().innerText = this.props.value;
+			this.getDOMNode().textContent = this.props.value;
 	},
 	componentDidUpdate: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().innerText = this.props.value;
+			this.getDOMNode().textContent = this.props.value;
 	},
 	keyDown: function(e) {
 		if (this.props.singleLine) {

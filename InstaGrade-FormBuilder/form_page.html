@@ -6,6 +6,7 @@
 <link rel='stylesheet' href='/static/form_page.css'/>
 
 <div id='instances-json' style='display: none'>{{ instances_json }}</div>
+<div id='secret' style='display: none'>{{ secret }}</div>
 
 {% endblock %}
 
@@ -24,9 +25,9 @@ If want to change the quiz, you can <a href='/?f={{secret}}' target='_blank'>mak
 <h1>{{ form.title }}</h1>
 <p class='actions'><a href='/{{secret}}/print' target='_blank'>Print answer sheets</a> | <a href='/download_scanner' target='_blank'>Download the Instagrade Scanner app</a> | <a href='/?f={{secret}}' target='_blank'>New quiz based off this</a></p>
 
+{% endif %}
+
 <div id='results-table'></div>
 <script src='/static/results-table.jsx' type='text/jsx'></script>
-
-{% endif %}
 
 {% endblock %}

@@ -1,14 +1,21 @@
 {% extends "centered.html" %}
 
+{% block title %}
+InstaGrade — Create printable quizzes and grade them instantly with your iPhone
+{% endblock %}
+
 {% block head %}
 
 <!--TODO: add app banner-->
 
-<title>How Instagrade works</title>
 <style>
 #main-logo {
 	width: 140px;
 	display: none;
+}
+
+#main {
+	width: 100%;
 }
 
 @media screen and (min-width: 600px) {
@@ -35,8 +42,11 @@
 		float: right;
 		margin-right: 0;
 	}
-	#mobile-cta {
-		display: none;
+	.mobile-cta {
+		display: none !important;
+	}
+	.cta {
+		font-size: 1.2em;
 	}
 }
 @media screen and (max-width: 600px) {
@@ -45,8 +55,8 @@
 		height: 100px;
 		margin: auto;
 	}
-	#cta {
-		display: none;
+	.desktop-cta {
+		display: none !important;
 	}
 	h1 {
 		font-size: 1.5em;
@@ -58,6 +68,8 @@
 .cta {
 	display: inline-block;
 	margin: auto;
+	margin-top: 0.7em;
+	margin-bottom: 3em;
 	padding: 10px 20px;
 	background-color: #0CA5B0;
 	color: white;
@@ -69,33 +81,36 @@
 
 {% block content %}
 
-<img id='main-logo' src='/static/logo-gray.png' alt='Instagrade' />
-<p>How Instagrade works:</p>
-<h1>Create quizzes with your computer + grade them with your phone</h1>
+<p><img id='main' src='/static/how-it-works/desktop2.png'/></p>
+<h1>Create quizzes with your computer + grade them with your iPhone</h1>
+
+<a href='/' class='desktop-cta cta'>Create a quiz</a>
+<a class='mobile-cta cta' href='/download_scanner'>Download the app</a>
+
 <div id='steps'>
 	<div>
 		<img src='/static/how-it-works/Web.png'/>
-		<h2>Create quizzes online with our <a href='/'>quiz creator.</a></h2>
+		<h3>Create quizzes online with our <a href='/'>quiz creator.</a></h3>
 		<p>They can have an unlimited number of multiple-choice, true-or-false, or free-response questions.</p>
 	</div>
 	<div>
 		<img src='/static/how-it-works/Paper.png'/>
-		<h2>Print out answer sheets and administer the quiz.</h2>
+		<h3>Print out answer sheets and administer the quiz.</h3>
 		<p>Questions can be printed separately from answer sheets—or, for short quizzes, on the same page.</p>
 	</div>
 	<div>
 		<img src='/static/how-it-works/Mobile.png'/>
-		<h2>Scan completed answer sheets with <a href='/download_scanner'>InstaGrade Scanner</a> for iOS.</h2>
+		<h3>Scan completed answer sheets with <a href='/download_scanner'>InstaGrade Scanner</a> for iOS.</h3>
 		<p>If there are free-response questions, we'll prompt you to grade them right there. Otherwise, it's completely automatic.</p>
 	</div>
 	<div>
 		<img src='/static/how-it-works/Graded.png'/>
-		<h2>Get graded quizzes in your inbox.</h2>
-		<p>See which questions your students are having trouble on, or export the results to Excel and do more. Forward results directly to students' emails or their parents. <em>(some features coming soon)</em></p>
+		<h3>Get graded quizzes in your inbox.</h3>
+		<p>See which questions your students are having trouble on, or export the results to Excel and do more. Forward results directly to students' emails or their parents./p>
 </div>
 
-<a id='cta' href='/' class='cta'>Create a quiz</a>
-<h5 id='mobile-cta' class='cta'>
+<a href='/' class='desktop-cta cta'>Create a quiz</a>
+<h5 class='mobile-cta cta'>
 	Visit <strong>instagradeapp.com</strong> on your computer to create quizzes.
 </h5>
 

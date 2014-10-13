@@ -29,7 +29,7 @@
 .tabControl li.selected {
 	background-color: rgba(0,0,0,0.05);
 }
-.instances .nameImage {
+.nameImage {
 	max-height: 40px;
 	width: auto;
 }
@@ -64,4 +64,13 @@ body.hasResults .centered > div > div {
 	display: inline-block;
 	border-left: 1px solid gray;
 	margin-right: 2px;
+}
+.questionInfo {
+	max-width: 50%;
+}
+.expandable, .expanded {
+	cursor: default;
+}
+.expandable:hover, .expanded {
+	background-color: rgba(0,0,0,0.2) !important;
 }

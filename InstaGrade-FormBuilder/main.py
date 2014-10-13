@@ -27,6 +27,7 @@ import info
 import old
 import support
 import help
+import excel_export
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -51,6 +52,7 @@ app = webapp2.WSGIApplication([
 		('/auth_and_save', form.AuthAndSave),
 		('/(.+)/print', print_form.PrintForm),
 		('/(.+)/print/(.+)', print_form.PrintForm),
+		('/(.+)/excel', excel_export.ExcelExportHandler),
 		('/(.+)/details', api.FormDetail),
 		('/upload_quiz_instances', api.UploadQuizInstances),
 		('/delete_quiz_instances', api.DeleteQuizInstances),
