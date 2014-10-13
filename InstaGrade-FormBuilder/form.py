@@ -51,7 +51,7 @@ class Form(db.Model):
 		# send the email:
 		recipient = new_model.parent().email
 		subject = "Your quiz, \"%s\", is ready to scan" % (new_model.title)
-		html = templ8("created_email.html", {"form": new_model, "id": new_model.key().id(), "HOST": util.HOST})
+		html = templ8("created_email.html", {"form": new_model, "id": new_model.key().id(), "secret": new_model.secret, "HOST": util.HOST})
 		send_mail(recipient, subject, html)
 		
 		return new_model

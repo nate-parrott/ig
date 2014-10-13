@@ -16,4 +16,4 @@ def templ8(filename, vals={}):
 	vals['debug'] = DEBUG
 	return JINJA_ENVIRONMENT.get_template(filename).render(vals)
 
-HOST = "instagradeformbuilder.appspot.com"
+HOST = "instagradeapp.com"
