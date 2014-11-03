@@ -228,7 +228,7 @@ extension QuizInstance {
         if let nameItem = nameItemOpt {
             let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
             let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
-            return frame.extract(pageImage, aspectRatio: quiz.aspectRatio).resizedWithMaxDimension(250)
+            return frame.extract(pageImage!, aspectRatio: quiz.aspectRatio).resizedWithMaxDimension(250)
         }
         return nil
     }

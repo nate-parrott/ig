@@ -82,9 +82,8 @@ extension Array {
 
 extension NSURL {
     func queryValueForKey(key: String) -> String? {
-        let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
-        if let queryItems = components.queryItems as? [NSURLQueryItem] {
-            let matchingItems = queryItems.filter({ $0.name == key })
+        if let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false) {
+            let matchingItems = (components.queryItems as [NSURLQueryItem]).filter({ $0.name == key })
             return matchingItems.first?.value
         }
         return nil

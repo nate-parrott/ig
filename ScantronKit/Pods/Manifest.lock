@@ -22,12 +22,12 @@ PODS:
     - AFNetworking/NSURLSession
   - CargoBay (2.1.0):
     - AFNetworking (~> 2.2)
-  - GPUImage (0.1.4)
+  - GPUImage (0.1.6)
   - KSReachability (1.4)
-  - KVOController (1.0.1)
-  - Mixpanel (2.5.3)
+  - KVOController (1.0.3)
+  - Mixpanel (2.5.4)
   - msgpack (0.1.3)
-  - OpenCV (2.4.8)
+  - OpenCV (2.4.9.1)
   - PBWebViewController (0.3)
 
 DEPENDENCIES:
@@ -43,12 +43,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   CargoBay: b9b7c2b6a466192fb218935c0dd771d16268a035
-  GPUImage: ac2bde5f4dbea02a81ced6313964cec1f2043ca9
+  GPUImage: cecb0830bb9428f50192042e3c7b53810f51388e
   KSReachability: 29c0ec738e487c750a0e46b6554cc50df73f60b1
-  KVOController: e6ad4a058ab0ceed546802361adb89d322a22cf2
-  Mixpanel: 708ec9a6ee6e741f7db107831e18b2fc2e7531f1
+  KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
+  Mixpanel: 87167a0b0a74f11f0ee3787f291357494730617c
   msgpack: 417e3765eba6706e43e103a211a607a75a15d470
-  OpenCV: 7d5de7dc31a8f3925eb643b62d16c2cafa373527
+  OpenCV: 4190ad68e79e1b9ae7ac53d749e96e8c05041e45
   PBWebViewController: 0a36bbd0f82741d9457177c9c37f5ff747cba312
 
 COCOAPODS: 0.33.1

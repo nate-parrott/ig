@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E2B52DB83E5A4A17BA46A8DC"
+               BlueprintIdentifier = "F7F46B8DB6F84CF88A2CBCC6"
                BuildableName = "libPods-InstaGrade Scanner-PBWebViewController.a"
                BlueprintName = "Pods-InstaGrade Scanner-PBWebViewController"
                ReferencedContainer = "container:Pods.xcodeproj">

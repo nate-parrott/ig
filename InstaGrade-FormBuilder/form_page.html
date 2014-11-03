@@ -10,22 +10,67 @@
 
 {% endblock %}
 
+{% block title %}
+{{ form.title }} — InstaGrade
+{% endblock %}
+
 {% block content %}
 
 {% if just_created %}
 
+<script>
+mixpanel.track("Reached post-quiz-creation page");
+</script>
+
 <h1>Created "{{ form.title }}"</h1>
+<p style='font-size: 1.25em'>Now you'll want to <a href='/{{secret}}/print' target='_blank'>print some quizzes</a> and <a href='/download_scanner' target='_blank'>download InstaGrade Scanner</a> to start scanning them.</p>
 <p>
-Now you'll want to <a href='/{{secret}}/print' target='_blank'>print some quizzes</a> and <a href='/download_scanner' target='_blank'>download InstaGrade Scanner</a> to start scanning them. We've also sent you an email with a link to the app.
-If want to change the quiz, you can <a href='/?f={{secret}}' target='_blank'>make a new quiz based off this one.</a>
+We've also sent you an email with a link to the app.
+If want to change the quiz, you can <a href='/?f={{secret}}' target='_blank'>make a new quiz based off this one</a>. Or, <a href='javascript:showShareModal()'>share the quiz</a> (recipients won't be able to see your students' results).
 </p>
 
 {% else %}
 
 <h1>{{ form.title }}</h1>
-<p class='actions'><a href='/{{secret}}/print' target='_blank'>Print answer sheets</a> | <a href='/download_scanner' target='_blank'>Download the Instagrade Scanner app</a> | <a href='/?f={{secret}}' target='_blank'>New quiz based off this</a></p>
+<p class='actions'><a href='/{{secret}}/print' target='_blank'>Print answer sheets</a> | <a href='/download_scanner' target='_blank'>Download the Instagrade Scanner app</a> | <a href='/?f={{secret}}' target='_blank'>New quiz based off this</a> |  <a href='javascript:showShareModal()'>share quiz</a> </p>
 
 {% endif %}
+
+<div id='shareModal' style='display: none'>
+	<script>
+	function showShareModal() {
+		document.getElementById("shareModal").style.display = 'table';
+		document.querySelector("#shareModal input").focus();
+		mixpanel.track("ShowShareModal");
+	}
+	function hideShareModal() {
+		if (event.target == event.currentTarget) {
+			document.getElementById("shareModal").style.display = 'none';
+		}
+	}
+	function selectAllInTextField() {
+		var e = event;
+		setTimeout(function() {
+			e.target.select();
+		}, 10)
+	}
+	
+	function shareByMail() {
+		var subj = encodeURIComponent("{{form.title}}");
+		var body = encodeURIComponent("I've shared a quiz with InstaGrade. Visit the link to edit it, print it out and grade it instantly with our iPhone app: \n\nhttp://instagradeapp.com/?f={{secret}\n}");
+		location.href = 'mailto:?subject='+subj+'&body='+body;
+	}
+	</script>
+	<div onClick='hideShareModal()' >
+		<div>
+			<h2>Share Quiz</h2>
+			<p>You can share this URL:</p>
+			<p><input onFocus="selectAllInTextField()" value="http://instagradeapp.com/?f={{secret}}" style='width: 70%'/></p>
+			<p>Or <a href='javascript:shareByMail()'>share via email</a>.</p>
+			<p>(Your students' results won't be visible to anyone you share the quiz with.)</p>
+		</div>
+	</div>
+</div>
 
 <div id='results-table'></div>
 <script src='/static/results-table.jsx' type='text/jsx'></script>

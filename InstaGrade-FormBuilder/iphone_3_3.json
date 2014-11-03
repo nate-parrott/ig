@@ -1,5 +1,9 @@
 {
   "interstitials": [
-    
+    {
+    	"defaultsKey": "soft",
+    	"title": "The New InstaGrade",
+    	"url": "http://instagradeapp.com/static/the-new.html"
+    }
   ]
 }

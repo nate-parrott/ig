@@ -6,6 +6,14 @@ InstaGrade — Create printable quizzes and grade them instantly with your iPhon
 
 {% block head %}
 
+<script>
+if (window.localStorage) {
+	if (!window.localStorage.shownIntro && location.href.indexOf("?")==-1) {
+		window.location = '/how-it-works';
+	}
+}
+</script>
+
 <link rel='stylesheet' href='/static/form.css'/>
 <link rel='stylesheet' href='/static/icomoon/style.css'/>
 

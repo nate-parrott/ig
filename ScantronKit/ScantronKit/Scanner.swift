@@ -76,7 +76,7 @@ class Scanner: NSObject {
                     let jpegData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sample)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), { () -> Void in
                         let image = UIImage(data: jpegData)
-                        self.handleImage(image)
+                        self.handleImage(image!)
                     })
                 }
             })

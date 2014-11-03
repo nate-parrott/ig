@@ -7,6 +7,18 @@ var generateUniqueId = function() {
 	return "id" + (window.lastUniqueId++);
 }
 
+var setInnerText = function(node, text) {
+	if (node.innerText === undefined) {
+		node.textContent = text;
+	} else {
+		node.innerText = text;
+	}
+}
+
+var getInnerText = function(node) {
+	return node.innerText === undefined ? node.textContent : node.innerText;
+}
+
 var shouldDisplayHeaderForItem = function(item) {
 	return ['multiple-choice', 'true-false', 'free-response', 'section'].indexOf(item.type) != -1;
 }
@@ -45,7 +57,6 @@ var FormEditor = React.createClass({
 			}
 		}); 
 		var hasItems = totalPoints > 0;
-		var printEnabled = this.state.email && totalPoints > 0;
 		return <div className='formEditor'>
 							<div className='sidebar'>
 								<h1>InstaGrade</h1>
@@ -82,6 +93,16 @@ var FormEditor = React.createClass({
 		this.updateState({email: e.currentTarget.value});
 	},
 	done: function(e) {
+		var totalPoints = 0;
+		this.state.items.forEach(function(item) {
+			if (item.points) {
+				totalPoints += item.points;
+			}
+		}); 
+		if (totalPoints == 0) {
+			alert("Add some questions first! (and make sure at least some of them have a point value.");
+			return false;
+		}
 		mixpanel.track("Create quiz");
 		e.preventDefault();
 		var form = document.createElement('form');
@@ -91,6 +112,11 @@ var FormEditor = React.createClass({
 		form.appendChild(field);
 		form.method = 'POST';
 		form.action = '/submit';
+
+		// ie requires that forms be added to the DOM:
+		document.body.appendChild(form);
+		form.style.display = 'none';
+		
 		form.submit();
 	},
 	insertItem: function(item) {
@@ -309,23 +335,23 @@ var ContentEditable = React.createClass({
 	render: function() {
 		var self = this;
 		var changed = function(e) {
-			if (e.currentTarget.textContent != self.props.value) {
-				self.props.onChange(e.currentTarget.textContent);
+			if (getInnerText(e.currentTarget) != self.props.value) {
+				self.props.onChange(getInnerText(e.currentTarget));
 			}
 		}
 		var node = <div contentEditable={true} onFocus={this.focus} onBlur={changed} onInput={changed} onKeyDown={this.keyDown} className={this.props.className} onMouseEnter={this.turnOffParentContentEditable} onMouseLeave={this.turnOnParentContentEditable}></div>
 		return node;
 	},
 	shouldComponentUpdate: function(nextProps) {
-		return nextProps.value !== this.getDOMNode().textContent;
+		return nextProps.value !== getInnerText(this.getDOMNode());
 	},
 	componentDidMount: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().textContent = this.props.value;
+			setInnerText(this.getDOMNode(), this.props.value);
 	},
 	componentDidUpdate: function() {
 		if (this.props.value != undefined)
-			this.getDOMNode().textContent = this.props.value;
+			setInnerText(this.getDOMNode(), this.props.value);
 	},
 	keyDown: function(e) {
 		if (this.props.singleLine) {

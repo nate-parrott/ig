@@ -44,7 +44,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     @IBAction func reload() {
         let (host, port) = APIHost()
         let url = "http://\(host):\(port)/get_token"
-        self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)))
+        self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
     }
     
     @IBOutlet var webView: UIWebView?

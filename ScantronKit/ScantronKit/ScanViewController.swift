@@ -148,7 +148,7 @@ class ScanViewController: UIViewController {
     
     @IBAction func testShutter() {
         let image = UIImage(named: "vr")
-        PageExtraction().extract(image) {
+        PageExtraction().extract(image!) {
             imageOpt in
             if let image = imageOpt {
                 let scanned = ScannedPage(image: image)

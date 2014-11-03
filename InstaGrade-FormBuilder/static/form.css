@@ -75,7 +75,7 @@ html, body {
 	padding-left: 40px;
 }
 .items .description:empty:not(:focus):before{
-  content:"Question (optional)";
+  content:"Question and answer choices (optional)";
   color:rgba(0,0,0,0.3);
   cursor: text;
 }

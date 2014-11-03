@@ -198,7 +198,7 @@ extension SKProduct {
             let formatter = NSNumberFormatter()
             formatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
             formatter.locale = self.priceLocale
-            return formatter.stringFromNumber(self.price)
+            return formatter.stringFromNumber(self.price)!
         }
     }
 }

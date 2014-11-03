@@ -67,7 +67,7 @@ class API: NSObject, NSURLSessionDelegate {
         urlComponents.path = endpoint
         urlComponents.scheme = "http"
         let url = urlComponents.URL!
-        println("URL: \(url)")
+        // println("URL: \(url)")
         let request = NSMutableURLRequest(URL: url)
         return request
     }

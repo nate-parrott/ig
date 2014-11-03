@@ -32,7 +32,7 @@ var ResultsTable = React.createClass({
 		var self = this;
 		if (self.props.instances.length == 0) {
 			document.body.className = '';
-			return <h5>No results yet</h5>
+			return <h5 style={{color: "gray"}}>No results yet</h5>
 		} else {
 			document.body.className = 'hasResults';
 			var tabs = [
@@ -225,10 +225,13 @@ var IndividualQuestionBreakdown = React.createClass({
 			})
 			return row;
 		})
-		return <table class='individualQuestionBreakdown'>{rows}</table>
+		return <table className='individualQuestionBreakdown'>{rows}</table>
 	}
 })
 
 var instances = JSON.parse(document.getElementById('instances-json').textContent);
+if (instances.length > 0) {
+	mixpanel.track("ViewResults", {count: instances.length});
+}
 var secret = document.getElementById('secret').textContent;
 React.renderComponent(<ResultsTable instances={instances} secret={secret} />, document.getElementById('results-table'));

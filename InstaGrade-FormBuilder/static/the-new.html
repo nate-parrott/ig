@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	<meta name="apple-itunes-app" content="app-id=923914934"/>
+	<meta name="description" content="Create printable quizzes, then grade them instantly with your phone's camera." />
+
+	<title>
+	
+InstaGrade — Create printable quizzes and grade them instantly with your iPhone
+
+	</title>
+
+	<!-- react -->
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/react-with-addons.js"></script>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.1/JSXTransformer.js"></script>
+	<script>React.initializeTouchEvents(true)</script>
+	
+	<link rel='stylesheet' href='/static/base.css'/>
+
+	<!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+mixpanel.init("d49cfebb673bdf3d240758901998dc9d");</script><!-- end Mixpanel -->
+	<script>
+		mixpanel.track(
+		    "Visit page",
+		    {page: location.pathname}
+		);
+	</script>
+
+	
+
+<!--TODO: add app banner-->
+
+<style>
+#main-logo {
+	width: 140px;
+	display: none;
+}
+
+#main {
+	width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+	#steps img {
+		height: 200px;
+		clear: both;
+		margin: 20px;
+	}
+	#steps > div {
+		display: inline-block;
+		width: 100%;
+	}
+	#steps > div:nth-child(2n+1) {
+		text-align: left;
+	}
+	#steps > div:nth-child(2n) {
+		text-align: right;
+	}
+	#steps > div:nth-child(2n+1) img {
+		float: left;
+		margin-left: 0;
+	}
+	#steps > div:nth-child(2n) img {
+		float: right;
+		margin-right: 0;
+	}
+	.mobile-cta {
+		display: none !important;
+	}
+	.cta {
+		font-size: 1.2em;
+	}
+}
+@media screen and (max-width: 600px) {
+	#steps img {
+		display: block;
+		height: 100px;
+		margin: auto;
+	}
+	.desktop-cta {
+		display: none !important;
+	}
+	h1 {
+		font-size: 1.5em;
+	}
+	h2 {
+		font-size: 1.2em;
+	}
+}
+.cta {
+	display: inline-block;
+	margin: auto;
+	margin-top: 0.7em;
+	margin-bottom: 3em;
+	padding: 10px 20px;
+	background-color: #0CA5B0;
+	color: white;
+	text-decoration: none;
+}
+</style>
+
+
+</head>
+<body>
+	
+
+<style>
+html, body {
+	margin: 0px;
+	height: 100%;
+}
+.centered {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+.centered > div {
+	display: table-row;
+}
+.centered > div > div {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+#header-row {
+	height: 40px;
+	background-color: #eee;
+}
+#header-row > div {
+	padding: 6px;
+}
+#header-row > div:first-child {
+	text-align: left;
+}
+#header-row > div:first-child * {
+	vertical-align: middle;
+}
+
+#main-content {
+	max-width: 700px;
+	padding: 2em;
+	margin: auto;
+}
+#logo {
+	max-height: 40px;
+}
+#header-row h3 {
+	margin: 0px;
+	display: inline-block;
+}
+#header-row a {
+	text-decoration: none;
+	padding: 20px;
+	position: relative;
+	top: 2px;
+}
+#header-row a:hover {
+	text-decoration: underline;
+}
+#header-row a.title {
+	color: black;
+	padding: 0px;
+	top: 0px;
+}
+</style>
+
+<div class='centered'>
+	
+	<div>
+		<div>
+			<div id='main-content'>
+				
+
+<h4>Create quizzes with your computer + grade them with your iPhone</h4>
+<p><img id='main' src='/static/how-it-works/desktop2.png'/></p>
+<p>
+We're proud to announce the brand-new version of InstaGrade. Now, rather than printing out generic answer sheets and typing up test questions separately, you can create <em>custom quizzes</em> on the web. Then, download the new <a href='itms-apps://itunes.apple.com/us/app/instagrade-scanner-grade-tests/id923914934?ls=1&mt=8'>Scanner</a> app, and scan results automatically.
+</p>
+<p>
+It's <em>more accurate</em>, <em>faster</em>, and <em>more flexible</em> than this app. You really should check it out.
+</p>
+
+<a href='itms-apps://itunes.apple.com/us/app/instagrade-scanner-grade-tests/id923914934?ls=1&mt=8' class='cta'>Download the new InstaGrade</a>
+
+<div id='steps'>
+	<div>
+		<img src='/static/how-it-works/Web.png'/>
+		<h3>Create quizzes online with our <a href='/'>quiz creator.</a></h3>
+		<p>They can have an unlimited number of multiple-choice, true-or-false, or free-response questions.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Paper.png'/>
+		<h3>Print out answer sheets and administer the quiz.</h3>
+		<p>Questions can be printed separately from answer sheets—or, for short quizzes, on the same page.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Mobile.png'/>
+		<h3>Scan completed answer sheets with <a href='/download_scanner'>InstaGrade Scanner</a> for iOS.</h3>
+		<p>If there are free-response questions, we'll prompt you to grade them right there. Otherwise, it's completely automatic.</p>
+	</div>
+	<div>
+		<img src='/static/how-it-works/Graded.png'/>
+		<h3>Get graded quizzes in your inbox.</h3>
+		<p>See which questions your students are having trouble on, or export the results to Excel and do more. Forward results directly to students' emails or their parents./p>
+</div>
+
+<a href='itms-apps://itunes.apple.com/us/app/instagrade-scanner-grade-tests/id923914934?ls=1&mt=8' class='cta'>Download the new InstaGrade</a>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

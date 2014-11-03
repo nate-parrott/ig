@@ -58,7 +58,7 @@
 #define COCOAPODS_POD_AVAILABLE_GPUImage
 #define COCOAPODS_VERSION_MAJOR_GPUImage 0
 #define COCOAPODS_VERSION_MINOR_GPUImage 1
-#define COCOAPODS_VERSION_PATCH_GPUImage 4
+#define COCOAPODS_VERSION_PATCH_GPUImage 6
 
 // KSReachability
 #define COCOAPODS_POD_AVAILABLE_KSReachability
@@ -70,19 +70,20 @@
 #define COCOAPODS_POD_AVAILABLE_KVOController
 #define COCOAPODS_VERSION_MAJOR_KVOController 1
 #define COCOAPODS_VERSION_MINOR_KVOController 0
-#define COCOAPODS_VERSION_PATCH_KVOController 1
+#define COCOAPODS_VERSION_PATCH_KVOController 3
 
 // Mixpanel
 #define COCOAPODS_POD_AVAILABLE_Mixpanel
 #define COCOAPODS_VERSION_MAJOR_Mixpanel 2
 #define COCOAPODS_VERSION_MINOR_Mixpanel 5
-#define COCOAPODS_VERSION_PATCH_Mixpanel 3
+#define COCOAPODS_VERSION_PATCH_Mixpanel 4
 
 // OpenCV
 #define COCOAPODS_POD_AVAILABLE_OpenCV
-#define COCOAPODS_VERSION_MAJOR_OpenCV 2
-#define COCOAPODS_VERSION_MINOR_OpenCV 4
-#define COCOAPODS_VERSION_PATCH_OpenCV 8
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 2.4.9.1.
 
 // PBWebViewController
 #define COCOAPODS_POD_AVAILABLE_PBWebViewController

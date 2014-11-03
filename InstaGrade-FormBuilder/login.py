@@ -48,6 +48,9 @@ class LoginDialog(webapp2.RequestHandler):
 			get_current_session()['email'] = email
 			return self.redirect(callback)
 		elif action == 'password_reset':
+			if len(email) == 0:
+				error = "Please enter an email address"
+				return self.redirect(make_url('/login', callback=callback, login_error=error))
 			user = User.get_by_key_name(email)
 			if user:
 				user.password_reset_token = base64.urlsafe_b64encode(os.urandom(64))

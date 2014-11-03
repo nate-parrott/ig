@@ -21,7 +21,7 @@ class ScratchViewController: UIViewController {
         for method in ["slow", "fast"] {
             println("METHOD: \(method)")
             for (image, name) in Zip2(images, names) {
-                let data = image.pixelData()
+                let data = image!.pixelData()
                 let blurriness = method == "fast" ? data.fastBlurrinessMetric() : data.blurrinessMetric()
                 println(" \(name): \(blurriness)")
             }

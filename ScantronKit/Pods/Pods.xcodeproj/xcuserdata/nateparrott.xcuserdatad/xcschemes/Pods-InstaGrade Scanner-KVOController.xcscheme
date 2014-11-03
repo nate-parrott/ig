@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AF6144EDA8984DA6B46655A3"
+               BlueprintIdentifier = "284684033DAC42DBB0A4290C"
                BuildableName = "libPods-InstaGrade Scanner-KVOController.a"
                BlueprintName = "Pods-InstaGrade Scanner-KVOController"
                ReferencedContainer = "container:Pods.xcodeproj">
