@@ -16,7 +16,7 @@ import file_storage
 ALL_KEYS = 'title json viewed_results_since_last_email_sent created index secret pdf_url'
 
 class Form(db.Model):
-	title = db.StringProperty()
+	title = db.StringProperty(multiline=True)
 	json = db.TextProperty()
 	viewed_results_since_last_email_sent = db.BooleanProperty(default=True)
 	created = db.DateTimeProperty(auto_now_add=True)
