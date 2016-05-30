@@ -18,8 +18,8 @@ import UIKit
     
     var quizInstance: QuizInstance? {
         didSet {
-            let quizItems = quizInstance!.itemsWithResponses as [QuizItem]
-            visibleQuizItems = quizItems.filter({ $0.getOrDefault("visibleIndex", defaultVal: -1) as Int != -1})
+            let quizItems = quizInstance!.itemsWithResponses as! [QuizItem]
+            visibleQuizItems = quizItems.filter({ $0.getOrDefault("visibleIndex", defaultVal: -1) as! Int != -1})
             tableView.reloadData()
         }
     }
@@ -40,7 +40,7 @@ import UIKit
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return countElements(visibleQuizItems)
+        case 1: return visibleQuizItems.count
         case 2: return 1
         default: return 0
         }
@@ -49,11 +49,11 @@ import UIKit
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let quizInstanceCell = tableView.dequeueReusableCellWithIdentifier("QuizInstanceCell", forIndexPath: indexPath) as QuizInstanceCell
+            let quizInstanceCell = tableView.dequeueReusableCellWithIdentifier("QuizInstanceCell", forIndexPath: indexPath) as! QuizInstanceCell
             quizInstanceCell.quizInstance = self.quizInstance
             return quizInstanceCell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("QuizItemCell", forIndexPath: indexPath) as QuizItemCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("QuizItemCell", forIndexPath: indexPath) as! QuizItemCell
             cell.quizItem = visibleQuizItems[indexPath.row]
             return cell
         case 2:
@@ -87,7 +87,7 @@ import UIKit
                 if let cb = self.didDeleteItem {
                     cb()
                 }
-                if countElements(self.navigationController!.viewControllers) == 1 {
+                if self.navigationController!.viewControllers.count == 1 {
                     let vc = UIViewController()
                     vc.view = UIView()
                     vc.view.backgroundColor = UIColor.groupTableViewBackgroundColor()
@@ -117,14 +117,14 @@ class QuizItemCell : UITableViewCell {
     @IBOutlet var points: UILabel!
     var quizItem: QuizItem? {
         didSet {
-            println("\(quizItem!)")
-            let earned = quizItem!.getOrDefault("pointsEarned", defaultVal: 0) as Double
-            let maxPoints = quizItem!.getOrDefault("points", defaultVal: 0) as Double
+            print("\(quizItem!)")
+            let earned = quizItem!.getOrDefault("pointsEarned", defaultVal: 0) as! Double
+            let maxPoints = quizItem!.getOrDefault("points", defaultVal: 0) as! Double
             points.text = "\(earned)/\(maxPoints)"
             points.textColor = (earned < maxPoints) ? tintColor : UIColor.blackColor()
             question.text = quizItem!.getOrDefault("description", defaultVal: "") as? String
             gradingDescription.text = quizItem!.getOrDefault("gradingDescription", defaultVal: "") as? String
-            let idx = quizItem!.getOrDefault("visibleIndex", defaultVal: 0) as Int
+            let idx = quizItem!.getOrDefault("visibleIndex", defaultVal: 0) as! Int
             index.text = "\(idx)"
         }
     }

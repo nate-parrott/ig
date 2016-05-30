@@ -36,30 +36,30 @@ class QuizInfoController: NSObject {
     
     func unknownIndex(index: Int) {
         // todo: somehow relay this to the user after a certain amount of time?
-        println("Unknown index code \(index)")
+        print("Unknown index code \(index)")
     }
     
     func addPage(page: ScannedPage, withQuiz: Quiz) {
         if self.quiz == nil || self.quiz!.index == withQuiz.index {
-            if countElements(pages) != page.barcode.pageNum + 1 {
-                if page.barcode.pageNum == countElements(pages) {
+            if pages.count != page.barcode.pageNum + 1 {
+                if page.barcode.pageNum == pages.count {
                     pages.append(page)
                     quiz = withQuiz
-                    if countElements(pages) == withQuiz.totalPages() {
+                    if pages.count == withQuiz.totalPages() {
                         status = .Done
                         needsGrading()
                     } else {
-                        status = .PartialScan(pages: countElements(pages), total: withQuiz.totalPages())
+                        status = .PartialScan(pages: pages.count, total: withQuiz.totalPages())
                     }
                 } else {
                     if let show = onShowAdvisoryMessage {
-                        show("This looks like page #\(page.barcode.pageNum + 1) of a quiz, but the last page you scanned was page #\(countElements(pages))")
+                        show("This looks like page #\(page.barcode.pageNum + 1) of a quiz, but the last page you scanned was page #\(pages.count)")
                     }
                 }
             } else {
                 // this is just a re-scan of the last scanned page; see if it's less blurry:
-                if page.blurriness < pages[countElements(pages) - 1].blurriness {
-                    pages[countElements(pages) - 1] = page
+                if page.blurriness < pages[pages.count - 1].blurriness {
+                    pages[pages.count - 1] = page
                     needsGrading()
                 }
             }
@@ -81,7 +81,7 @@ class QuizInfoController: NSObject {
         manualResponseItems = nil
     }
     
-    enum Status : Printable, Equatable {
+    enum Status : CustomStringConvertible, Equatable {
         case None
         case PartialScan(pages: Int, total: Int)
         case Done
@@ -170,7 +170,7 @@ class QuizInfoController: NSObject {
     
     func createGradedQuizInstance() -> QuizInstance {
         let manualResponses = self.manualResponseItems != nil ? self.manualResponseItems! : quiz!.getManuallyGradedResponseTemplates()
-        return CreateQuizInstance(quiz!, pages, manualResponses)
+        return CreateQuizInstance(quiz!, pages: pages, manuallyGradedResponses: manualResponses)
     }
 }
 

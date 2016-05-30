@@ -9,13 +9,13 @@
 import Foundation
 
 func indexOfOutlier(data: [Double], tolerableDeviance: Double) -> Int? {
-    let inlierProbs = map(0..<countElements(data), { probabilityOfInlier(data + [mean(data) + tolerableDeviance], $0) })
+    let inlierProbs = (0..<data.count).map({ probabilityOfInlier(data + [mean(data) + tolerableDeviance], index: $0) })
     // println("\(inlierProbs)")
     let cutoff = 1.0
     let lowest = minItem(inlierProbs)
     if lowest < cutoff {
-        let index = Int(find(inlierProbs, lowest)!)
-        if index == countElements(data) {
+        let index = inlierProbs.indexOf(lowest)!
+        if index == data.count {
             return nil
         } else {
             return index
@@ -75,7 +75,7 @@ extension Dictionary {
 }
 
 extension Array {
-    func mapFilter<T2>(fn: T -> T2?) -> [T2] {
+    func mapFilter<T2>(fn: Element -> T2?) -> [T2] {
         return self.map(fn).filter({ $0 != nil }).map({ $0! })
     }
 }
@@ -83,7 +83,7 @@ extension Array {
 extension NSURL {
     func queryValueForKey(key: String) -> String? {
         if let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false) {
-            let matchingItems = (components.queryItems as [NSURLQueryItem]).filter({ $0.name == key })
+            let matchingItems = (components.queryItems ?? []).filter({ $0.name == key })
             return matchingItems.first?.value
         }
         return nil
@@ -96,8 +96,8 @@ func AsyncOnMainQueue(code: () -> ()) {
 
 extension String {
     func substring(start: Int, length: Int) -> String {
-        let fromIndex = advance(self.startIndex, start)
-        let toIndex = advance(self.startIndex, start + length)
+        let fromIndex = self.startIndex.advancedBy(start)
+        let toIndex = self.startIndex.advancedBy(start + length)
         let range = fromIndex..<toIndex
         return self[range]
     }
@@ -124,7 +124,7 @@ func sum(data: [Double]) -> Double {
 }
 
 func mean(data: [Double]) -> Double {
-    return sum(data) / Double(countElements(data))
+    return sum(data) / Double(data.count)
 }
 
 func stddev(data: [Double]) -> Double {
@@ -133,8 +133,8 @@ func stddev(data: [Double]) -> Double {
 }
 
 func probabilityOfInlier(data: [Double], index: Int) -> Double {
-    let dataWithoutIndex = Array(data[0..<index]) + Array(data[index+1..<countElements(data)])
-    return normpdf(data[index], mean(dataWithoutIndex), stddev(dataWithoutIndex))
+    let dataWithoutIndex = Array(data[0..<index]) + Array(data[index+1..<data.count])
+    return normpdf(data[index], mean: mean(dataWithoutIndex), stddev: stddev(dataWithoutIndex))
 }
 
 func minItem(data: [Double]) -> Double {

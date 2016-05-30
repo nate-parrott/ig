@@ -37,9 +37,9 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
     var setupYet = false
     func setup() {
         SKPaymentQueue.defaultQueue().addTransactionObserver(self)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateUIAfterDelay", name: PostTransactionOperationQueueStatusChangedNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadProduct", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        addTarget(self, action: "buy", forControlEvents: UIControlEvents.TouchUpInside)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProductButton.updateUIAfterDelay), name: PostTransactionOperationQueueStatusChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProductButton.reloadProduct), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        addTarget(self, action: #selector(ProductButton.buy), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     deinit {
@@ -49,16 +49,16 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
     
     // MARK: Product loading
     func reloadProduct() {
-        println("Identifier: \(productIdentifier)")
-        CargoBay.sharedManager().productsWithIdentifiers(NSSet(array: [productIdentifier]), success: { (products, invalid) -> Void in
+        print("Identifier: \(productIdentifier)")
+        CargoBay.sharedManager().productsWithIdentifiers([productIdentifier], success: { (products, invalid) -> Void in
             if let p = products.first as? SKProduct {
                 self.productLoadError = nil
                 self.product = p
             } else {
-                self.productLoadError = NSError()
+                self.productLoadError = NSError(domain: "Unknown", code: -1, userInfo: nil)
             }
         }) { (error) -> Void in
-            println("ERROR: \(error)")
+            print("ERROR: \(error)")
             self.productLoadError = error
         }
         updateUI()
@@ -78,7 +78,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
         let transaction = SKPayment(product: product!)
         SKPaymentQueue.defaultQueue().addPayment(transaction)
     }
-    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         updateUI()
     }
     // MARK: UI
@@ -98,7 +98,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
                 enabled = true
                 title = titleTemplate!.stringByReplacingOccurrencesOfString("{{PRICE}}", withString: p.localizedPrice)
             } else {
-                if let e = self.productLoadError {
+                if self.productLoadError != nil {
                     title = "Couldn't connect to the Internet"
                 } else {
                     title = titleWithoutPrice
@@ -116,7 +116,7 @@ class ProductButton: UIButton, SKPaymentTransactionObserver {
     func handleTransactionFailure() {
         if let t = enqueuedTransaction() {
             let alertController = UIAlertController(title: "Your purchase didn't go through.", message: "You haven't been charged, and you can try again if you want.", preferredStyle: UIAlertControllerStyle.Alert)
-            println("ERROR: \(t.error)")
+            print("ERROR: \(t.error)")
             alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Cancel, handler: nil))
             viewController!.presentViewController(alertController, animated: true, completion: nil)
             SKPaymentQueue.defaultQueue().finishTransaction(t)
@@ -144,23 +144,23 @@ class PostTransactionOperationPool: NSObject, SKPaymentTransactionObserver {
         SKPaymentQueue.defaultQueue().addTransactionObserver(self)
     }
     
-    func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
+    func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         processCompletedTransactions()
     }
     
     func processCompletedTransactions() {
         for t in SKPaymentQueue.defaultQueue().transactions as [SKPaymentTransaction] {
             if t.transactionState == .Purchased {
-                if !workingOnTransactionsWithIdentifiers.contains(t.transactionIdentifier) {
+                if !workingOnTransactionsWithIdentifiers.contains(t.transactionIdentifier!) {
                     workOnTransaction(t)
                 }
             }
         }
     }
     
-    let workingOnTransactionsWithIdentifiers = Set<String>()
+    var workingOnTransactionsWithIdentifiers = Set<String>()
     func workOnTransaction(t: SKPaymentTransaction) {
-        workingOnTransactionsWithIdentifiers.add(t.transactionIdentifier)
+        workingOnTransactionsWithIdentifiers.insert(t.transactionIdentifier!)
         
         var secondsToAdd: NSTimeInterval = 0
         switch t.payment.productIdentifier {
@@ -172,7 +172,7 @@ class PostTransactionOperationPool: NSObject, SKPaymentTransactionObserver {
         SharedAPI().updateUserData(["add_subscription_seconds": "\(secondsToAdd)"]) {
             (success) in
             if success {
-                self.workingOnTransactionsWithIdentifiers.remove(t.transactionIdentifier)
+                self.workingOnTransactionsWithIdentifiers.remove(t.transactionIdentifier!)
                 SKPaymentQueue.defaultQueue().finishTransaction(t)
                 NSNotificationCenter.defaultCenter().postNotificationName(PostTransactionOperationQueueStatusChangedNotification, object: self)
             }

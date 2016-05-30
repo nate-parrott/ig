@@ -18,7 +18,7 @@ class QuizInstanceCell: UITableViewCell {
     var quizInstance: QuizInstance? {
         didSet {
             if let q = quizInstance {
-                scoreLabel.text = "\(q.earnedScore)/\(q.maximumScore)"
+                scoreLabel.text = "\(q.earnedScore!)/\(q.maximumScore!)"
                 nameImageView.image = q.nameImage()
                 if IS_SIMULATOR() && true {
                     _quizInstanceFakeIdentifyIndex += 1
@@ -27,7 +27,7 @@ class QuizInstanceCell: UITableViewCell {
                         return
                     }
                     let r: Int = Int(rand())
-                    let fakeEarned: Int = r % Int(q.maximumScore) + 1
+                    let fakeEarned: Int = r % Int(q.maximumScore!) + 1
                     scoreLabel.text = "\(fakeEarned)/\(q.maximumScore)"
                     let path = "/Users/nateparrott/Documents/SW/instagrade-repo/Assets/example-names/name-\(imageIndex).png"
                     nameImageView.image = UIImage(contentsOfFile: path)

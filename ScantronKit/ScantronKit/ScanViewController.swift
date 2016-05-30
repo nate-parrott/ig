@@ -71,7 +71,7 @@ class ScanViewController: UIViewController {
         
         if let device = cameraView!.captureDevice {
             flashButton.hidden = !device.torchAvailable
-            kvoController.observe(device.torchAvailable, keyPath: "torchAvailable", options: nil) {
+            kvoController.observe(device.torchAvailable, keyPath: "torchAvailable", options: []) {
                 [weak self]
                 (deviceChanged) in
                 self!.flashButton.hidden = !device.torchAvailable
@@ -153,10 +153,10 @@ class ScanViewController: UIViewController {
             if let image = imageOpt {
                 let scanned = ScannedPage(image: image)
                 let barcode = scanned.barcode
-                println("Barcode is index \(barcode.index) and page # \(barcode.pageNum)")
+                print("Barcode is index \(barcode.index) and page # \(barcode.pageNum)")
                 self.infoController.addPage(scanned)
             } else {
-                println("Scan failed")
+                print("Scan failed")
             }
         }
     }
@@ -197,7 +197,7 @@ class ScanViewController: UIViewController {
             }
             okayButton.enabled = false
         case .PartialScan(pages: let pages, total: let total):
-            pageStatusLabel.text = NSString(format: NSLocalizedString("Page %i/%i", comment: ""), pages, total)
+            pageStatusLabel.text = NSString(format: NSLocalizedString("Page %i/%i", comment: ""), pages, total) as String
             okayButton.enabled = false
         }
     }
@@ -278,9 +278,9 @@ class ScanViewController: UIViewController {
         
         if infoController.quiz != nil && infoController.status == QuizInfoController.Status.Done {
             let manualResponseTemplates = infoController.quiz!.getManuallyGradedResponseTemplates()
-            if countElements(manualResponseTemplates.filter( { $0 != nil} )) > 0 {
-                let navController = storyboard!.instantiateViewControllerWithIdentifier("ManualResponseNavController") as UINavigationController
-                let manualResponseVC = navController.viewControllers.first! as ManualResponseViewController
+            if manualResponseTemplates.filter( { $0 != nil} ).count > 0 {
+                let navController = storyboard!.instantiateViewControllerWithIdentifier("ManualResponseNavController") as! UINavigationController
+                let manualResponseVC = navController.viewControllers.first! as! ManualResponseViewController
                 manualResponseVC.setupWithItems(manualResponseTemplates, pages: infoController.pages, quiz: infoController.quiz!)
                 navController.modalPresentationStyle = UIModalPresentationStyle.FormSheet
                 presentViewController(navController, animated: true, completion: nil)
@@ -305,7 +305,7 @@ class ScanViewController: UIViewController {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 0)
         view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIImagePNGRepresentation(image).writeToFile("/Users/nateparrott/Desktop/screen.png", atomically: true)
+        UIImagePNGRepresentation(image)!.writeToFile("/Users/nateparrott/Desktop/screen.png", atomically: true)
         UIGraphicsEndImageContext()
     }
     
@@ -384,7 +384,7 @@ class ScanViewController: UIViewController {
         if segue.identifier == "ShowResults" {
             justSavedQuizCount = 0
         } else if segue.identifier == "ShowPaymentsMenu" {
-            let paymentsVC = (segue.destinationViewController as PaymentViewController)
+            let paymentsVC = (segue.destinationViewController as! PaymentViewController)
             paymentsVC.onDismiss = {
                 () in
                 self.cameraView!.canRun = true
@@ -397,9 +397,12 @@ class ScanViewController: UIViewController {
         didSet {
             flashButton.selected = flash
             if let camera = cameraView!.captureDevice {
-                if camera.lockForConfiguration(nil) {
+                do {
+                    try camera.lockForConfiguration()
                     camera.torchMode = flash ? .On : .Off
                     camera.unlockForConfiguration()
+                } catch _ {
+                    
                 }
             }
         }

@@ -435,6 +435,7 @@
 		5F6232401989E4E200706593 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Nate Parrott";
 				TargetAttributes = {
@@ -513,7 +514,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
+			shellScript = "# ./Crashlytics.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
 		};
 		5F3CA66119CBE2D5006EC181 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -724,11 +725,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ScantronKit",
 				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
 				PROVISIONING_PROFILE = "";
@@ -745,11 +748,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ScantronKit",
 				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "InstaGrade Scanner";
 				PROVISIONING_PROFILE = "";

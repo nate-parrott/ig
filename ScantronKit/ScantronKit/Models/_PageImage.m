@@ -3,20 +3,12 @@
 
 #import "_PageImage.h"
 
-const struct PageImageAttributes PageImageAttributes = {
-	.data = @"data",
-};
-
-const struct PageImageRelationships PageImageRelationships = {
-	.quizInstance = @"quizInstance",
-};
-
 @implementation PageImageID
 @end
 
 @implementation _PageImage
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"PageImage" inManagedObjectContext:moc_];
 }
@@ -44,5 +36,17 @@ const struct PageImageRelationships PageImageRelationships = {
 
 @dynamic quizInstance;
 
+@end
+
+@implementation PageImageAttributes 
++ (NSString *)data {
+	return @"data";
+}
+@end
+
+@implementation PageImageRelationships 
++ (NSString *)quizInstance {
+	return @"quizInstance";
+}
 @end
 

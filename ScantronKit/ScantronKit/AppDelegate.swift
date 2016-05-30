@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         Crashlytics.startWithAPIKey("c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8")
@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         refreshNetworkThings()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateRootUI", name: APILoginStatusChangedNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.updateRootUI), name: APILoginStatusChangedNotification, object: nil)
         
         SetupAppearanceWithWindow(self.window)
         
@@ -51,9 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          // return
         
         if SharedAPI().userEmail != nil {
-            self.window!.rootViewController = UIStoryboard(name: "App", bundle: nil).instantiateInitialViewController() as? UIViewController
+            self.window!.rootViewController = UIStoryboard(name: "App", bundle: nil).instantiateInitialViewController()
         } else {
-            self.window!.rootViewController = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController() as? UIViewController
+            self.window!.rootViewController = UIStoryboard(name: "Login", bundle: nil).instantiateInitialViewController()
         }
     }
 
@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         req.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         req.fetchOffset = 100 // keep last 100
         req.includesPropertyValues = false // we're gonna delete em, so
-        for obj in SharedCoreDataManager().managedObjectContext!.executeFetchRequest(req, error: nil)! as [QuizInstance] {
+        for obj in try! SharedCoreDataManager().managedObjectContext!.executeFetchRequest(req) as! [QuizInstance] {
             SharedCoreDataManager().managedObjectContext!.deleteObject(obj)
         }
         
@@ -105,8 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SharedCoreDataManager().save()
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
-        var dict: [NSObject: AnyObject] = [ApplicationDidOpenURLNotificationURLKey: url, ApplicationDidOpenURLNotificationSourceAppKey: sourceApplication]
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        var dict: [NSObject: AnyObject] = [ApplicationDidOpenURLNotificationURLKey: url]
+        if let src = sourceApplication {
+            dict[ApplicationDidOpenURLNotificationSourceAppKey] = src
+        }
         if let ann: AnyObject = annotation {
             dict[ApplicationDidOpenURLNotificationAnnotationKey] = ann
         }

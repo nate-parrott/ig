@@ -46,18 +46,11 @@ class CoreDataManager: NSObject {
         
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.storageURL, options: nil, error: &error) == nil {
-            coordinator = nil
-            // Report any error we got.
-            let dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(error), \(error!.userInfo)")
-            abort()
+        
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.storageURL, options: nil)
+        } catch _ {
+            print("ERROR: Failed to initialize the application's saved data")
         }
         
         return coordinator
@@ -79,11 +72,13 @@ class CoreDataManager: NSObject {
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch _ {
+                    print("ERROR saving managed object context")
+                    abort()
+                }
             }
         }
     }
@@ -99,15 +94,13 @@ class CoreDataManager: NSObject {
     }
     
     func save() {
-        if managedObjectContext!.hasChanges {
-            managedObjectContext!.save(nil)
-        }
+        saveContext()
     }
     
     func deleteEntities(name: String) {
         let req = NSFetchRequest(entityName: name)
         req.includesPropertyValues = false
-        for obj in managedObjectContext!.executeFetchRequest(req, error: nil)! as [NSManagedObject] {
+        for obj in try! managedObjectContext!.executeFetchRequest(req) as! [NSManagedObject] {
             managedObjectContext!.deleteObject(obj)
         }
     }

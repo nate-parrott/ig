@@ -19,7 +19,7 @@ class SwipeAwayTableViewController: UITableViewController, UIViewControllerTrans
         if tableView.tableHeaderView == nil {
             tableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, 1, topMargin()))
         }
-        let tapRec = UITapGestureRecognizer(target: self, action: "dismiss")
+        let tapRec = UITapGestureRecognizer(target: self, action: #selector(SwipeAwayTableViewController.dismiss))
         tableView.tableHeaderView!.addGestureRecognizer(tapRec)
         
         contentBackdrop = UIView()
@@ -49,20 +49,20 @@ class SwipeAwayTableViewController: UITableViewController, UIViewControllerTrans
         return self
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.5
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let isDismissal = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) == self
         let duration = transitionDuration(transitionContext)
-        let containerView = transitionContext.containerView()
+        let containerView = transitionContext.containerView()!
         let dimmingView = UIView(frame: containerView.bounds)
         if isDismissal {
             containerView.insertSubview(dimmingView, belowSubview: self.view)
             dimmingView.backgroundColor = tableView.backgroundColor
             tableView.backgroundColor = UIColor.clearColor()
-            UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: -dismissVelocity / containerView.bounds.size.height, options: nil, animations: { () -> Void in
+            UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: -dismissVelocity / containerView.bounds.size.height, options: [], animations: { () -> Void in
                 self.view.transform = CGAffineTransformMakeTranslation(0, containerView.bounds.size.height)
                 dimmingView.alpha = 0
                 }, completion: { (_) -> Void in

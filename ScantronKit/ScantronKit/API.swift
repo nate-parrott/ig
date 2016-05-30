@@ -13,7 +13,7 @@ import UIKit
 func APIHost() -> (String, Int) {
     let local = IS_SIMULATOR()
     let host = local ? "localhost" : "instagradeformbuilder.appspot.com"
-    let port = local ? 13080 : 80
+    let port = local ? 22080 : 80
     return (host, port)
 }
 
@@ -37,7 +37,7 @@ class API: NSObject, NSURLSessionDelegate {
             NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
         }
         // clear cookies:
-        if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies as? [NSHTTPCookie] {
+        if let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies {
             for cookie in cookies {
                 NSHTTPCookieStorage.sharedHTTPCookieStorage().deleteCookie(cookie)
             }
@@ -99,15 +99,15 @@ class API: NSObject, NSURLSessionDelegate {
         if let quiz = findLocalQuizWithIndex(index) {
             callback(quiz)
         } else {
-            queriedQuizIds.add(index)
+            queriedQuizIds.insert(index)
             call("/\(index)/details", args: [String: String]()) {
                 (dataOpt: NSData?) in
                 if let data = dataOpt {
-                    if let response = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? [String: AnyObject] {
+                    if let response = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject] {
                         let quiz = Quiz(entity: NSEntityDescription.entityForName("Quiz", inManagedObjectContext: SharedCoreDataManager().managedObjectContext!)!, insertIntoManagedObjectContext: SharedCoreDataManager().managedObjectContext!)
-                        quiz.title = response["title"]! as String
+                        quiz.title = (response!["title"] as! String)
                         quiz.added = NSDate()
-                        quiz.json = response["json"]!
+                        quiz.json = response!["json"] as! [String: AnyObject]
                         quiz.index = index
                         callback(quiz)
                         return
@@ -131,9 +131,9 @@ class API: NSObject, NSURLSessionDelegate {
         
         let query = NSFetchRequest(entityName: "QuizInstance")
         query.predicate = NSPredicate(format: "uploadedInBatch = NULL")
-        let notYetUploaded = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)! as [QuizInstance]
-        if countElements(notYetUploaded) > 0 {
-            let rangeEnd = min(countElements(notYetUploaded), maxQuizzesToUpload)
+        let notYetUploaded = try! SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query) as! [QuizInstance]
+        if notYetUploaded.count > 0 {
+            let rangeEnd = min(notYetUploaded.count, maxQuizzesToUpload)
             let uploading = Array(notYetUploaded[0..<rangeEnd])
             
             let batchName = "date:\(NSDate.timeIntervalSinceReferenceDate())"
@@ -153,7 +153,7 @@ class API: NSObject, NSURLSessionDelegate {
     func findLocalQuizWithIndex(index: Int) -> Quiz? {
         let query = NSFetchRequest(entityName: "Quiz")
         query.predicate = NSPredicate(format: "index = %@", NSNumber(integer: index))
-        return SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)?.first as? Quiz
+        return (try? SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query))?.first as? Quiz
     }
     var queriedQuizIds = Set<Int>()
     
@@ -198,10 +198,10 @@ class API: NSObject, NSURLSessionDelegate {
     
     func loadDataFromJsonPayload(data: NSData?) -> Bool {
         if let d = data {
-            if let dict = NSJSONSerialization.JSONObjectWithData(d, options: nil, error: nil) as? [String: AnyObject] {
+            if let dict = try! NSJSONSerialization.JSONObjectWithData(d, options: []) as? [String: AnyObject] {
                 self.userEmail = (dict.get("email")! as? String)!
-                self.scansLeft = dict.get("scans_left")! as Int
-                self.subscriptionEndDate = dict.get("subscription_end_date") as Double
+                self.scansLeft = dict.get("scans_left")! as! Int
+                self.subscriptionEndDate = dict.get("subscription_end_date") as! Double
                 return true
             }
         }
@@ -233,10 +233,10 @@ func setupQuizUploadHandler(uploader: BackgroundUploader) {
     uploader.handlersForTypes["QuizUpload"] = {
         (task: NSURLSessionTask, error: NSError?, userInfo: [String: AnyObject]) in
         AsyncOnMainQueue() {
-            let batchName = userInfo.get("BatchName")! as String
+            let batchName = userInfo.get("BatchName")! as! String
             let query = NSFetchRequest(entityName: "QuizInstance")
             query.predicate = NSPredicate(format: "uploadedInBatch = %@", batchName)
-            let itemsInBatch = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query, error: nil)! as [QuizInstance]
+            let itemsInBatch = try! SharedCoreDataManager().managedObjectContext!.executeFetchRequest(query) as! [QuizInstance]
             if let actualError = error {
                 for item in itemsInBatch {
                     item.uploadedInBatch = nil

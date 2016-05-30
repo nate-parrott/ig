@@ -20,7 +20,7 @@ class ResultsTableViewController: UITableViewController {
         reloadData()
         emailLabel.text = SharedAPI().userEmail
         paymentsButton.setTitle(SharedAPI().usageLeftSummary(), forState: UIControlState.Normal)
-        if let selectedIndexPath = tableView.indexPathForSelectedRow() {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
         }
         
@@ -48,10 +48,10 @@ class ResultsTableViewController: UITableViewController {
     func groupInstancesByQuiz(instances: [QuizInstance]) -> [[QuizInstance]] {
         if let first = instances.first {
             let firstQuiz = first.quiz!
-            for i in 0..<countElements(instances) {
+            for i in 0..<instances.count {
                 if instances[i].quiz != firstQuiz {
                     let group = Array(instances[0..<i])
-                    let leftover = Array(instances[i..<countElements(instances)])
+                    let leftover = Array(instances[i..<instances.count])
                     return [group] + groupInstancesByQuiz(leftover)
                 }
             }
@@ -65,21 +65,21 @@ class ResultsTableViewController: UITableViewController {
     func reloadData() {
         let fetchReq = NSFetchRequest(entityName: "QuizInstance")
         fetchReq.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        let instances = SharedCoreDataManager().managedObjectContext!.executeFetchRequest(fetchReq, error: nil)! as [QuizInstance]
+        let instances = try! SharedCoreDataManager().managedObjectContext!.executeFetchRequest(fetchReq) as! [QuizInstance]
         sections = groupInstancesByQuiz(instances)
     }
     
     // MARK: TableView
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return countElements(sections)
+        return sections.count
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].first!.quiz.title
+        return sections[section].first!.quiz?.title
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countElements(sections[section])
+        return sections[section].count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -87,13 +87,13 @@ class ResultsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("QuizInstanceCell", forIndexPath: indexPath) as QuizInstanceCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("QuizInstanceCell", forIndexPath: indexPath) as! QuizInstanceCell
         cell.quizInstance = sections[indexPath.section][indexPath.row]
         return cell
     }
         
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == countElements(sections) - 1 {
+        if section == sections.count - 1 {
             return "We've emailed you more detailed results and analysis at \(SharedAPI().userEmail!)"
         }
         return nil
@@ -119,8 +119,8 @@ class ResultsTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "QuizDetail" {
-            let detailVC = segue.destinationViewController as IndividualResultTableViewController
-            let selectedIndexPath = tableView.indexPathForSelectedRow()!
+            let detailVC = segue.destinationViewController as! IndividualResultTableViewController
+            let selectedIndexPath = tableView.indexPathForSelectedRow!
             detailVC.quizInstance = sections[selectedIndexPath.section][selectedIndexPath.row]
             detailVC.didDeleteItem = {
                 [weak self]

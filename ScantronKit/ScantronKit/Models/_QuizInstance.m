@@ -3,28 +3,12 @@
 
 #import "_QuizInstance.h"
 
-const struct QuizInstanceAttributes QuizInstanceAttributes = {
-	.date = @"date",
-	.earnedScore = @"earnedScore",
-	.itemsWithResponses = @"itemsWithResponses",
-	.maximumScore = @"maximumScore",
-	.uploaded = @"uploaded",
-	.uploadedInBatch = @"uploadedInBatch",
-	.uuid = @"uuid",
-};
-
-const struct QuizInstanceRelationships QuizInstanceRelationships = {
-	.nameImageData = @"nameImageData",
-	.pageImages = @"pageImages",
-	.quiz = @"quiz",
-};
-
 @implementation QuizInstanceID
 @end
 
 @implementation _QuizInstance
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"QuizInstance" inManagedObjectContext:moc_];
 }
@@ -74,7 +58,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setEarnedScoreValue:(double)value_ {
-	[self setEarnedScore:[NSNumber numberWithDouble:value_]];
+	[self setEarnedScore:@(value_)];
 }
 
 - (double)primitiveEarnedScoreValue {
@@ -83,7 +67,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setPrimitiveEarnedScoreValue:(double)value_ {
-	[self setPrimitiveEarnedScore:[NSNumber numberWithDouble:value_]];
+	[self setPrimitiveEarnedScore:@(value_)];
 }
 
 @dynamic itemsWithResponses;
@@ -96,7 +80,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setMaximumScoreValue:(double)value_ {
-	[self setMaximumScore:[NSNumber numberWithDouble:value_]];
+	[self setMaximumScore:@(value_)];
 }
 
 - (double)primitiveMaximumScoreValue {
@@ -105,7 +89,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setPrimitiveMaximumScoreValue:(double)value_ {
-	[self setPrimitiveMaximumScore:[NSNumber numberWithDouble:value_]];
+	[self setPrimitiveMaximumScore:@(value_)];
 }
 
 @dynamic uploaded;
@@ -116,7 +100,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setUploadedValue:(BOOL)value_ {
-	[self setUploaded:[NSNumber numberWithBool:value_]];
+	[self setUploaded:@(value_)];
 }
 
 - (BOOL)primitiveUploadedValue {
@@ -125,7 +109,7 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 }
 
 - (void)setPrimitiveUploadedValue:(BOOL)value_ {
-	[self setPrimitiveUploaded:[NSNumber numberWithBool:value_]];
+	[self setPrimitiveUploaded:@(value_)];
 }
 
 @dynamic uploadedInBatch;
@@ -136,10 +120,10 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 
 @dynamic pageImages;
 
-- (NSMutableOrderedSet*)pageImagesSet {
+- (NSMutableOrderedSet<PageImage*>*)pageImagesSet {
 	[self willAccessValueForKey:@"pageImages"];
 
-	NSMutableOrderedSet *result = (NSMutableOrderedSet*)[self mutableOrderedSetValueForKey:@"pageImages"];
+	NSMutableOrderedSet<PageImage*> *result = (NSMutableOrderedSet<PageImage*>*)[self mutableOrderedSetValueForKey:@"pageImages"];
 
 	[self didAccessValueForKey:@"pageImages"];
 	return result;
@@ -150,10 +134,10 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
 @end
 
 @implementation _QuizInstance (PageImagesCoreDataGeneratedAccessors)
-- (void)addPageImages:(NSOrderedSet*)value_ {
+- (void)addPageImages:(NSOrderedSet<PageImage*>*)value_ {
 	[self.pageImagesSet unionOrderedSet:value_];
 }
-- (void)removePageImages:(NSOrderedSet*)value_ {
+- (void)removePageImages:(NSOrderedSet<PageImage*>*)value_ {
 	[self.pageImagesSet minusOrderedSet:value_];
 }
 - (void)addPageImagesObject:(PageImage*)value_ {
@@ -206,6 +190,42 @@ const struct QuizInstanceRelationships QuizInstanceRelationships = {
     [tmpOrderedSet replaceObjectsAtIndexes:indexes withObjects:value];
     [self setPrimitiveValue:tmpOrderedSet forKey:@"pageImages"];
     [self didChange:NSKeyValueChangeReplacement valuesAtIndexes:indexes forKey:@"pageImages"];
+}
+@end
+
+@implementation QuizInstanceAttributes 
++ (NSString *)date {
+	return @"date";
+}
++ (NSString *)earnedScore {
+	return @"earnedScore";
+}
++ (NSString *)itemsWithResponses {
+	return @"itemsWithResponses";
+}
++ (NSString *)maximumScore {
+	return @"maximumScore";
+}
++ (NSString *)uploaded {
+	return @"uploaded";
+}
++ (NSString *)uploadedInBatch {
+	return @"uploadedInBatch";
+}
++ (NSString *)uuid {
+	return @"uuid";
+}
+@end
+
+@implementation QuizInstanceRelationships 
++ (NSString *)nameImageData {
+	return @"nameImageData";
+}
++ (NSString *)pageImages {
+	return @"pageImages";
+}
++ (NSString *)quiz {
+	return @"quiz";
 }
 @end
 

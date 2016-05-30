@@ -47,7 +47,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     
     func nextNonEmptyIndexAfter(var index: Int) -> Int? {
         index++
-        while index < countElements(responseItems) {
+        while index < responseItems.count {
             if responseItems[index] != nil {
                 return index
             }
@@ -68,7 +68,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        let cur = viewController as IndividualResponseViewController
+        let cur = viewController as! IndividualResponseViewController
         if let prevIndex = previousNonEmptyIndexBefore(cur.index) {
             return viewControllerAtIndex(prevIndex)
         } else {
@@ -77,7 +77,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        let cur = viewController as IndividualResponseViewController
+        let cur = viewController as! IndividualResponseViewController
         let alreadyGotResponse = responseItems[cur.index]!.earnedPoints != nil
         if !alreadyGotResponse {
             return nil
@@ -89,7 +89,7 @@ class ManualResponseViewController: UIPageViewController, UIPageViewControllerDa
     }
     
     func advance() {
-        let nextVCOpt = pageViewController(self, viewControllerAfterViewController: self.viewControllers.first! as UIViewController)
+        let nextVCOpt = pageViewController(self, viewControllerAfterViewController: self.viewControllers!.first! as UIViewController)
         if let nextVC = nextVCOpt {
             setViewControllers([nextVC], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: nil)
         } else {

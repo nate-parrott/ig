@@ -154,18 +154,47 @@ void testThresholdSpeed(cv::Mat edges) {
     
 }
 
+void UIImageToMat_Alternate(const UIImage* image,
+                  cv::Mat& m, bool alphaExist) {
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
+    CGFloat cols = image.size.width, rows = image.size.height;
+    CGContextRef contextRef;
+    CGBitmapInfo bitmapInfo = kCGImageAlphaPremultipliedLast;
+    if (CGColorSpaceGetModel(colorSpace) == 0)
+    {
+        m.create(rows, cols, CV_8UC1); // 8 bits per component, 1 channel
+        bitmapInfo = kCGImageAlphaNone;
+        if (!alphaExist)
+            bitmapInfo = kCGImageAlphaNone;
+        contextRef = CGBitmapContextCreate(m.data, m.cols, m.rows, 8,
+                                           m.step[0], colorSpace,
+                                           bitmapInfo);
+    }
+    else
+    {
+        m.create(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
+        if (!alphaExist)
+            bitmapInfo = kCGImageAlphaNoneSkipLast |
+            kCGBitmapByteOrderDefault;
+        contextRef = CGBitmapContextCreate(m.data, m.cols, m.rows, 8,
+                                           m.step[0], colorSpace,
+                                           bitmapInfo);
+    }
+    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows),
+                       image.CGImage);
+    CGContextRelease(contextRef);
+}
+
 @implementation ContourExtractor
 
 - (void)extractContoursFromImage:(UIImage *)image callback:(void(^)(NSArray *contours))callback {
-    CFRetain(CGColorSpaceCreateDeviceRGB()); // VOODOO!!!
     
     NSInteger contourMinEdgeCount = [[Tracking new] contourMinEdgeCount];
     CGFloat imageArea = image.size.width * image.size.height;
     cv::Mat color;
-    UIImageToMat(image, color);
+    UIImageToMat_Alternate(image, color, false);
     cv::Mat edges;
     cv::cvtColor(color, edges, CV_RGBA2GRAY);
-    
     
     //cv::adaptiveThreshold(edges, edges, 255, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY, (int)[[Tracking new] thresholdRadius], 10);
     fastAdaptiveThreshold(edges);

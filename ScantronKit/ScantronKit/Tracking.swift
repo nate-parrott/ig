@@ -16,10 +16,10 @@ struct TrackingPattern {
     func findTrackingPattern(image: UIImage, callback: (TrackingPattern?) -> ()) {
         ContourExtractor().extractContoursFromImage(image) {
             (contourArray: [AnyObject]?) in
-            let contours = contourArray as [Contour]
+            let contours = contourArray as! [Contour]
             if DEBUGMODE() {
                 for c in contours {
-                    println("Contour: \(c.pattern)")
+                    print("Contour: \(c.pattern)")
                 }
             }
             var pois: [String: [String: CGPoint]] = Dictionary()
@@ -39,7 +39,7 @@ struct TrackingPattern {
                 pois["bottomRight"]?["bottomRight"]
             ]
             let points = pointsOpt.filter({$0 != nil}).map({$0!})
-            if countElements(points) == 6 {
+            if points.count == 6 {
                 callback(TrackingPattern(points: points))
             } else {
                 callback(nil)
@@ -48,14 +48,14 @@ struct TrackingPattern {
     }
     private func POIsForTrackingContour(desc: TrackingPatternDesc, contours: [Contour]) -> [String: CGPoint]? {
         let matches = contours.filter({desc.patternMatchesWithShift($0.pattern) != nil})
-        if countElements(matches) == 0 {
+        if matches.count == 0 {
             return nil
         } else {
-            let bestContour = sorted(matches, {$0.score() > $1.score()})[0]
+            let bestContour = matches.sort({$0.score() > $1.score()})[0]
             let shift = desc.patternMatchesWithShift(bestContour.pattern)!
             var keypoints: [String: CGPoint] = Dictionary()
             for (i, keypointName) in desc.pointIndexToPOIMap {
-                keypoints[keypointName] = (bestContour.points[(i + shift) % bestContour.points.count] as NSValue).CGPointValue()
+                keypoints[keypointName] = (bestContour.points[(i + shift) % bestContour.points.count] as! NSValue).CGPointValue()
             }
             return keypoints
         }
@@ -82,19 +82,19 @@ struct TrackingPattern {
         let image = resizeImage(imageLarge)
         ContourExtractor().extractContoursFromImage(image) {
             (contourArray: [AnyObject]!) in
-            let contours = contourArray as [Contour]
-            let toShow = sorted(contours, {$0.score() > $1.score()})[0..<min(8, countElements(contours))]
+            let contours = contourArray as! [Contour]
+            let toShow = contours.sort({$0.score() > $1.score()})[0..<min(8, contours.count)]
             UIGraphicsBeginImageContext(imageLarge.size)
             imageLarge.drawInRect(CGRectMake(0, 0, imageLarge.size.width, imageLarge.size.height))
             let scale = imageLarge.size.width / image.size.width
             let font = UIFont.boldSystemFontOfSize(7)
-            let attributes: [NSObject: AnyObject] = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.redColor()]
+            let attributes: [String: AnyObject] = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.redColor()]
             for contour in toShow {
-                let labelAt = (contour.points[0] as NSValue).CGPointValue() - CGPointMake(0, -10) * scale
+                let labelAt = (contour.points[0] as! NSValue).CGPointValue() - CGPointMake(0, -10) * scale
                 (contour.pattern as NSString).drawAtPoint(labelAt, withAttributes: attributes)
                 var i = 0
                 for pointVal in contour.points {
-                    let point = (pointVal as NSValue).CGPointValue() * scale
+                    let point = (pointVal as! NSValue).CGPointValue() * scale
                     ("\(i)" as NSString).drawAtPoint(point, withAttributes: attributes)
                     i++
                 }
@@ -122,7 +122,7 @@ struct TrackingPattern {
             self.pattern = pattern
             self.pointIndexToPOIMap = pointIndexToPOIMap
             self.pHash = pattern.rotationInsensitiveHash()
-            self.pLen = countElements(pattern)
+            self.pLen = pattern.utf16.count
         }
         var name: String
         var pattern: String
@@ -130,7 +130,7 @@ struct TrackingPattern {
         private var pHash: UInt
         private var pLen: Int
         func patternMatchesWithShift(string: String) -> Int? {
-            if pHash == string.rotationInsensitiveHash() && pLen == countElements(string) {
+            if pHash == string.rotationInsensitiveHash() && pLen == string.utf16.count {
                 for i in 0..<pLen {
                     if pattern == string.rotate(i) { return i }
                 }
@@ -151,7 +151,7 @@ struct TrackingPattern {
 
 public extension String {
     public func rotate(n: Int) -> String {
-        return self[advance(startIndex, n)..<endIndex] + self[startIndex..<advance(startIndex, n)]
+        return self[startIndex.advancedBy(n)..<endIndex] + self[startIndex..<startIndex.advancedBy(n)]
     }
     public func rotationInsensitiveHash() -> UInt {
         var h: UInt = 0

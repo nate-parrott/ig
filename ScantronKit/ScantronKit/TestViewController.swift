@@ -18,7 +18,7 @@ class TestViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     private var original: UIImage?
     private let iterations = 4
     private var startTime: NSTimeInterval = 0
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let imageOpt = info[UIImagePickerControllerOriginalImage] as? UIImage
         dismissViewControllerAnimated(true, completion: {
             if let image = imageOpt {
@@ -29,7 +29,7 @@ class TestViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         })
     }
     func processImage(image: UIImage, remainingIterations: Int) {
-        Tracking().testTracking(image, {
+        Tracking().testTracking(image, callback: {
             if $0 == nil || remainingIterations == 0 {
                 self.imageView!.image = $0
                 if remainingIterations == 0 {
@@ -44,7 +44,7 @@ class TestViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             }
         })
     }
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     @IBOutlet var imageView: UIImageView?

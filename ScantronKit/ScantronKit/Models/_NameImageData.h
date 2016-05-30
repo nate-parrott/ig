@@ -1,34 +1,30 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to NameImageData.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct NameImageDataAttributes {
-	__unsafe_unretained NSString *data;
-} NameImageDataAttributes;
-
-extern const struct NameImageDataRelationships {
-	__unsafe_unretained NSString *instance;
-} NameImageDataRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class QuizInstance;
 
 @interface NameImageDataID : NSManagedObjectID {}
 @end
 
-@interface _NameImageData : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _NameImageData : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) NameImageDataID* objectID;
+@property (nonatomic, readonly, strong) NameImageDataID *objectID;
 
-@property (nonatomic, strong) NSData* data;
+@property (nonatomic, strong, nullable) NSData* data;
 
-//- (BOOL)validateData:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) QuizInstance *instance;
-
-//- (BOOL)validateInstance:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) QuizInstance *instance;
 
 @end
 
@@ -41,3 +37,13 @@ extern const struct NameImageDataRelationships {
 - (void)setPrimitiveInstance:(QuizInstance*)value;
 
 @end
+
+@interface NameImageDataAttributes: NSObject 
++ (NSString *)data;
+@end
+
+@interface NameImageDataRelationships: NSObject
++ (NSString *)instance;
+@end
+
+NS_ASSUME_NONNULL_END

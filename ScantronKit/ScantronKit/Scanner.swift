@@ -13,11 +13,11 @@ class Scanner: NSObject {
         self.cameraView = cameraView
         super.init()
         if let c = cameraView.captureDevice {
-            kvoController.observe(c, keyPath: "adjustingFocus", options: nil, action: "autofocusStatusChanged")
+            kvoController.observe(c, keyPath: "adjustingFocus", options: [], action: "autofocusStatusChanged")
         }
     }
     // MARK: Status
-    enum Status : Printable {
+    enum Status : CustomStringConvertible {
         case Off
         case On
         case PossibleScan
@@ -67,10 +67,10 @@ class Scanner: NSObject {
                 waitingOnAutofocus = true
                 return
             }
-            let connection = cameraView.stillImageOutput!.connections.first! as AVCaptureConnection
+            let connection = cameraView.stillImageOutput!.connections.first! as! AVCaptureConnection
             cameraView.stillImageOutput!.captureStillImageAsynchronouslyFromConnection(connection, completionHandler: { (sample: CMSampleBuffer!, error: NSError?) -> Void in
                 if sample == nil {
-                    println("ERROR: \(error)")
+                    print("ERROR: \(error)")
                     self.scanALittleLater()
                 } else {
                     let jpegData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sample)

@@ -1,23 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to QuizInstance.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct QuizInstanceAttributes {
-	__unsafe_unretained NSString *date;
-	__unsafe_unretained NSString *earnedScore;
-	__unsafe_unretained NSString *itemsWithResponses;
-	__unsafe_unretained NSString *maximumScore;
-	__unsafe_unretained NSString *uploaded;
-	__unsafe_unretained NSString *uploadedInBatch;
-	__unsafe_unretained NSString *uuid;
-} QuizInstanceAttributes;
-
-extern const struct QuizInstanceRelationships {
-	__unsafe_unretained NSString *nameImageData;
-	__unsafe_unretained NSString *pageImages;
-	__unsafe_unretained NSString *quiz;
-} QuizInstanceRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class NameImageData;
 @class PageImage;
@@ -28,69 +20,50 @@ extern const struct QuizInstanceRelationships {
 @interface QuizInstanceID : NSManagedObjectID {}
 @end
 
-@interface _QuizInstance : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _QuizInstance : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) QuizInstanceID* objectID;
+@property (nonatomic, readonly, strong) QuizInstanceID *objectID;
 
-@property (nonatomic, strong) NSDate* date;
+@property (nonatomic, strong, nullable) NSDate* date;
 
-//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* earnedScore;
+@property (nonatomic, strong, nullable) NSNumber* earnedScore;
 
 @property (atomic) double earnedScoreValue;
 - (double)earnedScoreValue;
 - (void)setEarnedScoreValue:(double)value_;
 
-//- (BOOL)validateEarnedScore:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) id itemsWithResponses;
 
-@property (nonatomic, strong) id itemsWithResponses;
-
-//- (BOOL)validateItemsWithResponses:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* maximumScore;
+@property (nonatomic, strong, nullable) NSNumber* maximumScore;
 
 @property (atomic) double maximumScoreValue;
 - (double)maximumScoreValue;
 - (void)setMaximumScoreValue:(double)value_;
 
-//- (BOOL)validateMaximumScore:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* uploaded;
+@property (nonatomic, strong, nullable) NSNumber* uploaded;
 
 @property (atomic) BOOL uploadedValue;
 - (BOOL)uploadedValue;
 - (void)setUploadedValue:(BOOL)value_;
 
-//- (BOOL)validateUploaded:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* uploadedInBatch;
 
-@property (nonatomic, strong) NSString* uploadedInBatch;
+@property (nonatomic, strong, nullable) NSString* uuid;
 
-//- (BOOL)validateUploadedInBatch:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NameImageData *nameImageData;
 
-@property (nonatomic, strong) NSString* uuid;
+@property (nonatomic, strong, nullable) NSOrderedSet<PageImage*> *pageImages;
+- (nullable NSMutableOrderedSet<PageImage*>*)pageImagesSet;
 
-//- (BOOL)validateUuid:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NameImageData *nameImageData;
-
-//- (BOOL)validateNameImageData:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSOrderedSet *pageImages;
-
-- (NSMutableOrderedSet*)pageImagesSet;
-
-@property (nonatomic, strong) Quiz *quiz;
-
-//- (BOOL)validateQuiz:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) Quiz *quiz;
 
 @end
 
 @interface _QuizInstance (PageImagesCoreDataGeneratedAccessors)
-- (void)addPageImages:(NSOrderedSet*)value_;
-- (void)removePageImages:(NSOrderedSet*)value_;
+- (void)addPageImages:(NSOrderedSet<PageImage*>*)value_;
+- (void)removePageImages:(NSOrderedSet<PageImage*>*)value_;
 - (void)addPageImagesObject:(PageImage*)value_;
 - (void)removePageImagesObject:(PageImage*)value_;
 
@@ -138,10 +111,28 @@ extern const struct QuizInstanceRelationships {
 - (NameImageData*)primitiveNameImageData;
 - (void)setPrimitiveNameImageData:(NameImageData*)value;
 
-- (NSMutableOrderedSet*)primitivePageImages;
-- (void)setPrimitivePageImages:(NSMutableOrderedSet*)value;
+- (NSMutableOrderedSet<PageImage*>*)primitivePageImages;
+- (void)setPrimitivePageImages:(NSMutableOrderedSet<PageImage*>*)value;
 
 - (Quiz*)primitiveQuiz;
 - (void)setPrimitiveQuiz:(Quiz*)value;
 
 @end
+
+@interface QuizInstanceAttributes: NSObject 
++ (NSString *)date;
++ (NSString *)earnedScore;
++ (NSString *)itemsWithResponses;
++ (NSString *)maximumScore;
++ (NSString *)uploaded;
++ (NSString *)uploadedInBatch;
++ (NSString *)uuid;
+@end
+
+@interface QuizInstanceRelationships: NSObject
++ (NSString *)nameImageData;
++ (NSString *)pageImages;
++ (NSString *)quiz;
+@end
+
+NS_ASSUME_NONNULL_END

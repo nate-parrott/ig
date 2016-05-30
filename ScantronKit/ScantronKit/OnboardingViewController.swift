@@ -16,13 +16,13 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
         for i in 0..<4 {
-            let viewController = storyboard.instantiateViewControllerWithIdentifier("Page\(i+1)")! as UIViewController
+            let viewController = storyboard.instantiateViewControllerWithIdentifier("Page\(i+1)")
             let view = viewController.view
             addChildViewController(viewController)
             scrollView.addSubview(view)
             pages.append(viewController)
         }
-        let paper = storyboard.instantiateViewControllerWithIdentifier("Paper")! as UIViewController
+        let paper = storyboard.instantiateViewControllerWithIdentifier("Paper")
         paperView = paper.view
         scrollView.addSubview(paperView)
         scrollView.bringSubviewToFront(pages[2].view)
@@ -57,7 +57,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / view.bounds.size.width
-        if page >= CGFloat(countElements(pages)) && !loggedFinishOnboardingSwiping {
+        if page >= CGFloat(pages.count) && !loggedFinishOnboardingSwiping {
             loggedFinishOnboardingSwiping = true
             Mixpanel.sharedInstance().track("FinishSwipingOnboarding")
         }

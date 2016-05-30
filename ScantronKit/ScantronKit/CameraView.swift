@@ -73,7 +73,7 @@ class CameraView: UIView {
             previewLayer!.videoGravity = AVLayerVideoGravityResizeAspectFill
             stillImageOutput = AVCaptureStillImageOutput()
             captureSession!.addOutput(stillImageOutput!)
-            let captureDeviceInput = AVCaptureDeviceInput(device: captureDevice!, error: nil)
+            let captureDeviceInput = try! AVCaptureDeviceInput(device: device)
             captureSession!.addInput(captureDeviceInput)
             layer.addSublayer(previewLayer!)
             self.setNeedsLayout()
@@ -92,7 +92,7 @@ class CameraView: UIView {
     }
     
     lazy var captureDevice: AVCaptureDevice? = {
-        for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as [AVCaptureDevice] {
+        for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) as! [AVCaptureDevice] {
             if device.position == AVCaptureDevicePosition.Back {
                 return device
             }
@@ -101,10 +101,8 @@ class CameraView: UIView {
     }()
     
     func configureCamera(camera: AVCaptureDevice) {
-        if camera.lockForConfiguration(nil) {
-            /*if camera.autoFocusRangeRestrictionSupported {
-                camera.autoFocusRangeRestriction = AVCaptureAutoFocusRangeRestriction.Near
-            }*/
+        do {
+            try camera.lockForConfiguration()
             if camera.lowLightBoostSupported {
                 camera.automaticallyEnablesLowLightBoostWhenAvailable = true
             }
@@ -115,6 +113,8 @@ class CameraView: UIView {
                 camera.exposurePointOfInterest = CGPointMake(0.5, 0.5)
             }
             camera.unlockForConfiguration()
+        } catch _ {
+            
         }
     }
     

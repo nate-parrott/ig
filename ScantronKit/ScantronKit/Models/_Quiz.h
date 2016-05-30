@@ -1,18 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to Quiz.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct QuizAttributes {
-	__unsafe_unretained NSString *added;
-	__unsafe_unretained NSString *index;
-	__unsafe_unretained NSString *json;
-	__unsafe_unretained NSString *title;
-} QuizAttributes;
-
-extern const struct QuizRelationships {
-	__unsafe_unretained NSString *instances;
-} QuizRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class QuizInstance;
 
@@ -21,41 +18,32 @@ extern const struct QuizRelationships {
 @interface QuizID : NSManagedObjectID {}
 @end
 
-@interface _Quiz : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _Quiz : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) QuizID* objectID;
+@property (nonatomic, readonly, strong) QuizID *objectID;
 
-@property (nonatomic, strong) NSDate* added;
+@property (nonatomic, strong, nullable) NSDate* added;
 
-//- (BOOL)validateAdded:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* index;
+@property (nonatomic, strong, nullable) NSNumber* index;
 
 @property (atomic) int32_t indexValue;
 - (int32_t)indexValue;
 - (void)setIndexValue:(int32_t)value_;
 
-//- (BOOL)validateIndex:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) id json;
 
-@property (nonatomic, strong) id json;
+@property (nonatomic, strong, nullable) NSString* title;
 
-//- (BOOL)validateJson:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* title;
-
-//- (BOOL)validateTitle:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSSet *instances;
-
-- (NSMutableSet*)instancesSet;
+@property (nonatomic, strong, nullable) NSSet<QuizInstance*> *instances;
+- (nullable NSMutableSet<QuizInstance*>*)instancesSet;
 
 @end
 
 @interface _Quiz (InstancesCoreDataGeneratedAccessors)
-- (void)addInstances:(NSSet*)value_;
-- (void)removeInstances:(NSSet*)value_;
+- (void)addInstances:(NSSet<QuizInstance*>*)value_;
+- (void)removeInstances:(NSSet<QuizInstance*>*)value_;
 - (void)addInstancesObject:(QuizInstance*)value_;
 - (void)removeInstancesObject:(QuizInstance*)value_;
 
@@ -78,7 +66,20 @@ extern const struct QuizRelationships {
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
 
-- (NSMutableSet*)primitiveInstances;
-- (void)setPrimitiveInstances:(NSMutableSet*)value;
+- (NSMutableSet<QuizInstance*>*)primitiveInstances;
+- (void)setPrimitiveInstances:(NSMutableSet<QuizInstance*>*)value;
 
 @end
+
+@interface QuizAttributes: NSObject 
++ (NSString *)added;
++ (NSString *)index;
++ (NSString *)json;
++ (NSString *)title;
+@end
+
+@interface QuizRelationships: NSObject
++ (NSString *)instances;
+@end
+
+NS_ASSUME_NONNULL_END

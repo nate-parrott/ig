@@ -29,15 +29,14 @@ class BackgroundUploader: NSObject, NSURLSessionTaskDelegate {
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        let infoJson = NSUserDefaults.standardUserDefaults().valueForKey("com.nateparrott.BackgroundUploader.task-\(task.taskIdentifier)") as NSData
-        let info: [String: AnyObject] = NSJSONSerialization.JSONObjectWithData(infoJson, options: nil, error: nil) as [String: AnyObject]
+        let infoJson = NSUserDefaults.standardUserDefaults().valueForKey("com.nateparrott.BackgroundUploader.task-\(task.taskIdentifier)") as! NSData
+        let info: [String: AnyObject] = try! NSJSONSerialization.JSONObjectWithData(infoJson, options: []) as! [String: AnyObject]
         NSUserDefaults.standardUserDefaults().removeObjectForKey("com.nateparrott.BackgroundUploader.task-\(task.taskIdentifier)")
-        let type = info.getOrDefault("type", defaultVal: "") as String
-        NSFileManager.defaultManager().removeItemAtURL(
-            urlForUploadDataWithFilename(info.getOrDefault("filename", defaultVal: "") as String),
-            error: nil)
+        let type = info.getOrDefault("type", defaultVal: "") as! String
+        try? NSFileManager.defaultManager().removeItemAtURL(
+            urlForUploadDataWithFilename(info.getOrDefault("filename", defaultVal: "") as! String))
         if let handler = handlersForTypes.get(type) as CompletionHandler? {
-            handler(task, error, info.get("userInfo")! as [String: AnyObject])
+            handler(task, error, info.get("userInfo")! as! [String: AnyObject])
         }
     }
     
@@ -53,7 +52,7 @@ class BackgroundUploader: NSObject, NSURLSessionTaskDelegate {
     private func urlForUploadDataWithFilename(filename: String) -> NSURL {
         let uploadsDir = (NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask).first! as NSURL).URLByAppendingPathComponent("BackgroundUploads")
         if !NSFileManager.defaultManager().fileExistsAtPath(uploadsDir.path!) {
-            NSFileManager.defaultManager().createDirectoryAtURL(uploadsDir, withIntermediateDirectories: true, attributes: nil, error: nil)
+            try! NSFileManager.defaultManager().createDirectoryAtURL(uploadsDir, withIntermediateDirectories: true, attributes: nil)
         }
         let fileUrl = uploadsDir.URLByAppendingPathComponent(filename)
         return fileUrl
@@ -65,7 +64,7 @@ class BackgroundUploader: NSObject, NSURLSessionTaskDelegate {
         
         let task = session.uploadTaskWithRequest(request, fromFile: urlForUploadDataWithFilename(filename))
         let json: [String: AnyObject] = ["type": type, "userInfo": info, "filename": filename]
-        NSUserDefaults.standardUserDefaults().setObject(NSJSONSerialization.dataWithJSONObject(json, options: nil, error: nil), forKey: "com.nateparrott.BackgroundUploader.task-\(task.taskIdentifier)")
+        NSUserDefaults.standardUserDefaults().setObject(try! NSJSONSerialization.dataWithJSONObject(json, options: []), forKey: "com.nateparrott.BackgroundUploader.task-\(task.taskIdentifier)")
         task.resume()
     }
     

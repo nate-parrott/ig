@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         statusBarBG.backgroundColor = UIColor.blackColor()
         view.addSubview(statusBarBG)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginViewController.reload), name: UIApplicationWillEnterForegroundNotification, object: nil)
     }
     
     deinit {
@@ -50,8 +50,8 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet var webView: UIWebView?
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if request.URL.scheme! == "instagrade-login-token" {
-            let token = request.URL.queryValueForKey("token")!
+        if let url = request.URL where url.scheme == "instagrade-login-token" {
+            let token = url.queryValueForKey("token")!
             NSUserDefaults.standardUserDefaults().setObject(token, forKey: "Token")
             performSegueWithIdentifier("ShowUserDataLoaderViewController", sender: nil)
             return false
@@ -68,7 +68,7 @@ class LoginViewController: UIViewController, UIWebViewDelegate {
         loader.animateAlphaTo(0, duration: 0.5)
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         self.error.hidden = false
     }
     

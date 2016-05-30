@@ -3,20 +3,12 @@
 
 #import "_NameImageData.h"
 
-const struct NameImageDataAttributes NameImageDataAttributes = {
-	.data = @"data",
-};
-
-const struct NameImageDataRelationships NameImageDataRelationships = {
-	.instance = @"instance",
-};
-
 @implementation NameImageDataID
 @end
 
 @implementation _NameImageData
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"NameImageData" inManagedObjectContext:moc_];
 }
@@ -44,5 +36,17 @@ const struct NameImageDataRelationships NameImageDataRelationships = {
 
 @dynamic instance;
 
+@end
+
+@implementation NameImageDataAttributes 
++ (NSString *)data {
+	return @"data";
+}
+@end
+
+@implementation NameImageDataRelationships 
++ (NSString *)instance {
+	return @"instance";
+}
 @end
 

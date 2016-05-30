@@ -19,12 +19,12 @@ class PointsPickerCircleView: UIView {
         label.textColor = UIColor.whiteColor()
         label.font = UIFont.boldSystemFontOfSize(16)
         label.textAlignment = NSTextAlignment.Center
-        label.text = NSString(format: "%g", number)
+        label.text = NSString(format: "%g", number) as String
         label.adjustsFontSizeToFitWidth = true
         addSubview(label)
     }
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)!
     }
 }
 
@@ -60,7 +60,7 @@ class PointsPickerMarkerView: UIView {
         path.moveToPoint(CGPointZero)
         path.addLineToPoint(CGPointMake(0, bounds.size.height))
         
-        label!.text = NSString(format: "%g", value)
+        label!.text = NSString(format: "%g", value) as String
         label!.sizeToFit()
         labelBackground!.frame = CGRectMake(0, 0, max(minLabelWidth, label!.frame.size.width) + labelPadding * 2, label!.frame.size.height + labelPadding * 2)
         label!.frame = CGRectMake(labelPadding, labelPadding, max(minLabelWidth, label!.frame.size.width), label!.frame.size.height)
@@ -117,7 +117,7 @@ class PointsPickerView: UIView {
         }
         
         let numCircles = Int(floor(self.bounds.size.width / (PointsPickerViewCircleSize + 40)) + 1)
-        let circleWidth = bounds.size.width / CGFloat(numCircles)
+        // let circleWidth = bounds.size.width / CGFloat(numCircles)
         
         for i in 0...numCircles {
             let x: CGFloat = (bounds.size.width - xPadding*2) / CGFloat(numCircles) * CGFloat(i) + xPadding
@@ -133,7 +133,7 @@ class PointsPickerView: UIView {
         // update marker:
         if let val = selectedValue {
             let xForValue = CGFloat(val / maxPoints) * (bounds.size.width - xPadding * 2) + xPadding
-            if marker? == nil {
+            if marker == nil {
                 marker = PointsPickerMarkerView(frame: CGRectMake(0, 0, 0, 0))
                 addSubview(marker)
                 marker.userInteractionEnabled = false
@@ -167,13 +167,14 @@ class PointsPickerView: UIView {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        selectedValue = valueForX((touches.anyObject()! as UITouch).locationInView(self).x, precise: false)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        selectedValue = valueForX(touches.first!.locationInView(self).x, precise: false)
     }
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let cb = onAssignedPoints {
             if let val = selectedValue {
-                cb(selectedValue!)
+                cb(val)
             }
         }
     }

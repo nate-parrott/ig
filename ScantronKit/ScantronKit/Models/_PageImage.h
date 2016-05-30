@@ -1,34 +1,30 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to PageImage.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct PageImageAttributes {
-	__unsafe_unretained NSString *data;
-} PageImageAttributes;
-
-extern const struct PageImageRelationships {
-	__unsafe_unretained NSString *quizInstance;
-} PageImageRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class QuizInstance;
 
 @interface PageImageID : NSManagedObjectID {}
 @end
 
-@interface _PageImage : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _PageImage : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) PageImageID* objectID;
+@property (nonatomic, readonly, strong) PageImageID *objectID;
 
-@property (nonatomic, strong) NSData* data;
+@property (nonatomic, strong, nullable) NSData* data;
 
-//- (BOOL)validateData:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) QuizInstance *quizInstance;
-
-//- (BOOL)validateQuizInstance:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) QuizInstance *quizInstance;
 
 @end
 
@@ -41,3 +37,13 @@ extern const struct PageImageRelationships {
 - (void)setPrimitiveQuizInstance:(QuizInstance*)value;
 
 @end
+
+@interface PageImageAttributes: NSObject 
++ (NSString *)data;
+@end
+
+@interface PageImageRelationships: NSObject
++ (NSString *)quizInstance;
+@end
+
+NS_ASSUME_NONNULL_END

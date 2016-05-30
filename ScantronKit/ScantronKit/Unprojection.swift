@@ -50,13 +50,13 @@ class Unprojection: NSObject {
     }
     private func concatImages(images: [UIImage], scaleFactors: [CGFloat]) -> UIImage {
         var height: CGFloat = 0.0
-        for (image, scaleFactor) in Zip2(images, scaleFactors) {
+        for (image, scaleFactor) in Zip2Sequence(images, scaleFactors) {
             height += image.size.height * scaleFactor
         }
         let width = images[0].size.width
         UIGraphicsBeginImageContext(CGSizeMake(width, height))
         var y: CGFloat = 0
-        for (image, scaleFactor) in Zip2(images, scaleFactors) {
+        for (image, scaleFactor) in Zip2Sequence(images, scaleFactors) {
             image.drawInRect(CGRectMake(0, y, image.size.width, image.size.height * scaleFactor))
             y += image.size.height * scaleFactor
         }

@@ -21,7 +21,7 @@ class IndividualResponseViewController: UIViewController {
     var scannedPages: [ScannedPage]!
     
     func setup() {
-        let questionNum = responseItem.item.getOrDefault("visibleIndex", defaultVal: 0) as Int
+        let questionNum = responseItem.item.getOrDefault("visibleIndex", defaultVal: 0) as! Int
         questionNumberLabel.text = "Question \(questionNum)"
         questionLabel.text = responseItem.item.getOrDefault("description", defaultVal: "") as? String
         let pageImage = scannedPages[responseItem.frame.page].image
@@ -49,6 +49,6 @@ class IndividualResponseViewController: UIViewController {
         let imageSize = imageView.image!.size
         let scale = min(1, min(availableImageSize.width / imageSize.width, availableImageSize.height / imageSize.height))
         imageView.size = CGSizeMake(scale * imageSize.width, scale * imageSize.height)
-        println("avail: \(availableImageSize), image: \(imageSize), scale: \(scale), frame: \(imageView.frame)")
+        print("avail: \(availableImageSize), image: \(imageSize), scale: \(scale), frame: \(imageView.frame)")
     }
 }

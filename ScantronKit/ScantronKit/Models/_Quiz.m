@@ -3,23 +3,12 @@
 
 #import "_Quiz.h"
 
-const struct QuizAttributes QuizAttributes = {
-	.added = @"added",
-	.index = @"index",
-	.json = @"json",
-	.title = @"title",
-};
-
-const struct QuizRelationships QuizRelationships = {
-	.instances = @"instances",
-};
-
 @implementation QuizID
 @end
 
 @implementation _Quiz
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"Quiz" inManagedObjectContext:moc_];
 }
@@ -59,7 +48,7 @@ const struct QuizRelationships QuizRelationships = {
 }
 
 - (void)setIndexValue:(int32_t)value_ {
-	[self setIndex:[NSNumber numberWithInt:value_]];
+	[self setIndex:@(value_)];
 }
 
 - (int32_t)primitiveIndexValue {
@@ -68,7 +57,7 @@ const struct QuizRelationships QuizRelationships = {
 }
 
 - (void)setPrimitiveIndexValue:(int32_t)value_ {
-	[self setPrimitiveIndex:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveIndex:@(value_)];
 }
 
 @dynamic json;
@@ -77,14 +66,35 @@ const struct QuizRelationships QuizRelationships = {
 
 @dynamic instances;
 
-- (NSMutableSet*)instancesSet {
+- (NSMutableSet<QuizInstance*>*)instancesSet {
 	[self willAccessValueForKey:@"instances"];
 
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"instances"];
+	NSMutableSet<QuizInstance*> *result = (NSMutableSet<QuizInstance*>*)[self mutableSetValueForKey:@"instances"];
 
 	[self didAccessValueForKey:@"instances"];
 	return result;
 }
 
+@end
+
+@implementation QuizAttributes 
++ (NSString *)added {
+	return @"added";
+}
++ (NSString *)index {
+	return @"index";
+}
++ (NSString *)json {
+	return @"json";
+}
++ (NSString *)title {
+	return @"title";
+}
+@end
+
+@implementation QuizRelationships 
++ (NSString *)instances {
+	return @"instances";
+}
 @end
 

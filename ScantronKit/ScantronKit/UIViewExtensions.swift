@@ -11,7 +11,7 @@ import UIKit
 extension UIView {
     func animateAlphaTo(alpha: CGFloat, duration: NSTimeInterval) {
         var currentAlpha = self.alpha
-        if let presentationLayer = self.layer.presentationLayer()? as? CALayer {
+        if let presentationLayer = self.layer.presentationLayer() as? CALayer {
             currentAlpha = CGFloat(presentationLayer.opacity)
         }
         self.alpha = currentAlpha

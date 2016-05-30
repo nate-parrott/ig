@@ -11,12 +11,12 @@ import Foundation
 typealias QuizItem = [String: AnyObject]
 
 func CreateQuizInstance(quiz: Quiz, pages: [ScannedPage], manuallyGradedResponses: [QuizItemManuallyGradedResponse?]) -> QuizInstance {
-    let instance = SharedCoreDataManager().newEntity("QuizInstance") as QuizInstance
+    let instance = SharedCoreDataManager().newEntity("QuizInstance") as! QuizInstance
     instance.quiz = quiz
     instance.uuid = NSUUID().UUIDString
     let createPageImage = {
         (page: ScannedPage) -> PageImage in
-        let entity = SharedCoreDataManager().newEntity("PageImage") as PageImage
+        let entity = SharedCoreDataManager().newEntity("PageImage") as! PageImage
         let data = UIImageJPEGRepresentation(page.image, 0.1)
         entity.data = data
         return entity
@@ -44,11 +44,11 @@ func SaveDebugImage(quiz: Quiz, pages: [ScannedPage]) {
     UIGraphicsBeginImageContext(img.size)
     img.drawInRect(CGRectMake(0, 0, img.size.width, img.size.height))
     UIColor.redColor().setStroke()
-    let json = quiz.json as [String: AnyObject]
-    let items = json.getOrDefault("items", defaultVal: []) as [QuizItem]
+    let json = quiz.json as! [String: AnyObject]
+    let items = json.getOrDefault("items", defaultVal: []) as! [QuizItem]
     for item in items {
-        if item["type"]! as String == "multiple-choice" {
-            for frame in item["frames"]! as [[Double]] {
+        if item["type"]! as! String == "multiple-choice" {
+            for frame in item["frames"]! as! [[Double]] {
                 let f = QuizItemFrame(array: frame)
                 let rect = f.toRect(img.size)
                 UIBezierPath(rect: rect).stroke()
@@ -76,32 +76,32 @@ func GenerateGradeForItemsWithResponses(items: [QuizItem]) -> (points: Double, t
 
 extension Quiz {
     func generateResponseItemsWithScannedPages(pages: [ScannedPage], manuallyGradedResponses: [QuizItemManuallyGradedResponse?]) -> [QuizItem] {
-        let json = self.json as [String: AnyObject]
-        let items = json.getOrDefault("items", defaultVal: []) as [QuizItem]
-        return map(Zip2(items, manuallyGradedResponses), { AddResponseInfoForItem($0.0, $0.1, pages) })
+        let json = self.json as! [String: AnyObject]
+        let items = json.getOrDefault("items", defaultVal: []) as! [QuizItem]
+        return Zip2Sequence(items, manuallyGradedResponses).map({ AddResponseInfoForItem($0.0, manuallyGraded: $0.1, pages: pages) })
     }
 }
 
 func AddResponseInfoForItem(var item: QuizItem, manuallyGraded: QuizItemManuallyGradedResponse?, pages: [ScannedPage]) -> QuizItem {
-    let type = item.getOrDefault("type", defaultVal: "") as String
+    let type = item.getOrDefault("type", defaultVal: "") as! String
     switch type {
     case "multiple-choice":
-        let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
-        let correctResponse = item.getOrDefault("correct", defaultVal: 0) as Int
-        if let response = indexOfFilledInFrame(frames, pages) {
-            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
+        let frames = (item.getOrDefault("frames", defaultVal: []) as! [[Double]]).map({ QuizItemFrame(array: $0) })
+        let correctResponse = item.getOrDefault("correct", defaultVal: 0) as! Int
+        if let response = indexOfFilledInFrame(frames, pages: pages) {
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as! Double : 0
             item["response"] = response
         } else {
             item["pointsEarned"] = 0
             item["response"] = NSNull()
         }
     case "true-false":
-        let frames = (item.getOrDefault("frames", defaultVal: []) as [[Double]]).map({ QuizItemFrame(array: $0) })
-        let correctResponse = item.getOrDefault("correct", defaultVal: true) as Bool
-        let filledIn = indexOfFilledInFrame(frames, pages)
+        let frames = (item.getOrDefault("frames", defaultVal: []) as! [[Double]]).map({ QuizItemFrame(array: $0) })
+        let correctResponse = item.getOrDefault("correct", defaultVal: true) as! Bool
+        let filledIn = indexOfFilledInFrame(frames, pages: pages)
         if filledIn != nil && filledIn! != 2 {
             let response = filledIn! == 0
-            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as Double : 0
+            item["pointsEarned"] = response == correctResponse ? item.getOrDefault("points", defaultVal: 0) as! Double : 0
             item["response"] = response
         } else {
             item["pointsEarned"] = 0
@@ -116,14 +116,14 @@ func AddResponseInfoForItem(var item: QuizItem, manuallyGraded: QuizItemManually
 }
 
 func QuizItemNeedsResponse(item: QuizItem) -> Bool {
-    return (item.getOrDefault("type", defaultVal: "") as String) == "free-response"
+    return (item.getOrDefault("type", defaultVal: "") as! String) == "free-response"
 }
 
 extension Quiz {
     var quizItems: [QuizItem] {
         get {
-            let json = self.json as [String: AnyObject]
-            return json.getOrDefault("items", defaultVal: []) as [QuizItem]
+            let json = self.json as! [String: AnyObject]
+            return json.getOrDefault("items", defaultVal: []) as! [QuizItem]
         }
     }
     func getManuallyGradedResponseTemplates() -> [QuizItemManuallyGradedResponse?] {
@@ -138,12 +138,12 @@ extension Quiz {
     }
     var canGradeAutomatically: Bool {
         get {
-            return countElements(getManuallyGradedResponseTemplates().filter({ $0 != nil })) == 0
+            return getManuallyGradedResponseTemplates().filter({ $0 != nil }).count == 0
         }
     }
     var aspectRatio: CGFloat {
         get {
-            return (self.json as [String: AnyObject]).getOrDefault("aspectRatio", defaultVal: 1.0) as CGFloat
+            return (self.json as! [String: AnyObject]).getOrDefault("aspectRatio", defaultVal: 1.0) as! CGFloat
         }
     }
 }
@@ -151,8 +151,8 @@ extension Quiz {
 class QuizItemManuallyGradedResponse {
     init(item: QuizItem) {
         self.item = item
-        frame = QuizItemFrame(array: item.getOrDefault("frame", defaultVal: []) as [Double])
-        pointValue = item.getOrDefault("points", defaultVal: 0.0) as Double
+        frame = QuizItemFrame(array: item.getOrDefault("frame", defaultVal: []) as! [Double])
+        pointValue = item.getOrDefault("points", defaultVal: 0.0) as! Double
     }
     var frame: QuizItemFrame
     var item: QuizItem
@@ -213,8 +213,8 @@ func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int?
     let image = pages[frames.first!.page].image
     let pixels = image.pixelData()
     let brightnesses = frames.map({ pixels.averageBrightnessInRect(shrinkRect($0.toRect(image.size))) })
-    let darkestIndex = sorted(Array(0..<countElements(frames)), { brightnesses[$0] < brightnesses[$1] }).first!
-    if darkestIndex == countElements(frames) - 1 {
+    let darkestIndex = Array(0..<frames.count).sort({ brightnesses[$0] < brightnesses[$1] }).first!
+    if darkestIndex == frames.count - 1 {
         return nil
     } else {
         return darkestIndex
@@ -223,25 +223,25 @@ func indexOfFilledInFrame(frames: [QuizItemFrame], pages: [ScannedPage]) -> Int?
 
 extension QuizInstance {
     @objc func extractNameImage() -> UIImage? {
-        let quizItems = (quiz.json as [String: AnyObject]).get("items")! as [QuizItem]
-        var nameItemOpt = quizItems.filter({ ($0.get("type")! as String) == "name-field" }).first
+        let quizItems = (quiz!.json as! [String: AnyObject]).get("items")! as! [QuizItem]
+        let nameItemOpt = quizItems.filter({ ($0.get("type")! as! String) == "name-field" }).first
         if let nameItem = nameItemOpt {
-            let frame = QuizItemFrame(array: nameItem.get("frame")! as [Double])
-            let pageImage = UIImage(data: (pageImages[0] as PageImage).data)
-            return frame.extract(pageImage!, aspectRatio: quiz.aspectRatio).resizedWithMaxDimension(250)
+            let frame = QuizItemFrame(array: nameItem.get("frame")! as! [Double])
+            let pageImage = UIImage(data: (pageImages![0] as! PageImage).data!)!
+            return frame.extract(pageImage, aspectRatio: quiz!.aspectRatio).resizedWithMaxDimension(250)
         }
         return nil
     }
 }
 
 func ResponseDescriptionStringForGradedQuizItem(item: QuizItem) -> String? {
-    let type = item.getOrDefault("type", defaultVal: "") as String
+    let type = item.getOrDefault("type", defaultVal: "") as! String
     var s = ""
-    let earned = item.getOrDefault("pointsEarned", defaultVal: 0) as Double
-    let maxPoints = item.getOrDefault("points", defaultVal: 0) as Double
+    let earned = item.getOrDefault("pointsEarned", defaultVal: 0) as! Double
+    let maxPoints = item.getOrDefault("points", defaultVal: 0) as! Double
     switch type {
         case "true-false":
-            let correct = item.getOrDefault("correct", defaultVal: false) as Bool
+            let correct = item.getOrDefault("correct", defaultVal: false) as! Bool
             if let response = item.getOrDefault("response", defaultVal: false) as? Bool {
                 if correct == response {
                     s = response ? "Correctly answered 'true'" : "Correctly answered 'false'"
@@ -253,7 +253,7 @@ func ResponseDescriptionStringForGradedQuizItem(item: QuizItem) -> String? {
         }
         case "multiple-choice":
             let letters = "ABCDEFGHIJKLMNOPQRSTUVWYZ"
-            let correctIndex = item.getOrDefault("correct", defaultVal: 0) as Int
+            let correctIndex = item.getOrDefault("correct", defaultVal: 0) as! Int
             if let responseIndex = item.getOrDefault("response", defaultVal: 0) as? Int {
                 let correct = letters.substring(correctIndex, length: 1)
                 let response = letters.substring(responseIndex, length: 1)
