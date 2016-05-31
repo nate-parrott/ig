@@ -8,7 +8,8 @@
 
 import UIKit
 import CoreData
-// import Crashlytics
+import Crashlytics
+import Fabric
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         // Crashlytics.startWithAPIKey("c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8")
+        Fabric.with([Crashlytics.self])
         
         _ = Mixpanel.sharedInstanceWithToken("d49cfebb673bdf3d240758901998dc9d")
         

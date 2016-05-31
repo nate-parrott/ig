@@ -22,7 +22,6 @@
 		5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F17945D19DD090700443679 /* StoreKit.framework */; };
 		5F1CCE0919D090CC002B7C3E /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0819D090CC002B7C3E /* StatusView.swift */; };
 		5F1CCE0D19D0918C002B7C3E /* StatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CCE0C19D0918C002B7C3E /* StatusView.xib */; };
-		5F2AB96D19E3A9FB004F41E7 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */; };
 		5F38339A19CD16D900DE6C71 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F38339919CD16D900DE6C71 /* Scanner.swift */; };
 		5F3A5D6819D0AE7A009552D5 /* ManualResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6719D0AE7A009552D5 /* ManualResponseViewController.swift */; };
 		5F3A5D6A19D0AE8E009552D5 /* IndividualResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */; };
@@ -40,6 +39,8 @@
 		5F66A11A19CA02E8009B14AE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F66A11919CA02E8009B14AE /* Login.storyboard */; };
 		5F66A11C19CA0343009B14AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F66A11B19CA0343009B14AE /* LoginViewController.swift */; };
 		5F6BF93D19CE2B4B00AB5582 /* QuizInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6BF93C19CE2B4B00AB5582 /* QuizInfoController.swift */; };
+		5F7655C31CFD720A00091E01 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7655C11CFD720A00091E01 /* Fabric.framework */; };
+		5F7655C41CFD720A00091E01 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7655C21CFD720A00091E01 /* Crashlytics.framework */; };
 		5F7DC16F19DCB11300651228 /* ProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7DC16E19DCB11300651228 /* ProductButton.swift */; };
 		5F92327F19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F92327D19C8BB5500B2C5DA /* InstaGrade.xcdatamodeld */; };
 		5F92328A19C8C31700B2C5DA /* ScannedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F92328919C8C31700B2C5DA /* ScannedPage.swift */; };
@@ -101,7 +102,6 @@
 		5F17945D19DD090700443679 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5F1CCE0819D090CC002B7C3E /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		5F1CCE0C19D0918C002B7C3E /* StatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusView.xib; sourceTree = "<group>"; };
-		5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		5F38339919CD16D900DE6C71 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		5F3A5D6719D0AE7A009552D5 /* ManualResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualResponseViewController.swift; sourceTree = "<group>"; };
 		5F3A5D6919D0AE8E009552D5 /* IndividualResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndividualResponseViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +125,8 @@
 		5F66A11919CA02E8009B14AE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5F66A11B19CA0343009B14AE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5F6BF93C19CE2B4B00AB5582 /* QuizInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizInfoController.swift; sourceTree = "<group>"; };
+		5F7655C11CFD720A00091E01 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		5F7655C21CFD720A00091E01 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		5F7DC16E19DCB11300651228 /* ProductButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductButton.swift; sourceTree = "<group>"; };
 		5F92327E19C8BB5500B2C5DA /* InstaGrade.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = InstaGrade.xcdatamodel; sourceTree = "<group>"; };
 		5F92328619C8C10600B2C5DA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -181,8 +183,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F2A592DBA2442059B0ABBD1 /* libPods-InstaGrade Scanner.a in Frameworks */,
-				5F2AB96D19E3A9FB004F41E7 /* Crashlytics.framework in Frameworks */,
 				5F17945E19DD090800443679 /* StoreKit.framework in Frameworks */,
+				5F7655C41CFD720A00091E01 /* Crashlytics.framework in Frameworks */,
+				5F7655C31CFD720A00091E01 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +324,8 @@
 		5F62324B1989E4E300706593 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5F2AB96C19E3A9FB004F41E7 /* Crashlytics.framework */,
+				5F7655C11CFD720A00091E01 /* Fabric.framework */,
+				5F7655C21CFD720A00091E01 /* Crashlytics.framework */,
 				5F62324C1989E4E300706593 /* Info.plist */,
 				5FFA0AAF19DDA8D9006EAA34 /* Settings.bundle */,
 			);
@@ -514,7 +518,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# ./Crashlytics.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
+			shellScript = "./Fabric.framework/run c00a274f2c47ad5ee89b17ccb2fdb86e8d1fece8 cf3ca8aefff328c68d183c05c288062a57dcbbf7f5bbd8f43418c90e18fca3bf";
 		};
 		5F3CA66119CBE2D5006EC181 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -729,6 +733,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ScantronKit",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -752,6 +758,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ScantronKit",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ScantronKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
