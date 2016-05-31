@@ -198,7 +198,7 @@ class API: NSObject, NSURLSessionDelegate {
     
     func loadDataFromJsonPayload(data: NSData?) -> Bool {
         if let d = data {
-            if let dict = try! NSJSONSerialization.JSONObjectWithData(d, options: []) as? [String: AnyObject] {
+            if let data = try? NSJSONSerialization.JSONObjectWithData(d, options: []), let dict = data as? [String: AnyObject] {
                 self.userEmail = (dict.get("email")! as? String)!
                 self.scansLeft = dict.get("scans_left")! as! Int
                 self.subscriptionEndDate = dict.get("subscription_end_date") as! Double

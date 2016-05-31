@@ -46,20 +46,29 @@ class CameraView: UIView {
     var previewLayer: AVCaptureVideoPreviewLayer?
     var stillImageOutput: AVCaptureStillImageOutput?
     var metadataOutput: AVCaptureMetadataOutput?
+    let dummyImageView = UIImageView()
     
     // MARK: setup
     
     func startRunning() {
-        AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
-            AsyncOnMainQueue() {
-                if let p = self.permissionDialog {
-                    p.hidden = granted
-                }
-                if granted {
-                    self.actuallyStartRunning()
-                }
+        if IS_SIMULATOR() {
+            dummyImageView.image = UIImage(named: "CameraView.jpg")
+            dummyImageView.contentMode = .ScaleAspectFill
+            if dummyImageView.superview == nil {
+                addSubview(dummyImageView)
             }
-        })
+        } else {
+            AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted) -> Void in
+                AsyncOnMainQueue() {
+                    if let p = self.permissionDialog {
+                        p.hidden = granted
+                    }
+                    if granted {
+                        self.actuallyStartRunning()
+                    }
+                }
+            })
+        }
     }
     
     func actuallyStartRunning() {
@@ -136,6 +145,7 @@ class CameraView: UIView {
         if let p = previewLayer {
             p.frame = bounds
         }
+        dummyImageView.frame = bounds
     }
     
     func updateVideoOrientation() {
