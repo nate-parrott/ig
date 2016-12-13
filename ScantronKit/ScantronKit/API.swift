@@ -11,7 +11,7 @@
 import UIKit
 
 func APIHost() -> (String, Int) {
-    let local = IS_SIMULATOR()
+    let local = false // IS_SIMULATOR()
     let host = local ? "localhost" : "instagradeformbuilder.appspot.com"
     let port = local ? 22080 : 80
     return (host, port)
